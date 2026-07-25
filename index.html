@@ -2388,7 +2388,6 @@
 
                 <nav class="sidebar-nav">
                     <div class="nav-section">
-                        <!-- Regular user nav items - hidden for admin -->
                         <button class="nav-item" data-nav="home" id="navHome">
                             <span class="icon">🏠</span> Home
                         </button>
@@ -2398,13 +2397,19 @@
                         <button class="nav-item" data-nav="mycourses" id="navMyCourses">
                             <span class="icon">📖</span> My Courses
                         </button>
+                        <button class="nav-item" data-nav="cart" id="navCartBtn">
+                            <span class="icon">🛒</span> Cart
+                            <span class="badge" id="sidebarCartBadge">0</span>
+                        </button>
+                        <button class="nav-item" data-nav="orders" id="navOrdersBtn">
+                            <span class="icon">📦</span> Orders
+                        </button>
                         <button class="nav-item" data-nav="transactions" id="navTransactions">
                             <span class="icon">📊</span> Previous Transactions
                         </button>
                         <button class="nav-item" data-nav="settings" id="navSettings">
                             <span class="icon">⚙️</span> Settings
                         </button>
-                        <!-- Admin only - hidden for regular users -->
                         <button class="nav-item hidden" data-nav="admin" id="navAdmin">
                             <span class="icon">🔐</span> Admin Panel
                         </button>
@@ -2476,7 +2481,6 @@
                         <button class="admin-refresh-btn" onclick="refreshAdminPanel()">🔄 Refresh</button>
                     </div>
 
-                    <!-- Users Dropdown -->
                     <div class="admin-dropdown-card">
                         <div class="admin-dropdown-header" data-dropdown="users">
                             <div class="title-section">
@@ -2498,7 +2502,6 @@
                         </div>
                     </div>
 
-                    <!-- Orders Dropdown -->
                     <div class="admin-dropdown-card">
                         <div class="admin-dropdown-header" data-dropdown="orders">
                             <div class="title-section">
@@ -2528,18 +2531,35 @@
         ============================================================ -->
         <div class="user-wrapper" id="userWrapper">
             <div class="user-content-area">
+                <!-- My Courses -->
                 <div class="page active" id="pageMyCourses">
                     <h2>📚 My Courses & Materials</h2>
                     <p class="sub">Access all your course materials</p>
                     <div id="myCoursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
                 </div>
 
+                <!-- Cart Page - Items awaiting payment -->
+                <div class="page" id="pageCart">
+                    <h2>🛒 Your Cart</h2>
+                    <p class="sub">Items awaiting payment</p>
+                    <div id="cartList"><div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
+                </div>
+
+                <!-- Orders Page - Completed/Successful transactions -->
+                <div class="page" id="pageOrders">
+                    <h2>📦 Orders</h2>
+                    <p class="sub">Successfully completed transactions</p>
+                    <div id="ordersList"><div class="empty-state"><div class="icon">📭</div><p>No completed orders yet.</p></div></div>
+                </div>
+
+                <!-- Transactions Page - All transactions (pending + completed) -->
                 <div class="page" id="pageTransactions">
                     <h2>📊 Previous Transactions</h2>
-                    <p class="sub">View all your past orders and payments</p>
+                    <p class="sub">All your orders and payments</p>
                     <div id="transactionsList"><div class="empty-state"><div class="icon">📭</div><p>No transactions yet.</p></div></div>
                 </div>
 
+                <!-- Settings -->
                 <div class="page" id="pageSettings">
                     <h2>⚙️ Settings</h2>
                     <p class="sub">Manage your account settings</p>
@@ -2792,19 +2812,19 @@
 
     <script>
         // ============================================================
-        // FREELANCE PILOT — COMPLETE APPLICATION (FIXED - USING app_users)
+        // FREELANCE PILOT — COMPLETE APPLICATION
         // ============================================================
 
         (function() {
             'use strict';
 
-            // ===== SUPABASE CONFIGURATION =====
             const SUPABASE_URL = 'https://fvtcavphqqbsjcyobely.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2dGNhdnBocXFic2pjeW9iZWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTIxMDIsImV4cCI6MjEwMDU2ODEwMn0.sk_0XjON3NIhCyi4_oZAsKQIQJwr9rqwQVmB6Hncdxk';
 
-            // ===== DOM REFS =====
+            // DOM REFS
             const floatingCartBtn = document.getElementById('floatingCartBtn');
             const floatingCartCount = document.getElementById('floatingCartCount');
+            const sidebarCartBadge = document.getElementById('sidebarCartBadge');
             const coursesGrid = document.getElementById('coursesGrid');
             const checkoutSection = document.getElementById('checkoutSection');
             const emptyCart = document.getElementById('emptyCart');
@@ -2836,6 +2856,8 @@
             const navHome = document.getElementById('navHome');
             const navCoursesBtn = document.getElementById('navCoursesBtn');
             const navMyCourses = document.getElementById('navMyCourses');
+            const navCartBtn = document.getElementById('navCartBtn');
+            const navOrdersBtn = document.getElementById('navOrdersBtn');
             const navTransactions = document.getElementById('navTransactions');
             const navSettings = document.getElementById('navSettings');
             const navAdmin = document.getElementById('navAdmin');
@@ -2854,7 +2876,7 @@
             const confirmModalMessage = document.getElementById('confirmModalMessage');
             const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
 
-            // ===== STATE =====
+            // STATE
             let currentUser = null;
             let pendingOrder = null;
             let isCheckingout = false;
@@ -2865,7 +2887,7 @@
             let confirmCallback = null;
             let isSidebarOpen = false;
 
-            // ===== ADMIN DROPDOWN TOGGLE =====
+            // ADMIN DROPDOWN
             document.querySelectorAll('.admin-dropdown-header').forEach(header => {
                 header.addEventListener('click', function() {
                     const body = this.nextElementSibling;
@@ -2889,8 +2911,7 @@
                 });
             });
 
-            // ===== SIDEBAR FUNCTIONS =====
-
+            // SIDEBAR
             function openSidebar() {
                 sidebarMenu.classList.add('open');
                 sidebarOverlay.classList.add('active');
@@ -2915,8 +2936,6 @@
                 }
             }
 
-            // ===== SIDEBAR NAVIGATION =====
-
             function navigateTo(section) {
                 closeSidebar();
 
@@ -2931,43 +2950,32 @@
                         }, 100);
                         break;
                     case 'mycourses':
-                        if (!currentUser) {
-                            openAuthModal('login');
-                            return;
-                        }
-                        if (isAdmin()) {
-                            showNotification('Admin view: No courses enrolled', 'error');
-                            return;
-                        }
+                        if (!currentUser) { openAuthModal('login'); return; }
+                        if (isAdmin()) { showNotification('Admin view: No courses enrolled', 'error'); return; }
                         showUserInterface('mycourses');
                         break;
+                    case 'cart':
+                        if (!currentUser) { openAuthModal('login'); return; }
+                        if (isAdmin()) { showNotification('❌ Admins cannot access cart.', 'error'); return; }
+                        showUserInterface('cart');
+                        break;
+                    case 'orders':
+                        if (!currentUser) { openAuthModal('login'); return; }
+                        if (isAdmin()) { showNotification('❌ Admin view', 'error'); return; }
+                        showUserInterface('orders');
+                        break;
                     case 'transactions':
-                        if (!currentUser) {
-                            openAuthModal('login');
-                            return;
-                        }
-                        if (isAdmin()) {
-                            showAdminDashboard();
-                            return;
-                        }
+                        if (!currentUser) { openAuthModal('login'); return; }
+                        if (isAdmin()) { showAdminDashboard(); return; }
                         showUserInterface('transactions');
                         break;
                     case 'settings':
-                        if (!currentUser) {
-                            openAuthModal('login');
-                            return;
-                        }
-                        if (isAdmin()) {
-                            showAdminDashboard();
-                            return;
-                        }
+                        if (!currentUser) { openAuthModal('login'); return; }
+                        if (isAdmin()) { showAdminDashboard(); return; }
                         showUserInterface('settings');
                         break;
                     case 'admin':
-                        if (!currentUser || !isAdmin()) {
-                            showNotification('❌ Admin access only', 'error');
-                            return;
-                        }
+                        if (!currentUser || !isAdmin()) { showNotification('❌ Admin access only', 'error'); return; }
                         showAdminDashboard();
                         break;
                     default:
@@ -2975,21 +2983,19 @@
                 }
             }
 
-            // ===== SIDEBAR EVENT LISTENERS =====
-
             hamburgerBtn.addEventListener('click', toggleSidebar);
             sidebarOverlay.addEventListener('click', closeSidebar);
             sidebarClose.addEventListener('click', closeSidebar);
 
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && isSidebarOpen) {
-                    closeSidebar();
-                }
+                if (e.key === 'Escape' && isSidebarOpen) closeSidebar();
             });
 
             navHome.addEventListener('click', function() { navigateTo('home'); });
             navCoursesBtn.addEventListener('click', function() { navigateTo('courses'); });
             navMyCourses.addEventListener('click', function() { navigateTo('mycourses'); });
+            navCartBtn.addEventListener('click', function() { navigateTo('cart'); });
+            navOrdersBtn.addEventListener('click', function() { navigateTo('orders'); });
             navTransactions.addEventListener('click', function() { navigateTo('transactions'); });
             navSettings.addEventListener('click', function() { navigateTo('settings'); });
             navAdmin.addEventListener('click', function() { navigateTo('admin'); });
@@ -3005,24 +3011,15 @@
                 }
             });
 
-            // ===== FLOATING CART =====
-
             floatingCartBtn.addEventListener('click', function() {
                 const user = getCurrentUserSync();
-                if (!user) {
-                    openAuthModal('login');
-                    return;
-                }
-                if (isAdmin()) {
-                    showNotification('❌ Admins cannot purchase courses.', 'error');
-                    return;
-                }
+                if (!user) { openAuthModal('login'); return; }
+                if (isAdmin()) { showNotification('❌ Admins cannot purchase courses.', 'error'); return; }
                 renderCheckout();
                 closeSidebar();
             });
 
-            // ===== SUPABASE API HELPER =====
-
+            // SUPABASE API
             async function supabaseFetch(endpoint, options = {}) {
                 const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
                 const headers = {
@@ -3068,8 +3065,7 @@
                 }
             }
 
-            // ===== SUPABASE FUNCTIONS - UPDATED TO USE app_users =====
-
+            // DATABASE FUNCTIONS
             async function getUsers() {
                 try {
                     const result = await supabaseFetch('app_users?select=*');
@@ -3208,8 +3204,7 @@
                 }
             }
 
-            // ===== PASSWORD FUNCTIONS =====
-
+            // PASSWORD
             function hashPassword(password) {
                 let hash = 0;
                 for (let i = 0; i < password.length; i++) {
@@ -3224,8 +3219,7 @@
                 return hashPassword(password) === hashed;
             }
 
-            // ===== AUTH FUNCTIONS =====
-
+            // AUTH
             async function handleRegister(email, password) {
                 try {
                     if (!email || !password || password.length < 6) {
@@ -3252,7 +3246,6 @@
                         cart: []
                     };
 
-                    // Try to create the user with a direct POST to app_users
                     const result = await supabaseFetch('app_users', {
                         method: 'POST',
                         body: JSON.stringify(newUser)
@@ -3332,12 +3325,12 @@
                 }
             }
 
-            // ===== UPDATE UI FUNCTIONS =====
-
+            // UPDATE UI
             async function updateCartUI() {
                 const cart = await getCart();
                 const count = cart.length;
                 floatingCartCount.textContent = count;
+                if (sidebarCartBadge) sidebarCartBadge.textContent = count;
 
                 if (count > 0 && !isAdmin()) {
                     floatingCartBtn.classList.remove('hidden');
@@ -3374,10 +3367,8 @@
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = '👤';
 
-                    // Show hamburger
                     hamburgerBtn.classList.remove('hidden');
 
-                    // Update sidebar user
                     sidebarUser.classList.remove('hidden');
                     sidebarUserName.textContent = user.email.split('@')[0];
                     sidebarUserEmail.textContent = user.email;
@@ -3385,14 +3376,11 @@
 
                     sidebarLogoutBtn.textContent = '🚪 Logout';
 
-                    // Show/hide admin nav item
                     if (isAdmin()) {
                         navAdmin.classList.remove('hidden');
-                        // Hide regular nav items for admin
                         document.querySelectorAll('.sidebar-nav .nav-item:not([data-nav="admin"])').forEach(el => {
                             el.style.display = 'none';
                         });
-                        // Show admin nav item
                         navAdmin.style.display = 'flex';
                     } else {
                         navAdmin.classList.add('hidden');
@@ -3406,7 +3394,6 @@
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = 'Login';
 
-                    // Hide hamburger for non-logged in users
                     hamburgerBtn.classList.add('hidden');
 
                     sidebarUser.classList.add('hidden');
@@ -3415,8 +3402,7 @@
                 }
             }
 
-            // ===== DASHBOARD FUNCTIONS =====
-
+            // DASHBOARD
             function isAdmin() {
                 return currentUser && currentUser.email === 'admin@freelancepilot.com';
             }
@@ -3437,6 +3423,8 @@
                 document.querySelectorAll('.user-content-area .page').forEach(p => p.classList.remove('active'));
                 const pageMap = {
                     'mycourses': 'pageMyCourses',
+                    'cart': 'pageCart',
+                    'orders': 'pageOrders',
                     'transactions': 'pageTransactions',
                     'settings': 'pageSettings'
                 };
@@ -3480,8 +3468,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // ===== USER INTERFACE =====
-
+            // USER INTERFACE
             async function updateUserInterface() {
                 const user = await getCurrentUser();
                 if (!user) return;
@@ -3489,27 +3476,80 @@
                 document.getElementById('profileEmail').textContent = user.email;
                 document.getElementById('profileJoined').textContent = new Date(user.created).toLocaleDateString();
 
-                // Transactions - ONLY show pending and completed
-                const transactionsList = document.getElementById('transactionsList');
-                const orders = (user.orders || []).filter(o => o.status === 'pending' || o.status === 'completed');
-
-                if (orders.length === 0) {
-                    transactionsList.innerHTML =
-                        '<div class="empty-state"><div class="icon">📭</div><p>No transactions yet.</p></div>';
+                // Cart - Items awaiting payment
+                const cartList = document.getElementById('cartList');
+                const cart = await getCart();
+                if (cart.length === 0) {
+                    cartList.innerHTML = '<div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div>';
                 } else {
-                    transactionsList.innerHTML = orders.map(order => `
+                    let cartHtml = '';
+                    let total = 0;
+                    cart.forEach((item, index) => {
+                        total += item.price;
+                        cartHtml += `
+                            <div class="order-card">
+                                <div class="info">
+                                    <div class="course">${item.course}</div>
+                                    <div class="details">$${item.price} USDT • Awaiting payment</div>
+                                </div>
+                                <div style="display:flex;gap:8px;align-items:center;">
+                                    <span class="status-badge pending">Pending</span>
+                                    <button onclick="removeFromCart(${index})" style="color:#ff6b6b;background:none;border:none;cursor:pointer;font-size:18px;padding:4px 8px;min-height:32px;min-width:32px;">✕</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    cartHtml += `
+                        <div style="text-align:right;padding:12px 0;border-top:1px solid var(--border);margin-top:8px;">
+                            <span style="font-weight:700;font-size:18px;color:var(--gold);">Total: $${total.toFixed(2)} USDT</span>
+                            <br>
+                            <button onclick="renderCheckout()" style="margin-top:10px;background:linear-gradient(135deg, var(--gold), var(--gold-dark));color:var(--bg-primary);border:none;padding:10px 28px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;transition:var(--transition);min-height:44px;">
+                                💳 Proceed to Checkout
+                            </button>
+                        </div>
+                    `;
+                    cartList.innerHTML = cartHtml;
+                }
+
+                // Orders - Completed/Successful transactions
+                const ordersList = document.getElementById('ordersList');
+                const allOrders = (user.orders || []).filter(o => o.status === 'completed');
+
+                if (allOrders.length === 0) {
+                    ordersList.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>No completed orders yet.</p></div>';
+                } else {
+                    ordersList.innerHTML = allOrders.map(order => `
                                 <div class="order-card">
                                     <div class="info">
                                         <div class="course">${order.course || 'Course'}</div>
-                                        <div class="details">Order ID: ${order.id || 'N/A'} • ${new Date(order.created).toLocaleDateString()}</div>
+                                        <div class="details">Order ID: ${order.id || 'N/A'} • ${new Date(order.created).toLocaleDateString()} • Completed</div>
                                     </div>
-                                    <span class="status-badge ${order.status || 'pending'}">${order.status || 'Pending'}</span>
+                                    <span class="status-badge completed">✅ Completed</span>
                                     <span class="amount">$${(order.amount || 0).toFixed(2)}</span>
                                 </div>
                             `).join('');
                 }
 
-                // My Courses - only completed
+                // Transactions - All (pending + completed)
+                const transactionsList = document.getElementById('transactionsList');
+                const allTransactions = (user.orders || []).filter(o => o.status === 'pending' || o.status === 'completed');
+
+                if (allTransactions.length === 0) {
+                    transactionsList.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>No transactions yet.</p></div>';
+                } else {
+                    transactionsList.innerHTML = allTransactions.map(order => `
+                                <div class="order-card">
+                                    <div class="info">
+                                        <div class="course">${order.course || 'Course'}</div>
+                                        <div class="details">Order ID: ${order.id || 'N/A'} • ${new Date(order.created).toLocaleDateString()}</div>
+                                    </div>
+                                    <span class="status-badge ${order.status || 'pending'}">${order.status === 'completed' ? '✅ Completed' : '⏳ Pending'}</span>
+                                    <span class="amount">$${(order.amount || 0).toFixed(2)}</span>
+                                </div>
+                            `).join('');
+                }
+
+                // My Courses
                 const myCoursesList = document.getElementById('myCoursesList');
                 const completedOrders = (user.orders || []).filter(o => o.status === 'completed');
 
@@ -3525,19 +3565,28 @@
                                             <div style="font-weight:600;color:var(--text-primary);font-size:14px;">📘 ${order.course || 'Course'}</div>
                                             <div style="color:var(--text-muted);font-size:12px;">Enrolled on ${new Date(order.created).toLocaleDateString()}</div>
                                         </div>
-                                        <span style="color:var(--gold);font-size:12px;font-weight:600;">Access Granted</span>
+                                        <span style="color:var(--gold);font-size:12px;font-weight:600;">✅ Access Granted</span>
                                     </div>
                                 `;
                     });
                     myCoursesList.innerHTML = html;
                 }
 
-                const cart = await getCart();
+                // Update badges
+                if (sidebarCartBadge) sidebarCartBadge.textContent = cart.length;
                 floatingCartCount.textContent = cart.length;
             }
 
-            // ===== ADMIN DASHBOARD =====
+            async function removeFromCart(index) {
+                const cart = await getCart();
+                cart.splice(index, 1);
+                await setCart(cart);
+                await updateCartUI();
+                await updateUserInterface();
+                showNotification('Item removed from cart');
+            }
 
+            // ADMIN
             async function refreshAdminPanel() {
                 if (!isAdmin()) return;
 
@@ -3568,11 +3617,9 @@
                     }
                 }
 
-                // Update counts
                 document.getElementById('adminUserCount').textContent = Object.keys(users).length;
                 document.getElementById('adminOrderCount').textContent = allOrders.length;
 
-                // Users table
                 const usersTable = document.getElementById('adminUsersTable');
                 const userEntries = Object.entries(users);
                 if (userEntries.length === 0) {
@@ -3598,7 +3645,6 @@
                     }).join('');
                 }
 
-                // Orders table
                 const ordersTable = document.getElementById('adminOrdersTable');
                 if (allOrders.length === 0) {
                     ordersTable.innerHTML =
@@ -3631,8 +3677,7 @@
                 }
             }
 
-            // ===== ADMIN ACTIONS =====
-
+            // ADMIN ACTIONS
             window.confirmDeleteUser = function(email) {
                 if (email === 'admin@freelancepilot.com') {
                     showNotification('❌ Cannot delete admin account', 'error');
@@ -3688,8 +3733,7 @@
                 }
             };
 
-            // ===== DELETE ACCOUNT (USER) =====
-
+            // DELETE ACCOUNT
             function confirmDeleteAccount() {
                 confirmModalMessage.textContent =
                     '⚠️ This action is PERMANENT and cannot be undone! Are you sure you want to delete your account? All your data, orders, and course access will be permanently removed.';
@@ -3738,8 +3782,7 @@
                 }
             });
 
-            // ===== CHANGE PASSWORD =====
-
+            // CHANGE PASSWORD
             window.changePassword = async function() {
                 const newPass = document.getElementById('newPassword').value.trim();
                 const confirmPass = document.getElementById('confirmPassword').value.trim();
@@ -3767,8 +3810,7 @@
                 document.getElementById('confirmPassword').value = '';
             };
 
-            // ===== NOTIFICATION =====
-
+            // NOTIFICATION
             function showNotification(message, type) {
                 const existing = document.querySelector('.notification-toast');
                 if (existing) existing.remove();
@@ -3788,8 +3830,7 @@
                 }, 3000);
             }
 
-            // ===== RENDER CHECKOUT =====
-
+            // CHECKOUT
             async function renderCheckout() {
                 const user = await getCurrentUser();
                 if (!user) {
@@ -3922,8 +3963,7 @@
                 await updateCartUI();
             }
 
-            // ===== CANCEL ORDER - DELETE COMPLETELY =====
-
+            // CANCEL ORDER - DELETE COMPLETELY
             cancelOrderBtn.addEventListener('click', async function() {
                 if (confirm('Are you sure you want to cancel this order? It will be permanently removed.')) {
                     const user = await getCurrentUser();
@@ -3955,8 +3995,7 @@
                 }
             });
 
-            // ===== COPY ADDRESS =====
-
+            // COPY ADDRESS
             document.getElementById('copyBtn').addEventListener('click', function() {
                 const address = document.getElementById('walletAddress').textContent.trim();
                 if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -3996,8 +4035,7 @@
                 document.body.removeChild(textarea);
             }
 
-            // ===== VERIFICATION =====
-
+            // VERIFICATION
             function startVerification(expectedAmount) {
                 const WALLET_ADDRESS = 'UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE';
 
@@ -4063,8 +4101,7 @@
                 }, 600000);
             }
 
-            // ===== SHOW PAYMENT SUCCESS =====
-
+            // SHOW PAYMENT SUCCESS
             async function showPaymentSuccess(amount) {
                 paymentStatus.className = 'payment-status success';
                 paymentStatus.innerHTML = `
@@ -4107,8 +4144,7 @@
                 showNotification('🎉 Thank you for your purchase!');
             }
 
-            // ===== TOGGLE COURSE DETAILS =====
-
+            // TOGGLE COURSE DETAILS
             coursesGrid.addEventListener('click', function(e) {
                 const toggle = e.target.closest('.toggle-details');
                 if (!toggle) return;
@@ -4131,8 +4167,7 @@
                 }
             });
 
-            // ===== ADD TO CART =====
-
+            // ADD TO CART
             coursesGrid.addEventListener('click', async function(e) {
                 const btn = e.target.closest('.add-to-cart');
                 if (!btn) return;
@@ -4178,23 +4213,7 @@
                 showNotification('✅ Course added to cart!');
             });
 
-            // ===== AUTH LINK CLICK =====
-
-            authLink.addEventListener('click', async function(e) {
-                e.preventDefault();
-                const user = await getCurrentUser();
-                if (user) {
-                    if (confirm('Logout ' + user.email + '?')) {
-                        logoutUser();
-                    }
-                } else {
-                    openAuthModal('login');
-                }
-                closeSidebar();
-            });
-
-            // ===== AUTH MODAL FUNCTIONS =====
-
+            // AUTH MODAL
             function openAuthModal(mode) {
                 isLoginMode = mode === 'login';
                 if (isLoginMode) {
@@ -4267,8 +4286,7 @@
                 }
             });
 
-            // ===== LOGOUT =====
-
+            // LOGOUT
             async function logoutUser() {
                 localStorage.removeItem('fp_currentUser');
                 currentUser = null;
@@ -4283,8 +4301,7 @@
                 showNotification('👋 Logged out successfully');
             }
 
-            // ===== BACK LINK =====
-
+            // BACK LINK
             backLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (verificationInterval) {
@@ -4305,8 +4322,7 @@
                 document.getElementById('coursesSection').scrollIntoView({ behavior: 'smooth' });
             });
 
-            // ===== CLEAR CART =====
-
+            // CLEAR CART
             clearCartBtn.addEventListener('click', async function() {
                 const cart = await getCart();
                 if (cart.length === 0) return;
@@ -4338,8 +4354,7 @@
                 }
             });
 
-            // ===== FAQ ACCORDION =====
-
+            // FAQ
             document.querySelectorAll('.faq-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const isOpen = this.classList.contains('open');
@@ -4352,8 +4367,7 @@
                 });
             });
 
-            // ===== INIT =====
-
+            // INIT
             async function init() {
                 const user = await getCurrentUser();
 
@@ -4390,7 +4404,7 @@
                 }
             }
 
-            // Make functions globally accessible
+            // GLOBAL FUNCTIONS
             window.refreshAdminPanel = refreshAdminPanel;
             window.closeAuthModal = closeAuthModal;
             window.logoutUser = logoutUser;
@@ -4402,8 +4416,9 @@
             window.goToCourses = function() { navigateTo('courses'); };
             window.changePassword = changePassword;
             window.navigateTo = navigateTo;
+            window.renderCheckout = renderCheckout;
+            window.removeFromCart = removeFromCart;
 
-            // Close modals on Escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     if (authModal.classList.contains('active')) {
