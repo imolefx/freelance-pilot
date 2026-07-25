@@ -2792,7 +2792,7 @@
 
     <script>
         // ============================================================
-        // FREELANCE PILOT — COMPLETE APPLICATION
+        // FREELANCE PILOT — COMPLETE APPLICATION (FIXED - USING app_users)
         // ============================================================
 
         (function() {
@@ -3068,11 +3068,11 @@
                 }
             }
 
-            // ===== SUPABASE FUNCTIONS =====
+            // ===== SUPABASE FUNCTIONS - UPDATED TO USE app_users =====
 
             async function getUsers() {
                 try {
-                    const result = await supabaseFetch('users?select=*');
+                    const result = await supabaseFetch('app_users?select=*');
                     return result.reduce((acc, user) => {
                         acc[user.email] = user;
                         return acc;
@@ -3086,14 +3086,14 @@
             async function saveUsers(users) {
                 try {
                     for (const [email, data] of Object.entries(users)) {
-                        const existing = await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`);
+                        const existing = await supabaseFetch(`app_users?email=eq.${encodeURIComponent(email)}`);
                         if (existing.length > 0) {
-                            await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`, {
+                            await supabaseFetch(`app_users?email=eq.${encodeURIComponent(email)}`, {
                                 method: 'PATCH',
                                 body: JSON.stringify(data)
                             });
                         } else {
-                            const result = await supabaseFetch('users', {
+                            const result = await supabaseFetch('app_users', {
                                 method: 'POST',
                                 body: JSON.stringify({ email, ...data })
                             });
@@ -3114,7 +3114,7 @@
                 const email = localStorage.getItem('fp_currentUser');
                 if (!email) return null;
                 try {
-                    const result = await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`);
+                    const result = await supabaseFetch(`app_users?email=eq.${encodeURIComponent(email)}`);
                     return result[0] || null;
                 } catch (error) {
                     console.error('Error fetching user:', error);
@@ -3136,7 +3136,7 @@
                 const user = await getCurrentUser();
                 if (!user) return;
                 try {
-                    await supabaseFetch(`users?email=eq.${encodeURIComponent(user.email)}`, {
+                    await supabaseFetch(`app_users?email=eq.${encodeURIComponent(user.email)}`, {
                         method: 'PATCH',
                         body: JSON.stringify({ cart: cart })
                     });
@@ -3175,7 +3175,7 @@
 
             async function deleteUser(email) {
                 try {
-                    return await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`, {
+                    return await supabaseFetch(`app_users?email=eq.${encodeURIComponent(email)}`, {
                         method: 'DELETE'
                     });
                 } catch (error) {
@@ -3248,13 +3248,12 @@
                         password: hashedPassword,
                         created: Date.now(),
                         orders: [],
-                        materials: [],
                         total_spent: 0,
                         cart: []
                     };
 
-                    // Try to create the user with a direct POST
-                    const result = await supabaseFetch('users', {
+                    // Try to create the user with a direct POST to app_users
+                    const result = await supabaseFetch('app_users', {
                         method: 'POST',
                         body: JSON.stringify(newUser)
                     });
