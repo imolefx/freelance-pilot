@@ -118,7 +118,7 @@
             background: rgba(10, 10, 18, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 16px 0;
+            padding: 12px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -130,7 +130,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
 
         .logo {
@@ -141,21 +141,21 @@
 
         .logo svg {
             display: block;
-            height: 50px;
+            height: 40px;
             width: auto;
         }
 
         .nav {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
         .nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             transition: var(--transition);
             cursor: pointer;
@@ -165,14 +165,37 @@
             color: var(--gold);
         }
 
-        .cart-link {
+        .nav .user-info {
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav .user-info .logout-link {
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+        }
+
+        .nav .user-info .logout-link:hover {
+            color: #ff6b6b;
+        }
+
+        .cart-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
             background: rgba(212, 168, 83, 0.12);
-            padding: 8px 18px;
+            padding: 6px 14px;
             border-radius: 100px;
             font-weight: 600;
+            font-size: 13px;
             color: var(--gold) !important;
             border: 1px solid rgba(212, 168, 83, 0.2);
             transition: var(--transition);
@@ -188,22 +211,22 @@
             background: var(--gold);
             color: var(--bg-primary);
             border-radius: 50%;
-            padding: 0 8px;
-            font-size: 12px;
+            padding: 0 6px;
+            font-size: 11px;
             font-weight: 700;
-            min-width: 22px;
+            min-width: 20px;
             text-align: center;
-            line-height: 22px;
+            line-height: 20px;
         }
 
         .auth-link {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
+            gap: 6px;
+            padding: 6px 14px;
             border-radius: 100px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-primary) !important;
             border: 1px solid var(--border);
             transition: var(--transition);
@@ -221,26 +244,48 @@
             color: var(--gold) !important;
         }
 
-        .logout-btn {
-            color: var(--text-muted);
-            font-size: 12px;
+        /* Hamburger Menu Button */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
             cursor: pointer;
-            transition: var(--transition);
+            padding: 6px;
             background: none;
             border: none;
         }
 
-        .logout-btn:hover {
-            color: #ff6b6b;
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-secondary);
+            transition: var(--transition);
+            border-radius: 2px;
         }
 
-        /* ===== ADMIN MODE - HIDE COURSE STORE ===== */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        /* ============================================================
+        ADMIN MODE - HIDE COURSE STORE
+        ============================================================ */
         body.admin-mode .hero,
         body.admin-mode .courses,
         body.admin-mode .guarantee,
         body.admin-mode .faq,
         body.admin-mode .empty-cart,
-        body.admin-mode #headerCartLink {
+        body.admin-mode #headerCartLink,
+        body.admin-mode .nav-courses {
             display: none !important;
         }
 
@@ -268,9 +313,11 @@
             fill: rgba(255, 107, 107, 0.1);
         }
 
-        /* ===== HERO ===== */
+        /* ============================================================
+        HERO
+        ============================================================ */
         .hero {
-            padding: 80px 0 60px;
+            padding: 60px 0 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -292,22 +339,22 @@
             display: inline-block;
             background: rgba(212, 168, 83, 0.12);
             border: 1px solid rgba(212, 168, 83, 0.2);
-            padding: 6px 18px;
+            padding: 4px 14px;
             border-radius: 100px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--gold);
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .hero h1 {
-            font-size: 52px;
+            font-size: 40px;
             font-weight: 900;
             letter-spacing: -1.5px;
             line-height: 1.1;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             position: relative;
         }
 
@@ -319,18 +366,18 @@
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-secondary);
             max-width: 600px;
-            margin: 0 auto 32px;
+            margin: 0 auto 24px;
             line-height: 1.7;
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 48px;
-            padding: 24px 0;
+            gap: 32px;
+            padding: 16px 0;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             max-width: 700px;
@@ -343,23 +390,29 @@
         }
 
         .hero-stat .number {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--gold);
         }
 
         .hero-stat .label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             margin-top: 2px;
         }
 
-        /* ===== SECTION TITLES ===== */
+        /* ============================================================
+        COURSES
+        ============================================================ */
+        .courses {
+            padding: 40px 0 60px;
+        }
+
         .section-title {
-            font-size: 34px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .section-title .gold {
@@ -368,24 +421,19 @@
 
         .section-subtitle {
             color: var(--text-secondary);
-            font-size: 17px;
-            margin-bottom: 40px;
+            font-size: 15px;
+            margin-bottom: 32px;
         }
 
         .text-center {
             text-align: center;
         }
 
-        /* ===== COURSES ===== */
-        .courses {
-            padding: 60px 0 80px;
-        }
-
         .courses-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
-            max-width: 860px;
+            gap: 16px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -393,7 +441,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px 28px;
+            padding: 20px 24px;
             transition: var(--transition);
             cursor: default;
             position: relative;
@@ -423,23 +471,23 @@
         }
 
         .course-number {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--gold);
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .course-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 16px;
+            gap: 12px;
         }
 
         .course-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-primary);
             line-height: 1.3;
@@ -449,7 +497,7 @@
         .toggle-details {
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 20px;
             color: var(--text-muted);
             cursor: pointer;
             padding: 0 4px;
@@ -470,9 +518,9 @@
 
         .course-details {
             display: none;
-            padding-top: 18px;
+            padding-top: 14px;
             border-top: 1px solid var(--border);
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .course-details.open {
@@ -481,23 +529,23 @@
         }
 
         .course-description {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.7;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .course-benefits {
             list-style: none;
             padding: 0;
-            margin: 0 0 16px 0;
+            margin: 0 0 12px 0;
         }
 
         .course-benefits li {
-            padding: 4px 0;
-            padding-left: 20px;
+            padding: 3px 0;
+            padding-left: 18px;
             position: relative;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
         }
 
@@ -506,15 +554,15 @@
             position: absolute;
             left: 0;
             color: var(--gold);
-            font-size: 10px;
-            top: 6px;
+            font-size: 9px;
+            top: 5px;
         }
 
         .course-why {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--gold);
             font-weight: 500;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-style: italic;
         }
 
@@ -523,18 +571,18 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
         .course-price {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
             color: var(--text-primary);
         }
 
         .course-price small {
             font-weight: 400;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
         }
 
@@ -542,9 +590,9 @@
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             color: var(--bg-primary);
             border: none;
-            padding: 10px 32px;
+            padding: 8px 24px;
             border-radius: 100px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
@@ -565,9 +613,11 @@
             color: #fff;
         }
 
-        /* ===== GUARANTEE ===== */
+        /* ============================================================
+        GUARANTEE
+        ============================================================ */
         .guarantee {
-            padding: 60px 0;
+            padding: 40px 0;
             text-align: center;
         }
 
@@ -575,44 +625,46 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 40px;
-            max-width: 720px;
+            padding: 32px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .guarantee-box .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
+            font-size: 40px;
+            margin-bottom: 8px;
         }
 
         .guarantee-box h3 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .guarantee-box p {
             color: var(--text-secondary);
-            font-size: 16px;
+            font-size: 14px;
         }
 
-        /* ===== FAQ ===== */
+        /* ============================================================
+        FAQ
+        ============================================================ */
         .faq {
-            padding: 60px 0 80px;
+            padding: 40px 0 60px;
         }
 
         .faq-grid {
-            max-width: 720px;
+            max-width: 700px;
             margin: 0 auto;
             display: grid;
-            gap: 12px;
+            gap: 10px;
         }
 
         .faq-item {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 18px 24px;
+            padding: 14px 18px;
             cursor: pointer;
             transition: var(--transition);
         }
@@ -626,13 +678,13 @@
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-primary);
         }
 
         .faq-question .icon {
             color: var(--gold);
-            font-size: 20px;
+            font-size: 18px;
             transition: var(--transition);
             font-weight: 300;
         }
@@ -643,12 +695,12 @@
 
         .faq-answer {
             display: none;
-            padding-top: 12px;
+            padding-top: 10px;
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.7;
             border-top: 1px solid var(--border);
-            margin-top: 12px;
+            margin-top: 10px;
         }
 
         .faq-item.open .faq-answer {
@@ -656,10 +708,733 @@
             animation: fadeUp 0.3s ease-out;
         }
 
-        /* ===== CHECKOUT - FULL PAGE ===== */
+        /* ============================================================
+        DASHBOARD SECTIONS
+        ============================================================ */
+        /* User Dashboard */
+        .dashboard-wrapper {
+            display: none;
+            min-height: 70vh;
+            background: var(--bg-primary);
+            padding: 20px 0 40px;
+        }
+
+        .dashboard-wrapper.show {
+            display: flex;
+        }
+
+        .dashboard-sidebar {
+            width: 220px;
+            min-height: 100%;
+            border-right: 1px solid var(--border);
+            padding: 12px 6px;
+            flex-shrink: 0;
+        }
+
+        .dashboard-sidebar .sidebar-title {
+            color: var(--text-muted);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            padding: 6px 10px;
+            margin-bottom: 6px;
+        }
+
+        .dashboard-sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dashboard-sidebar .menu-item:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .dashboard-sidebar .menu-item.active {
+            background: rgba(212, 168, 83, 0.12);
+            color: var(--gold);
+        }
+
+        .dashboard-sidebar .menu-item .icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dashboard-content-area {
+            flex: 1;
+            padding: 0 24px;
+            min-height: 400px;
+        }
+
+        .dashboard-content-area .page {
+            display: none;
+            animation: fadeUp 0.3s ease-out;
+        }
+
+        .dashboard-content-area .page.active {
+            display: block;
+        }
+
+        .dashboard-content-area .page h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .dashboard-content-area .page .sub {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .stat-card .num.green {
+            color: #2ecc71;
+        }
+
+        .stat-card .num.orange {
+            color: #f39c12;
+        }
+
+        .stat-card .num.blue {
+            color: #3498db;
+        }
+
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            max-width: 550px;
+        }
+
+        .profile-card .field {
+            margin-bottom: 12px;
+        }
+
+        .profile-card .field label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .profile-card .field .value {
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .profile-card .field .value.muted {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .profile-card .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 16px 0;
+        }
+
+        .profile-card input[type="password"] {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .profile-card input[type="password"]:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .profile-card .btn-gold {
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+        }
+
+        .profile-card .btn-gold:hover {
+            transform: scale(1.02);
+        }
+
+        .profile-card .btn-danger {
+            background: rgba(255, 107, 107, 0.12);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .profile-card .btn-danger:hover {
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        /* Order Cards */
+        .order-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-card .info .course {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .order-card .info .details {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .order-card .status-badge {
+            padding: 3px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .order-card .status-badge.completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .order-card .status-badge.pending {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
+        .order-card .status-badge.canceled {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .order-card .amount {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* Material Cards */
+        .material-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .material-card .info .title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .material-card .info .desc {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .material-card .download-btn {
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .material-card .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+            opacity: 0.4;
+        }
+
+        .empty-state a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .empty-state a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+        ADMIN DASHBOARD
+        ============================================================ */
+        .admin-wrapper {
+            display: none;
+            min-height: 70vh;
+            background: var(--bg-primary);
+            padding: 20px 0 40px;
+        }
+
+        .admin-wrapper.show {
+            display: flex;
+        }
+
+        .admin-sidebar {
+            width: 220px;
+            min-height: 100%;
+            border-right: 1px solid var(--border);
+            padding: 12px 6px;
+            flex-shrink: 0;
+        }
+
+        .admin-sidebar .sidebar-title {
+            color: var(--text-muted);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            padding: 6px 10px;
+            margin-bottom: 6px;
+        }
+
+        .admin-sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .admin-sidebar .menu-item:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .admin-sidebar .menu-item.active {
+            background: rgba(212, 168, 83, 0.12);
+            color: var(--gold);
+        }
+
+        .admin-sidebar .menu-item .icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .admin-content-area {
+            flex: 1;
+            padding: 0 24px;
+            min-height: 400px;
+        }
+
+        .admin-content-area .page {
+            display: none;
+            animation: fadeUp 0.3s ease-out;
+        }
+
+        .admin-content-area .page.active {
+            display: block;
+        }
+
+        .admin-content-area .page h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .admin-content-area .page .sub {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .admin-table-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .admin-table-wrap .header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .admin-table-wrap .header h3 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .admin-table-wrap .header button {
+            background: var(--gold);
+            color: #0a0a12;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .admin-table-wrap .header button:hover {
+            transform: scale(1.05);
+        }
+
+        .admin-table-wrap .table-scroll {
+            overflow-x: auto;
+            padding: 0 16px 16px 16px;
+        }
+
+        .admin-table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .admin-table-wrap table th {
+            text-align: left;
+            padding: 10px 6px;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-table-wrap table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-table-wrap table td .action-btn {
+            background: rgba(212, 168, 83, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-right: 3px;
+        }
+
+        .admin-table-wrap table td .action-btn:hover {
+            background: rgba(212, 168, 83, 0.2);
+        }
+
+        .admin-table-wrap table td .action-btn.danger {
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.2);
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .admin-table-wrap table td .action-btn.danger:hover {
+            background: rgba(255, 107, 107, 0.15);
+        }
+
+        .admin-table-wrap table td .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .admin-table-wrap table td .badge.completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .admin-table-wrap table td .badge.pending {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
+        .admin-table-wrap table td .badge.canceled {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        /* ============================================================
+        ADMIN UPLOAD - WITH SUPABASE STORAGE
+        ============================================================ */
+        .upload-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            max-width: 680px;
+        }
+
+        .upload-card .form-group {
+            margin-bottom: 14px;
+        }
+
+        .upload-card .form-group label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .upload-card .form-group select,
+        .upload-card .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .upload-card .form-group select:focus,
+        .upload-card .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .upload-card .file-drop {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .upload-card .file-drop:hover {
+            border-color: var(--gold);
+            background: rgba(212, 168, 83, 0.05);
+        }
+
+        .upload-card .file-drop .icon {
+            font-size: 28px;
+            opacity: 0.4;
+            margin-bottom: 4px;
+        }
+
+        .upload-card .file-drop p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .upload-card .file-list .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 10px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            margin-bottom: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .upload-card .file-list .file-item .name {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .upload-card .file-list .file-item .remove {
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .upload-card .upload-btn {
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 10px 28px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .upload-card .upload-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(212, 168, 83, 0.3);
+        }
+
+        .upload-card .upload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .upload-card .upload-progress {
+            display: none;
+            margin-top: 10px;
+            background: var(--bg-primary);
+            border-radius: 100px;
+            height: 4px;
+            overflow: hidden;
+        }
+
+        .upload-card .upload-progress.show {
+            display: block;
+        }
+
+        .upload-card .upload-progress .bar {
+            height: 100%;
+            background: var(--gold);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 100px;
+        }
+
+        .upload-card .uploaded-files {
+            margin-top: 16px;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .upload-card .uploaded-files h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .upload-card .uploaded-files .mat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            margin-bottom: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .upload-card .uploaded-files .mat-item .info {
+            flex: 1;
+        }
+
+        .upload-card .uploaded-files .mat-item .info .title {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .upload-card .uploaded-files .mat-item .info .desc {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .upload-card .uploaded-files .mat-item .del-btn {
+            color: #ff6b6b;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 2px 6px;
+            font-size: 14px;
+        }
+
+        .upload-card .uploaded-files .mat-item .del-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+        CHECKOUT
+        ============================================================ */
         .checkout {
-            padding: 40px 0 80px;
-            min-height: 80vh;
+            padding: 32px 0 60px;
+            min-height: 70vh;
             display: none;
         }
 
@@ -668,20 +1443,20 @@
         }
 
         .checkout-inner {
-            max-width: 820px;
+            max-width: 760px;
             margin: 0 auto;
         }
 
         .checkout .back-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             transition: var(--transition);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             cursor: pointer;
         }
 
@@ -690,45 +1465,44 @@
         }
 
         .checkout h1 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .checkout .sub-heading {
             color: var(--text-secondary);
-            margin-bottom: 32px;
-            font-size: 15px;
+            margin-bottom: 24px;
+            font-size: 14px;
         }
 
-        /* Order Summary Card */
         .order-summary {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px 32px;
-            margin-bottom: 28px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
         }
 
         .order-summary h2 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: var(--text-primary);
         }
 
         .order-summary ul {
             list-style: none;
             padding: 0;
-            margin: 0 0 16px 0;
+            margin: 0 0 12px 0;
         }
 
         .order-summary ul li {
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid var(--border);
             color: var(--text-secondary);
-            font-size: 15px;
+            font-size: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -737,12 +1511,12 @@
         .order-summary ul li .remove-item {
             color: #ff6b6b;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             transition: var(--transition);
             background: none;
             border: none;
-            padding: 4px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
             line-height: 1;
         }
@@ -755,24 +1529,24 @@
         .order-total {
             display: flex;
             justify-content: space-between;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            padding-top: 16px;
+            padding-top: 12px;
             border-top: 2px solid var(--border);
             color: var(--text-primary);
         }
 
         .order-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 16px;
+            gap: 10px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
 
         .order-actions button {
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 100px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -789,57 +1563,52 @@
             background: rgba(255, 107, 107, 0.2);
         }
 
-        /* Payment Section */
         .payment-section {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px;
+            padding: 24px 28px;
         }
 
         .payment-section h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .payment-section>p {
             color: var(--text-secondary);
-            font-size: 15px;
-            margin-bottom: 24px;
+            font-size: 14px;
+            margin-bottom: 18px;
         }
 
         .payment-warning {
             background: rgba(212, 168, 83, 0.08);
             border: 2px solid rgba(212, 168, 83, 0.3);
             border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            margin-bottom: 24px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
             display: flex;
-            gap: 14px;
+            gap: 10px;
             align-items: flex-start;
         }
 
         .payment-warning .icon {
-            font-size: 24px;
+            font-size: 20px;
             flex-shrink: 0;
             margin-top: 2px;
-        }
-
-        .payment-warning .content {
-            flex: 1;
         }
 
         .payment-warning .content strong {
             color: var(--gold);
             display: block;
-            font-size: 15px;
-            margin-bottom: 4px;
+            font-size: 14px;
+            margin-bottom: 2px;
         }
 
         .payment-warning .content p {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13px;
             line-height: 1.6;
             margin: 0;
         }
@@ -849,51 +1618,79 @@
             font-weight: 600;
         }
 
+        .unique-amount-box {
+            background: rgba(212, 168, 83, 0.08);
+            border: 2px solid rgba(212, 168, 83, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .unique-amount-box .label {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .unique-amount-box .amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .unique-amount-box .note {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
         .wallet-box {
             background: rgba(0, 0, 0, 0.3);
             border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            margin-bottom: 20px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
             border: 1px solid var(--border);
         }
 
         .wallet-label {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--text-muted);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .wallet-address {
             font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
-            font-size: 15px;
+            font-size: 13px;
             word-break: break-all;
             color: var(--gold);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             line-height: 1.5;
         }
 
         .network-badge {
             display: inline-block;
             background: rgba(212, 168, 83, 0.15);
-            padding: 4px 14px;
+            padding: 2px 10px;
             border-radius: 100px;
             font-weight: 600;
             color: var(--gold);
-            font-size: 13px;
-            margin-bottom: 14px;
+            font-size: 11px;
+            margin-bottom: 10px;
             border: 1px solid rgba(212, 168, 83, 0.2);
         }
 
         .copy-btn {
             background: rgba(212, 168, 83, 0.12);
             border: 1px solid rgba(212, 168, 83, 0.2);
-            padding: 8px 22px;
+            padding: 6px 18px;
             border-radius: 100px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--gold);
             cursor: pointer;
@@ -913,13 +1710,13 @@
         .qr-container {
             display: flex;
             justify-content: center;
-            padding: 16px 0 8px;
-            margin-bottom: 16px;
+            padding: 12px 0 4px;
+            margin-bottom: 12px;
         }
 
         #qrcode {
             background: #ffffff;
-            padding: 12px;
+            padding: 8px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
         }
@@ -928,47 +1725,19 @@
             display: block;
         }
 
-        .unique-amount-box {
-            background: rgba(212, 168, 83, 0.08);
-            border: 2px solid rgba(212, 168, 83, 0.3);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .unique-amount-box .label {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-        .unique-amount-box .amount {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .unique-amount-box .note {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-top: 4px;
-        }
-
         .order-info {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-            padding: 14px 18px;
-            margin: 16px 0 20px 0;
+            padding: 10px 14px;
+            margin: 12px 0 16px;
             border: 1px solid var(--border);
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .order-info .row {
             display: flex;
             justify-content: space-between;
-            padding: 4px 0;
+            padding: 3px 0;
         }
 
         .order-info .row .label {
@@ -986,28 +1755,28 @@
 
         .payment-status {
             text-align: center;
-            padding: 20px 0 8px;
+            padding: 16px 0 4px;
             border-top: 1px solid var(--border);
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .payment-status p {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             color: var(--text-primary);
         }
 
         .payment-status .status-detail {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 400;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .payment-status .status-icon {
-            font-size: 32px;
+            font-size: 28px;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .payment-status.success {
@@ -1023,15 +1792,15 @@
         }
 
         .cancel-order-btn {
-            margin-top: 16px;
-            padding: 12px;
+            margin-top: 12px;
+            padding: 10px;
             border: 1px solid var(--border);
             border-radius: 100px;
             background: none;
             color: var(--text-muted);
             cursor: pointer;
             width: 100%;
-            font-size: 14px;
+            font-size: 13px;
             transition: var(--transition);
         }
 
@@ -1040,7 +1809,9 @@
             color: #ff6b6b;
         }
 
-        /* ===== AUTH MODAL ===== */
+        /* ============================================================
+        AUTH MODAL
+        ============================================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1053,7 +1824,7 @@
             z-index: 9999;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 20px;
             animation: fadeIn 0.3s ease-out;
         }
 
@@ -1065,8 +1836,8 @@
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 40px;
-            max-width: 420px;
+            padding: 32px;
+            max-width: 380px;
             width: 100%;
             position: relative;
             animation: fadeUp 0.4s ease-out;
@@ -1075,12 +1846,12 @@
 
         .modal-content .close-modal {
             position: absolute;
-            top: 16px;
-            right: 20px;
+            top: 12px;
+            right: 16px;
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
             transition: var(--transition);
             line-height: 1;
@@ -1091,35 +1862,35 @@
         }
 
         .modal-content .modal-icon {
-            font-size: 48px;
+            font-size: 40px;
             text-align: center;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .modal-content h2 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 800;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .modal-content .sub-text {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
         }
 
         .modal-content input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            font-size: 15px;
-            margin-bottom: 12px;
+            font-size: 14px;
+            margin-bottom: 10px;
             transition: var(--transition);
         }
 
@@ -1131,12 +1902,12 @@
         .modal-content .auth-btn {
             display: block;
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             color: var(--bg-primary);
             border: none;
             border-radius: 100px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
@@ -1149,9 +1920,9 @@
 
         .modal-content .auth-switch {
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 12px;
             text-align: center;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .modal-content .auth-switch a {
@@ -1166,29 +1937,29 @@
 
         .modal-content .error-msg {
             color: #ff6b6b;
-            font-size: 13px;
+            font-size: 12px;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             display: none;
         }
 
         .modal-content .success-msg {
             color: #2ecc71;
-            font-size: 13px;
+            font-size: 12px;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             display: none;
         }
 
         .modal-content input[type="password"] {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            font-size: 15px;
-            margin-bottom: 12px;
+            font-size: 14px;
+            margin-bottom: 10px;
             transition: var(--transition);
         }
 
@@ -1199,22 +1970,24 @@
 
         .password-hint {
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 11px;
             text-align: left;
-            margin-top: -8px;
-            margin-bottom: 12px;
+            margin-top: -6px;
+            margin-bottom: 10px;
         }
 
-        /* ===== EMPTY CART ===== */
+        /* ============================================================
+        EMPTY CART
+        ============================================================ */
         .empty-cart {
             text-align: center;
-            padding: 60px 0;
+            padding: 40px 0;
             color: var(--text-muted);
         }
 
         .empty-cart .icon {
-            font-size: 56px;
-            margin-bottom: 16px;
+            font-size: 48px;
+            margin-bottom: 12px;
             opacity: 0.4;
         }
 
@@ -1229,205 +2002,21 @@
             text-decoration: underline;
         }
 
-        /* ===== FOOTER ===== */
+        /* ============================================================
+        FOOTER
+        ============================================================ */
         .footer {
             border-top: 1px solid var(--border);
-            padding: 32px 0;
+            padding: 24px 0;
             text-align: center;
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13px;
             background: var(--bg-primary);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-            .hero-stats {
-                gap: 32px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 30px;
-            }
-            .hero p {
-                font-size: 16px;
-            }
-            .section-title {
-                font-size: 26px;
-            }
-            .course-title {
-                font-size: 16px;
-            }
-            .checkout h1 {
-                font-size: 28px;
-            }
-            .order-summary,
-            .payment-section {
-                padding: 20px;
-            }
-            .wallet-address {
-                font-size: 13px;
-            }
-            .header-inner {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-            .nav {
-                gap: 12px;
-            }
-            .cart-link {
-                padding: 6px 14px;
-                font-size: 13px;
-            }
-            .auth-link {
-                padding: 6px 14px;
-                font-size: 13px;
-            }
-            .hero-stats {
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-            .hero-stat .number {
-                font-size: 22px;
-            }
-            .logo svg {
-                height: 40px;
-            }
-            .admin-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .order-info .row {
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-            .modal-content {
-                padding: 28px 20px;
-            }
-            .modal-content h2 {
-                font-size: 20px;
-            }
-            .admin-tabs {
-                gap: 2px;
-            }
-            .admin-tabs button {
-                padding: 8px 14px;
-                font-size: 13px;
-            }
-            .admin-upload-section .upload-card {
-                padding: 20px;
-            }
-            .dashboard-wrapper {
-                flex-direction: column;
-            }
-            .dashboard-sidebar {
-                width: 100% !important;
-                min-height: auto !important;
-                border-right: none !important;
-                border-bottom: 1px solid var(--border);
-                flex-direction: row;
-                flex-wrap: wrap;
-                padding: 8px !important;
-                gap: 4px;
-            }
-            .dashboard-sidebar .menu-item {
-                padding: 8px 12px !important;
-                font-size: 13px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 40px 0 30px;
-            }
-            .hero h1 {
-                font-size: 24px;
-            }
-            .courses-grid {
-                gap: 14px;
-            }
-            .course-card {
-                padding: 18px;
-            }
-            .course-footer {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .add-to-cart {
-                width: 100%;
-                text-align: center;
-            }
-            .wallet-address {
-                font-size: 12px;
-            }
-            .order-summary ul li {
-                font-size: 14px;
-                flex-wrap: wrap;
-            }
-            .guarantee-box {
-                padding: 24px 18px;
-            }
-            .cart-actions {
-                flex-direction: column;
-            }
-            .cart-actions button {
-                width: 100%;
-                text-align: center;
-            }
-            .logo svg {
-                height: 34px;
-            }
-            .admin-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .unique-amount-box .amount {
-                font-size: 22px;
-            }
-            .payment-warning {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .modal-content {
-                padding: 24px 16px;
-            }
-            .admin-tabs button {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            .admin-upload-section .upload-card {
-                padding: 16px;
-            }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .notification-toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #2ecc71;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 14px;
-            z-index: 9999;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeUp 0.3s ease-out;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .notification-toast.error {
-            background: #ff6b6b;
-        }
-
-        /* Confirm Modal */
+        /* ============================================================
+        CONFIRM MODAL
+        ============================================================ */
         .confirm-modal {
             display: none;
             position: fixed;
@@ -1440,7 +2029,7 @@
             z-index: 10000;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 20px;
         }
 
         .confirm-modal.active {
@@ -1451,38 +2040,38 @@
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 40px;
-            max-width: 420px;
+            padding: 32px;
+            max-width: 380px;
             width: 100%;
             border-top: 3px solid #ff6b6b;
             text-align: center;
         }
 
         .confirm-modal .modal-box h3 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .confirm-modal .modal-box p {
             color: var(--text-secondary);
-            font-size: 15px;
-            margin-bottom: 24px;
+            font-size: 14px;
+            margin-bottom: 18px;
         }
 
         .confirm-modal .modal-box .btn-group {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
 
         .confirm-modal .modal-box .btn-group button {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border-radius: 100px;
             font-weight: 600;
             cursor: pointer;
             border: none;
-            font-size: 14px;
+            font-size: 13px;
             transition: var(--transition);
         }
 
@@ -1505,748 +2094,247 @@
             background: #ff4757;
         }
 
-        .confirm-modal .modal-box .btn-group .danger-btn {
-            background: #ff6b6b;
+        /* ============================================================
+        NOTIFICATION
+        ============================================================ */
+        .notification-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ecc71;
             color: #fff;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 13px;
+            z-index: 9999;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.3s ease-out;
+            font-family: 'Inter', sans-serif;
         }
 
-        .confirm-modal .modal-box .btn-group .danger-btn:hover {
-            background: #ff4757;
+        .notification-toast.error {
+            background: #ff6b6b;
         }
 
         /* ============================================================
-        USER DASHBOARD - SIDEBAR LAYOUT
+        RESPONSIVE - MOBILE
         ============================================================ */
-        .dashboard-wrapper {
-            display: none;
-            min-height: 70vh;
-            background: var(--bg-primary);
-            padding: 24px 0 60px;
-        }
-
-        .dashboard-wrapper.show {
-            display: flex;
-        }
-
-        .dashboard-sidebar {
-            width: 240px;
-            min-height: 100%;
-            border-right: 1px solid var(--border);
-            padding: 16px 8px;
-            flex-shrink: 0;
-        }
-
-        .dashboard-sidebar .sidebar-title {
-            color: var(--text-muted);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            padding: 8px 12px;
-            margin-bottom: 8px;
-        }
-
-        .dashboard-sidebar .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-        }
-
-        .dashboard-sidebar .menu-item:hover {
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        .dashboard-sidebar .menu-item.active {
-            background: rgba(212, 168, 83, 0.12);
-            color: var(--gold);
-        }
-
-        .dashboard-sidebar .menu-item .icon {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .dashboard-sidebar .menu-divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 8px 12px;
-        }
-
-        .dashboard-content-area {
-            flex: 1;
-            padding: 0 32px;
-            min-height: 400px;
-        }
-
-        .dashboard-content-area .page {
-            display: none;
-            animation: fadeUp 0.3s ease-out;
-        }
-
-        .dashboard-content-area .page.active {
-            display: block;
-        }
-
-        .dashboard-content-area .page h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .dashboard-content-area .page .sub {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        /* Dashboard Cards */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 20px;
-            text-align: center;
-        }
-
-        .stat-card .num {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--gold);
-        }
-
-        .stat-card .num.green {
-            color: #2ecc71;
-        }
-
-        .stat-card .num.orange {
-            color: #f39c12;
-        }
-
-        .stat-card .num.blue {
-            color: #3498db;
-        }
-
-        .stat-card .label {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-top: 4px;
-        }
-
-        .profile-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            max-width: 600px;
-        }
-
-        .profile-card .field {
-            margin-bottom: 16px;
-        }
-
-        .profile-card .field label {
-            display: block;
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-        .profile-card .field .value {
-            color: var(--text-primary);
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .profile-card .field .value.muted {
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .profile-card .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 20px 0;
-        }
-
-        .profile-card input[type="password"] {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .profile-card input[type="password"]:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .profile-card .btn-gold {
-            background: var(--gold);
-            color: var(--bg-primary);
-            border: none;
-            padding: 8px 24px;
-            border-radius: 100px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .profile-card .btn-gold:hover {
-            transform: scale(1.02);
-        }
-
-        .profile-card .btn-danger {
-            background: rgba(255, 107, 107, 0.12);
-            color: #ff6b6b;
-            border: 1px solid rgba(255, 107, 107, 0.2);
-            padding: 10px 24px;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .profile-card .btn-danger:hover {
-            background: rgba(255, 107, 107, 0.2);
-        }
-
-        /* Order Cards */
-        .order-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .order-card .info .course {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .order-card .info .details {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        .order-card .status-badge {
-            padding: 4px 14px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .order-card .status-badge.completed {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-        }
-
-        .order-card .status-badge.pending {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f39c12;
-        }
-
-        .order-card .status-badge.canceled {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-        }
-
-        .order-card .amount {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* Material Cards */
-        .material-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .material-card .info .title {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .material-card .info .desc {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        .material-card .download-btn {
-            background: var(--gold);
-            color: var(--bg-primary);
-            border: none;
-            padding: 6px 18px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .material-card .download-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-muted);
-        }
-
-        .empty-state .icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-            opacity: 0.4;
-        }
-
-        .empty-state a {
-            color: var(--gold);
-            text-decoration: none;
-        }
-
-        .empty-state a:hover {
-            text-decoration: underline;
-        }
-
-        /* ============================================================
-        ADMIN DASHBOARD - SIDEBAR LAYOUT
-        ============================================================ */
-        .admin-wrapper {
-            display: none;
-            min-height: 70vh;
-            background: var(--bg-primary);
-            padding: 24px 0 60px;
-        }
-
-        .admin-wrapper.show {
-            display: flex;
-        }
-
-        .admin-sidebar {
-            width: 240px;
-            min-height: 100%;
-            border-right: 1px solid var(--border);
-            padding: 16px 8px;
-            flex-shrink: 0;
-        }
-
-        .admin-sidebar .sidebar-title {
-            color: var(--text-muted);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            padding: 8px 12px;
-            margin-bottom: 8px;
-        }
-
-        .admin-sidebar .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 14px;
-            font-weight: 500;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-        }
-
-        .admin-sidebar .menu-item:hover {
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        .admin-sidebar .menu-item.active {
-            background: rgba(212, 168, 83, 0.12);
-            color: var(--gold);
-        }
-
-        .admin-sidebar .menu-item .icon {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
-
-        .admin-content-area {
-            flex: 1;
-            padding: 0 32px;
-            min-height: 400px;
-        }
-
-        .admin-content-area .page {
-            display: none;
-            animation: fadeUp 0.3s ease-out;
-        }
-
-        .admin-content-area .page.active {
-            display: block;
-        }
-
-        .admin-content-area .page h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .admin-content-area .page .sub {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .admin-table-wrap {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .admin-table-wrap .header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .admin-table-wrap .header h3 {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .admin-table-wrap .header button {
-            background: var(--gold);
-            color: #0a0a12;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 13px;
-            transition: var(--transition);
-        }
-
-        .admin-table-wrap .header button:hover {
-            transform: scale(1.05);
-        }
-
-        .admin-table-wrap .table-scroll {
-            overflow-x: auto;
-            padding: 0 20px 20px 20px;
-        }
-
-        .admin-table-wrap table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        .admin-table-wrap table th {
-            text-align: left;
-            padding: 12px 8px;
-            color: var(--text-muted);
-            font-weight: 600;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .admin-table-wrap table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .admin-table-wrap table td .action-btn {
-            background: rgba(212, 168, 83, 0.12);
-            color: var(--gold);
-            border: 1px solid rgba(212, 168, 83, 0.2);
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-right: 4px;
-        }
-
-        .admin-table-wrap table td .action-btn:hover {
-            background: rgba(212, 168, 83, 0.2);
-        }
-
-        .admin-table-wrap table td .action-btn.danger {
-            color: #ff6b6b;
-            border-color: rgba(255, 107, 107, 0.2);
-            background: rgba(255, 107, 107, 0.08);
-        }
-
-        .admin-table-wrap table td .action-btn.danger:hover {
-            background: rgba(255, 107, 107, 0.15);
-        }
-
-        .admin-table-wrap table td.user {
-            color: var(--text-primary);
-        }
-
-        .admin-table-wrap table td.amount {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .admin-table-wrap table td.badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .admin-table-wrap table td.badge.completed {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-        }
-
-        .admin-table-wrap table td.badge.pending {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f39c12;
-        }
-
-        .admin-table-wrap table td.badge.canceled {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-        }
-
-        /* Admin Upload */
-        .upload-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            max-width: 700px;
-        }
-
-        .upload-card .form-group {
-            margin-bottom: 16px;
-        }
-
-        .upload-card .form-group label {
-            display: block;
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-        .upload-card .form-group select,
-        .upload-card .form-group input {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            font-size: 14px;
-        }
-
-        .upload-card .form-group select:focus,
-        .upload-card .form-group input:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .upload-card .file-drop {
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .upload-card .file-drop:hover {
-            border-color: var(--gold);
-            background: rgba(212, 168, 83, 0.05);
-        }
-
-        .upload-card .file-drop .icon {
-            font-size: 32px;
-            opacity: 0.4;
-            margin-bottom: 6px;
-        }
-
-        .upload-card .file-drop p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .upload-card .file-list .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 12px;
-            background: var(--bg-primary);
-            border-radius: 6px;
-            margin-bottom: 4px;
-            border: 1px solid var(--border);
-        }
-
-        .upload-card .file-list .file-item .name {
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        .upload-card .file-list .file-item .remove {
-            color: #ff6b6b;
-            cursor: pointer;
-        }
-
-        .upload-card .upload-btn {
-            background: var(--gold);
-            color: var(--bg-primary);
-            border: none;
-            padding: 12px 32px;
-            border-radius: 100px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        .upload-card .upload-btn:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(212, 168, 83, 0.3);
-        }
-
-        .upload-card .upload-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .upload-card .upload-progress {
-            display: none;
-            margin-top: 12px;
-            background: var(--bg-primary);
-            border-radius: 100px;
-            height: 6px;
-            overflow: hidden;
-        }
-
-        .upload-card .upload-progress.show {
-            display: block;
-        }
-
-        .upload-card .upload-progress .bar {
-            height: 100%;
-            background: var(--gold);
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 100px;
-        }
-
-        .upload-card .uploaded-files {
-            margin-top: 20px;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-
-        .upload-card .uploaded-files h4 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .upload-card .uploaded-files .mat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 12px;
-            background: var(--bg-primary);
-            border-radius: 6px;
-            margin-bottom: 4px;
-            border: 1px solid var(--border);
-        }
-
-        .upload-card .uploaded-files .mat-item .info {
-            flex: 1;
-        }
-
-        .upload-card .uploaded-files .mat-item .info .title {
-            color: var(--text-primary);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .upload-card .uploaded-files .mat-item .info .desc {
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        .upload-card .uploaded-files .mat-item .del-btn {
-            color: #ff6b6b;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 4px 8px;
-            font-size: 16px;
-        }
-
-        .upload-card .uploaded-files .mat-item .del-btn:hover {
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 4px;
-        }
-
-        .upload-card .uploaded-files .mat-item .file-link {
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 13px;
-            margin-right: 12px;
-        }
-
-        .upload-card .uploaded-files .mat-item .file-link:hover {
-            text-decoration: underline;
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav {
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                padding: 8px 0;
+                gap: 6px;
+                border-top: 1px solid var(--border);
+                margin-top: 8px;
+            }
+
+            .nav.open {
+                display: flex;
+            }
+
+            .nav .user-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .header-inner {
+                flex-wrap: wrap;
+            }
+
+            .dashboard-wrapper {
+                flex-direction: column;
+            }
+
+            .dashboard-sidebar {
+                width: 100% !important;
+                min-height: auto !important;
+                border-right: none !important;
+                border-bottom: 1px solid var(--border);
+                padding: 8px !important;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+
+            .dashboard-sidebar .sidebar-title {
+                display: none;
+            }
+
+            .dashboard-sidebar .menu-item {
+                padding: 6px 10px !important;
+                font-size: 12px;
+                flex: 1 0 auto;
+                min-width: 80px;
+                justify-content: center;
+            }
+
+            .dashboard-content-area {
+                padding: 16px !important;
+            }
+
+            .admin-wrapper {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100% !important;
+                min-height: auto !important;
+                border-right: none !important;
+                border-bottom: 1px solid var(--border);
+                padding: 8px !important;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+            }
+
+            .admin-sidebar .sidebar-title {
+                display: none;
+            }
+
+            .admin-sidebar .menu-item {
+                padding: 6px 10px !important;
+                font-size: 12px;
+                flex: 1 0 auto;
+                min-width: 80px;
+                justify-content: center;
+            }
+
+            .admin-content-area {
+                padding: 16px !important;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero-stats {
+                gap: 16px;
+            }
+            .hero-stat .number {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .checkout-inner {
+                padding: 0 8px;
+            }
+            .order-summary,
+            .payment-section {
+                padding: 16px;
+            }
+
+            .upload-card {
+                padding: 16px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .profile-card {
+                padding: 16px;
+            }
+
+            .courses-grid {
+                gap: 12px;
+            }
+            .course-card {
+                padding: 14px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 22px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .hero-stats {
+                gap: 10px;
+                padding: 12px 0;
+            }
+            .hero-stat .number {
+                font-size: 18px;
+            }
+            .hero-stat .label {
+                font-size: 11px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .courses-grid {
+                gap: 10px;
+            }
+            .course-card {
+                padding: 12px 14px;
+            }
+            .course-title {
+                font-size: 14px;
+            }
+
+            .checkout h1 {
+                font-size: 22px;
+            }
+            .order-summary,
+            .payment-section {
+                padding: 12px;
+            }
+
+            .upload-card {
+                padding: 12px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 12px;
+            }
+            .stat-card .num {
+                font-size: 20px;
+            }
+
+            .modal-content {
+                padding: 24px 16px;
+            }
+
+            .dashboard-sidebar .menu-item {
+                padding: 4px 8px !important;
+                font-size: 11px;
+                min-width: 60px;
+            }
+
+            .admin-sidebar .menu-item {
+                padding: 4px 8px !important;
+                font-size: 11px;
+                min-width: 60px;
+            }
+
+            .dashboard-content-area {
+                padding: 12px !important;
+            }
+            .admin-content-area {
+                padding: 12px !important;
+            }
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -2256,21 +2344,33 @@
     <header class="header" id="header">
         <div class="container header-inner">
             <a href="#" class="logo" id="logoLink">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
-                    <circle cx="30" cy="30" r="25" fill="#d4a853" opacity="0.1"/>
-                    <circle cx="30" cy="30" r="20" fill="none" stroke="#d4a853" stroke-width="2"/>
-                    <path d="M30 10 L30 50 M10 30 L50 30 M18 18 L42 42 M42 18 L18 42" stroke="#d4a853" stroke-width="1.5"/>
-                    <circle cx="30" cy="30" r="4" fill="#d4a853"/>
-                    <text x="60" y="35" font-family="'Inter', Arial, sans-serif" font-weight="800" font-size="22" fill="#f0eef8">Freelance</text>
-                    <text x="60" y="52" font-family="'Inter', Arial, sans-serif" font-weight="800" font-size="22" fill="#d4a853">Pilot</text>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="160" height="40">
+                    <circle cx="25" cy="30" r="20" fill="#d4a853" opacity="0.1"/>
+                    <circle cx="25" cy="30" r="16" fill="none" stroke="#d4a853" stroke-width="2"/>
+                    <path d="M25 12 L25 48 M9 30 L41 30 M15 18 L35 42 M35 18 L15 42" stroke="#d4a853" stroke-width="1.5"/>
+                    <circle cx="25" cy="30" r="3" fill="#d4a853"/>
+                    <text x="50" y="32" font-family="'Inter', Arial, sans-serif" font-weight="800" font-size="18" fill="#f0eef8">Freelance</text>
+                    <text x="50" y="48" font-family="'Inter', Arial, sans-serif" font-weight="800" font-size="18" fill="#d4a853">Pilot</text>
                 </svg>
             </a>
-            <nav class="nav">
-                <a href="#" id="navCourses">Courses</a>
+
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav" id="navMenu">
+                <a href="#" class="nav-courses" id="navCourses">Courses</a>
                 <a href="#" class="cart-link" id="headerCartLink">
                     🛒 Cart <span class="cart-count" id="cartCount">0</span>
                 </a>
                 <a href="#" class="auth-link" id="authLink">🔑 Login</a>
+                <div class="user-info" id="userInfo" style="display:none;">
+                    <span>👤 <span id="headerUserEmail">user@email.com</span></span>
+                    <button class="logout-link" onclick="logoutUser()">Logout</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -2315,7 +2415,7 @@
         </section>
 
         <!-- ============================================================
-        ADMIN DASHBOARD - SIDEBAR LAYOUT
+        ADMIN DASHBOARD
         ============================================================ -->
         <div class="admin-wrapper" id="adminWrapper">
             <div class="admin-sidebar">
@@ -2327,103 +2427,55 @@
                     <span class="icon">👥</span> Users
                 </button>
                 <button class="menu-item" data-admin-page="upload">
-                    <span class="icon">📤</span> Upload Materials
-                </button>
-                <hr class="menu-divider" />
-                <button class="menu-item" onclick="logoutUser()">
-                    <span class="icon">🚪</span> Logout
+                    <span class="icon">📤</span> Upload
                 </button>
             </div>
             <div class="admin-content-area">
-                <!-- Admin Dashboard Page -->
+                <!-- Admin Dashboard -->
                 <div class="page active" id="adminPageDashboard">
                     <h2>📊 Dashboard</h2>
                     <p class="sub">Overview of users and orders</p>
                     <div class="stat-grid">
-                        <div class="stat-card">
-                            <div class="num" id="adminTotalOrders">0</div>
-                            <div class="label">Total Orders</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="num green" id="adminCompletedOrders">0</div>
-                            <div class="label">Completed</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="num orange" id="adminPendingOrders">0</div>
-                            <div class="label">Pending</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="num red" id="adminCanceledOrders">0</div>
-                            <div class="label">Canceled</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="num blue" id="adminTotalUsers">0</div>
-                            <div class="label">Total Users</div>
-                        </div>
+                        <div class="stat-card"><div class="num" id="adminTotalOrders">0</div><div class="label">Total Orders</div></div>
+                        <div class="stat-card"><div class="num green" id="adminCompletedOrders">0</div><div class="label">Completed</div></div>
+                        <div class="stat-card"><div class="num orange" id="adminPendingOrders">0</div><div class="label">Pending</div></div>
+                        <div class="stat-card"><div class="num red" id="adminCanceledOrders">0</div><div class="label">Canceled</div></div>
+                        <div class="stat-card"><div class="num blue" id="adminTotalUsers">0</div><div class="label">Total Users</div></div>
                     </div>
                     <div class="admin-table-wrap">
-                        <div class="header">
-                            <h3>📋 Recent Orders</h3>
-                            <button onclick="refreshAdminPanel()">🔄 Refresh</button>
-                        </div>
+                        <div class="header"><h3>📋 Recent Orders</h3><button onclick="refreshAdminPanel()">🔄 Refresh</button></div>
                         <div class="table-scroll">
                             <table>
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>User</th>
-                                        <th>Amount</th>
-                                        <th>Courses</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminOrdersTable">
-                                    <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted);">No orders yet</td></tr>
-                                </tbody>
+                                <thead><tr><th>Order ID</th><th>User</th><th>Amount</th><th>Courses</th><th>Status</th><th>Date</th></tr></thead>
+                                <tbody id="adminOrdersTable"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted);">No orders yet</td></tr></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Admin Users Page -->
+                <!-- Admin Users -->
                 <div class="page" id="adminPageUsers">
                     <h2>👥 Users</h2>
                     <p class="sub">Manage all registered users</p>
                     <div class="admin-table-wrap">
-                        <div class="header">
-                            <h3>All Users</h3>
-                            <button onclick="refreshAdminPanel()">🔄 Refresh</button>
-                        </div>
+                        <div class="header"><h3>All Users</h3><button onclick="refreshAdminPanel()">🔄 Refresh</button></div>
                         <div class="table-scroll">
                             <table>
-                                <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Orders</th>
-                                        <th>Total Spent</th>
-                                        <th>Joined</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminUsersTable">
-                                    <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted);">No users yet</td></tr>
-                                </tbody>
+                                <thead><tr><th>Email</th><th>Orders</th><th>Total Spent</th><th>Joined</th><th>Actions</th></tr></thead>
+                                <tbody id="adminUsersTable"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-muted);">No users yet</td></tr></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Admin Upload Page -->
+                <!-- Admin Upload -->
                 <div class="page" id="adminPageUpload">
                     <h2>📤 Upload Materials</h2>
                     <p class="sub">Upload course materials to specific users</p>
                     <div class="upload-card">
                         <div class="form-group">
                             <label>Select User</label>
-                            <select id="uploadUserSelect">
-                                <option value="">— Select a user —</option>
-                            </select>
+                            <select id="uploadUserSelect"><option value="">— Select a user —</option></select>
                         </div>
                         <div class="form-group">
                             <label>Select Course</label>
@@ -2447,14 +2499,10 @@
                         </div>
                         <div class="file-list" id="fileList"></div>
                         <button class="upload-btn" id="uploadFilesBtn" disabled>📤 Upload to User</button>
-                        <div class="upload-progress" id="uploadProgress">
-                            <div class="bar" id="progressBar"></div>
-                        </div>
+                        <div class="upload-progress" id="uploadProgress"><div class="bar" id="progressBar"></div></div>
                         <div class="uploaded-files" id="uploadedFiles">
                             <h4>📄 Previously Uploaded</h4>
-                            <div id="uploadedFilesList">
-                                <p style="color:var(--text-muted);font-size:13px;">Select a user to see their materials</p>
-                            </div>
+                            <div id="uploadedFilesList"><p style="color:var(--text-muted);font-size:13px;">Select a user to see their materials</p></div>
                         </div>
                     </div>
                 </div>
@@ -2462,99 +2510,70 @@
         </div>
 
         <!-- ============================================================
-        USER DASHBOARD - SIDEBAR LAYOUT
+        USER DASHBOARD
         ============================================================ -->
         <div class="dashboard-wrapper" id="userDashboard">
             <div class="dashboard-sidebar">
                 <div class="sidebar-title">Menu</div>
-                <button class="menu-item active" data-page="profile">
-                    <span class="icon">👤</span> Dashboard
-                </button>
-                <button class="menu-item" data-page="orders">
-                    <span class="icon">📦</span> Orders
-                </button>
-                <button class="menu-item" data-page="courses">
-                    <span class="icon">📚</span> My Courses
-                </button>
+                <button class="menu-item active" data-page="profile"><span class="icon">👤</span> Dashboard</button>
+                <button class="menu-item" data-page="orders"><span class="icon">📦</span> Orders</button>
+                <button class="menu-item" data-page="courses"><span class="icon">📚</span> My Courses</button>
+                <button class="menu-item" data-page="cart"><span class="icon">🛒</span> Cart <span class="cart-count" id="sidebarCartCount" style="background:var(--gold);color:var(--bg-primary);border-radius:50%;padding:0 6px;font-size:11px;font-weight:700;min-width:20px;text-align:center;line-height:20px;margin-left:auto;">0</span></button>
                 <hr class="menu-divider" />
-                <button class="menu-item" data-page="settings">
-                    <span class="icon">⚙️</span> Settings
-                </button>
-                <button class="menu-item" onclick="logoutUser()">
-                    <span class="icon">🚪</span> Logout
-                </button>
+                <button class="menu-item" data-page="settings"><span class="icon">⚙️</span> Settings</button>
             </div>
             <div class="dashboard-content-area">
-                <!-- Profile Page -->
+                <!-- Profile -->
                 <div class="page active" id="pageProfile">
                     <h2>👤 Dashboard</h2>
                     <p class="sub" id="dashboardUserEmail">user@example.com</p>
                     <div class="stat-grid">
-                        <div class="stat-card">
-                            <div class="num" id="profileTotalOrders">0</div>
-                            <div class="label">Total Orders</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="num green" id="profileCourses">0</div>
-                            <div class="label">Courses Enrolled</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="num gold" id="profileTotalSpent">$0.00</div>
-                            <div class="label">Total Spent</div>
-                        </div>
+                        <div class="stat-card"><div class="num" id="profileTotalOrders">0</div><div class="label">Total Orders</div></div>
+                        <div class="stat-card"><div class="num green" id="profileCourses">0</div><div class="label">Courses Enrolled</div></div>
+                        <div class="stat-card"><div class="num gold" id="profileTotalSpent">$0.00</div><div class="label">Total Spent</div></div>
                     </div>
                     <div class="profile-card">
-                        <h3 style="font-size:18px;margin-bottom:16px;">Profile Information</h3>
-                        <div class="field">
-                            <label>Email</label>
-                            <div class="value" id="profileEmail">-</div>
-                        </div>
-                        <div class="field">
-                            <label>Joined</label>
-                            <div class="value muted" id="profileJoined">-</div>
-                        </div>
+                        <h3 style="font-size:16px;margin-bottom:12px;">Profile Information</h3>
+                        <div class="field"><label>Email</label><div class="value" id="profileEmail">-</div></div>
+                        <div class="field"><label>Joined</label><div class="value muted" id="profileJoined">-</div></div>
                         <hr class="divider" />
                         <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
                     </div>
                 </div>
 
-                <!-- Orders Page -->
+                <!-- Orders -->
                 <div class="page" id="pageOrders">
                     <h2>📦 Order History</h2>
                     <p class="sub">View all your past orders</p>
-                    <div id="ordersList">
-                        <div class="empty-state">
-                            <div class="icon">📭</div>
-                            <p>No orders yet. Start learning today!</p>
-                        </div>
-                    </div>
+                    <div id="ordersList"><div class="empty-state"><div class="icon">📭</div><p>No orders yet. Start learning today!</p></div></div>
                 </div>
 
-                <!-- My Courses Page -->
+                <!-- My Courses -->
                 <div class="page" id="pageCourses">
                     <h2>📚 My Courses & Materials</h2>
                     <p class="sub">Access all your course materials</p>
-                    <div id="coursesList">
-                        <div class="empty-state">
-                            <div class="icon">📚</div>
-                            <p>You haven't enrolled in any courses yet.</p>
-                            <p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p>
-                        </div>
-                    </div>
+                    <div id="coursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
                 </div>
 
-                <!-- Settings Page -->
+                <!-- Cart -->
+                <div class="page" id="pageCart">
+                    <h2>🛒 Your Cart</h2>
+                    <p class="sub">Review items in your cart</p>
+                    <div id="cartList"><div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p></div></div>
+                </div>
+
+                <!-- Settings -->
                 <div class="page" id="pageSettings">
                     <h2>⚙️ Settings</h2>
                     <p class="sub">Manage your account settings</p>
                     <div class="profile-card">
-                        <h3 style="font-size:18px;margin-bottom:16px;">Change Password</h3>
+                        <h3 style="font-size:16px;margin-bottom:12px;">Change Password</h3>
                         <input type="password" id="newPassword" placeholder="New password (min 6 characters)" />
                         <input type="password" id="confirmPassword" placeholder="Confirm new password" />
                         <button class="btn-gold" onclick="changePassword()">Update Password</button>
                         <hr class="divider" />
-                        <h3 style="font-size:18px;margin-bottom:8px;">Danger Zone</h3>
-                        <p style="color:var(--text-muted);font-size:14px;margin-bottom:12px;">Once you delete your account, there is no going back.</p>
+                        <h3 style="font-size:16px;margin-bottom:6px;">Danger Zone</h3>
+                        <p style="color:var(--text-muted);font-size:13px;margin-bottom:10px;">Once you delete your account, there is no going back.</p>
                         <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
                     </div>
                 </div>
@@ -2566,12 +2585,8 @@
         ============================================================ -->
         <section class="courses" id="coursesSection">
             <div class="container">
-                <h2 class="section-title text-center">
-                    Choose Your <span class="gold">Course</span>
-                </h2>
-                <p class="section-subtitle text-center">
-                    Each course is $30 USDT. Add one or multiple to your cart.
-                </p>
+                <h2 class="section-title text-center">Choose Your <span class="gold">Course</span></h2>
+                <p class="section-subtitle text-center">Each course is $30 USDT. Add one or multiple to your cart.</p>
 
                 <div class="courses-grid" id="coursesGrid">
                     <!-- Course 1 -->
@@ -2583,16 +2598,9 @@
                         </div>
                         <div class="course-details">
                             <p class="course-description">Learn proven strategies to generate high-quality traffic, optimize conversions, and build a sustainable arbitrage business.</p>
-                            <ul class="course-benefits">
-                                <li>Identify profitable traffic sources others overlook</li>
-                                <li>Optimize conversion funnels for maximum ROI</li>
-                                <li>Scale from $100/day to $10,000/day systematically</li>
-                            </ul>
+                            <ul class="course-benefits"><li>Identify profitable traffic sources others overlook</li><li>Optimize conversion funnels for maximum ROI</li><li>Scale from $100/day to $10,000/day systematically</li></ul>
                             <p class="course-why">Why this matters: Traffic is the lifeblood of any online business. Master it, and you control the game.</p>
-                            <div class="course-footer">
-                                <span class="course-price">$30 <small>USDT</small></span>
-                                <button class="add-to-cart">Add to Cart</button>
-                            </div>
+                            <div class="course-footer"><span class="course-price">$30 <small>USDT</small></span><button class="add-to-cart">Add to Cart</button></div>
                         </div>
                     </div>
 
@@ -2605,16 +2613,9 @@
                         </div>
                         <div class="course-details">
                             <p class="course-description">Full-stack web development from scratch — frontend, backend, databases, and deployment.</p>
-                            <ul class="course-benefits">
-                                <li>Build responsive, modern websites from zero</li>
-                                <li>Master backend logic and database design</li>
-                                <li>Deploy and scale your applications confidently</li>
-                            </ul>
+                            <ul class="course-benefits"><li>Build responsive, modern websites from zero</li><li>Master backend logic and database design</li><li>Deploy and scale your applications confidently</li></ul>
                             <p class="course-why">Why this matters: Every business needs a website. Be the person who can build one — and charge premium rates.</p>
-                            <div class="course-footer">
-                                <span class="course-price">$30 <small>USDT</small></span>
-                                <button class="add-to-cart">Add to Cart</button>
-                            </div>
+                            <div class="course-footer"><span class="course-price">$30 <small>USDT</small></span><button class="add-to-cart">Add to Cart</button></div>
                         </div>
                     </div>
 
@@ -2627,16 +2628,9 @@
                         </div>
                         <div class="course-details">
                             <p class="course-description">Robotic Process Automation — automate repetitive tasks, save hours daily, and scale your output.</p>
-                            <ul class="course-benefits">
-                                <li>Automate repetitive tasks and save 10+ hours weekly</li>
-                                <li>Build bots that handle data entry, reports, and more</li>
-                                <li>Scale your freelancing output without hiring</li>
-                            </ul>
+                            <ul class="course-benefits"><li>Automate repetitive tasks and save 10+ hours weekly</li><li>Build bots that handle data entry, reports, and more</li><li>Scale your freelancing output without hiring</li></ul>
                             <p class="course-why">Why this matters: Time is your most valuable asset. Automation lets you sell it multiple times over.</p>
-                            <div class="course-footer">
-                                <span class="course-price">$30 <small>USDT</small></span>
-                                <button class="add-to-cart">Add to Cart</button>
-                            </div>
+                            <div class="course-footer"><span class="course-price">$30 <small>USDT</small></span><button class="add-to-cart">Add to Cart</button></div>
                         </div>
                     </div>
 
@@ -2649,16 +2643,9 @@
                         </div>
                         <div class="course-details">
                             <p class="course-description">From idea to app store — build real software and mobile apps without a computer science degree.</p>
-                            <ul class="course-benefits">
-                                <li>Build real software without a CS degree</li>
-                                <li>Launch apps on iOS and Android stores</li>
-                                <li>Monetize your apps and build passive income</li>
-                            </ul>
+                            <ul class="course-benefits"><li>Build real software without a CS degree</li><li>Launch apps on iOS and Android stores</li><li>Monetize your apps and build passive income</li></ul>
                             <p class="course-why">Why this matters: Software runs the world. Learn to build it, and you become indispensable.</p>
-                            <div class="course-footer">
-                                <span class="course-price">$30 <small>USDT</small></span>
-                                <button class="add-to-cart">Add to Cart</button>
-                            </div>
+                            <div class="course-footer"><span class="course-price">$30 <small>USDT</small></span><button class="add-to-cart">Add to Cart</button></div>
                         </div>
                     </div>
 
@@ -2671,16 +2658,9 @@
                         </div>
                         <div class="course-details">
                             <p class="course-description">Use AI tools to write proposals, create content, analyze markets, and dominate your freelancing niche.</p>
-                            <ul class="course-benefits">
-                                <li>Write winning proposals in minutes using AI</li>
-                                <li>Analyze markets and find high-paying opportunities</li>
-                                <li>Automate outreach and client communication</li>
-                            </ul>
+                            <ul class="course-benefits"><li>Write winning proposals in minutes using AI</li><li>Analyze markets and find high-paying opportunities</li><li>Automate outreach and client communication</li></ul>
                             <p class="course-why">Why this matters: AI is not replacing freelancers — it's replacing freelancers who don't use AI.</p>
-                            <div class="course-footer">
-                                <span class="course-price">$30 <small>USDT</small></span>
-                                <button class="add-to-cart">Add to Cart</button>
-                            </div>
+                            <div class="course-footer"><span class="course-price">$30 <small>USDT</small></span><button class="add-to-cart">Add to Cart</button></div>
                         </div>
                     </div>
                 </div>
@@ -2709,34 +2689,10 @@
                 <p class="section-subtitle text-center">Everything you need to know before you enroll.</p>
 
                 <div class="faq-grid">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>How do I access the course after payment?</span>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">After your payment is verified on the TON blockchain, you will receive an email with full course access details within 24 hours.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>What if I've never done freelancing before?</span>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">These courses are designed for beginners and intermediate learners. Each course includes step-by-step guidance and real-world examples to get you started immediately.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>Can I take multiple courses at once?</span>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">Yes. You can add as many courses as you want to your cart and pay for them all in one transaction. Each course is self-paced, so you can learn at your own speed.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>Is my payment secure?</span>
-                            <span class="icon">+</span>
-                        </div>
-                        <div class="faq-answer">Yes. All payments are processed directly on the TON blockchain using USDT. We do not store or handle your funds — they go directly to our wallet. The blockchain verifies every transaction.</div>
-                    </div>
+                    <div class="faq-item"><div class="faq-question"><span>How do I access the course after payment?</span><span class="icon">+</span></div><div class="faq-answer">After your payment is verified on the TON blockchain, you will receive an email with full course access details within 24 hours.</div></div>
+                    <div class="faq-item"><div class="faq-question"><span>What if I've never done freelancing before?</span><span class="icon">+</span></div><div class="faq-answer">These courses are designed for beginners and intermediate learners. Each course includes step-by-step guidance and real-world examples to get you started immediately.</div></div>
+                    <div class="faq-item"><div class="faq-question"><span>Can I take multiple courses at once?</span><span class="icon">+</span></div><div class="faq-answer">Yes. You can add as many courses as you want to your cart and pay for them all in one transaction. Each course is self-paced, so you can learn at your own speed.</div></div>
+                    <div class="faq-item"><div class="faq-question"><span>Is my payment secure?</span><span class="icon">+</span></div><div class="faq-answer">Yes. All payments are processed directly on the TON blockchain using USDT. We do not store or handle your funds — they go directly to our wallet. The blockchain verifies every transaction.</div></div>
                 </div>
             </div>
         </section>
@@ -2753,13 +2709,8 @@
                 <div class="order-summary" id="orderSummary">
                     <h2>Order Summary</h2>
                     <ul id="cartItems"></ul>
-                    <div class="order-total">
-                        <span>Total:</span>
-                        <span id="totalAmount">$0 USDT</span>
-                    </div>
-                    <div class="order-actions">
-                        <button class="btn-clear-cart" id="clearCartBtn">🗑️ Clear Cart</button>
-                    </div>
+                    <div class="order-total"><span>Total:</span><span id="totalAmount">$0 USDT</span></div>
+                    <div class="order-actions"><button class="btn-clear-cart" id="clearCartBtn">🗑️ Clear Cart</button></div>
                 </div>
 
                 <div class="payment-section" id="paymentSection">
@@ -2770,14 +2721,7 @@
                         <span class="icon">⚠️</span>
                         <div class="content">
                             <strong>IMPORTANT: Send Payment ONLY on TON Network</strong>
-                            <p>
-                                This wallet accepts <strong>USDT on the TON network</strong> only.
-                                Sending to any other network (Ethereum, BSC, Solana, etc.) will result in
-                                <span class="highlight-red">permanent loss of funds</span>.
-                                <br /><br />
-                                We are <strong>NOT liable</strong> for funds sent to the wrong network.
-                                Double-check the address and network before confirming.
-                            </p>
+                            <p>This wallet accepts <strong>USDT on the TON network</strong> only. Sending to any other network will result in <span class="highlight-red">permanent loss of funds</span>.<br /><br />We are <strong>NOT liable</strong> for funds sent to the wrong network.</p>
                         </div>
                     </div>
 
@@ -2789,30 +2733,17 @@
 
                     <div class="wallet-box">
                         <span class="wallet-label">Wallet Address</span>
-                        <div class="wallet-address" id="walletAddress">
-                            UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE
-                        </div>
+                        <div class="wallet-address" id="walletAddress">UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE</div>
                         <div class="network-badge">⚡ Network: TON (USDT)</div>
                         <button class="copy-btn" id="copyBtn">Copy Address</button>
                     </div>
 
-                    <div class="qr-container">
-                        <div id="qrcode"></div>
-                    </div>
+                    <div class="qr-container"><div id="qrcode"></div></div>
 
                     <div class="order-info">
-                        <div class="row">
-                            <span class="label">Order ID:</span>
-                            <span class="value gold" id="orderIdDisplay">-</span>
-                        </div>
-                        <div class="row">
-                            <span class="label">Courses:</span>
-                            <span class="value" id="orderCoursesDisplay">-</span>
-                        </div>
-                        <div class="row">
-                            <span class="label">Account:</span>
-                            <span class="value" id="orderAccountDisplay">-</span>
-                        </div>
+                        <div class="row"><span class="label">Order ID:</span><span class="value gold" id="orderIdDisplay">-</span></div>
+                        <div class="row"><span class="label">Courses:</span><span class="value" id="orderCoursesDisplay">-</span></div>
+                        <div class="row"><span class="label">Account:</span><span class="value" id="orderAccountDisplay">-</span></div>
                     </div>
 
                     <div class="payment-status" id="paymentStatus">
@@ -2861,14 +2792,12 @@
             <input type="password" id="authPassword" placeholder="Enter your password" />
             <div class="password-hint">Password must be at least 6 characters</div>
             <button class="auth-btn" id="authActionBtn">Login</button>
-            <p class="auth-switch" id="authSwitch">
-                Don't have an account? <a href="#" id="authSwitchLink">Register</a>
-            </p>
+            <p class="auth-switch" id="authSwitch">Don't have an account? <a href="#" id="authSwitchLink">Register</a></p>
         </div>
     </div>
 
     <!-- ============================================================
-    DELETE CONFIRM MODAL
+    CONFIRM MODAL
     ============================================================ -->
     <div class="confirm-modal" id="confirmModal">
         <div class="modal-box">
@@ -2893,7 +2822,7 @@
             const SUPABASE_URL = 'https://fvtcavphqqbsjcyobely.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2dGNhdnBocXFic2pjeW9iZWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTIxMDIsImV4cCI6MjEwMDU2ODEwMn0.sk_0XjON3NIhCyi4_oZAsKQIQJwr9rqwQVmB6Hncdxk';
 
-            // ===== COURSES LIST (for dropdown) =====
+            // ===== COURSES LIST =====
             const COURSES_LIST = [
                 'Master Traffic Arbitrage and Scale Your Portfolio',
                 'Build Any Kind of Website from Frontend to Backend',
@@ -2904,6 +2833,7 @@
 
             // ===== DOM REFS =====
             const cartCountEl = document.getElementById('cartCount');
+            const sidebarCartCountEl = document.getElementById('sidebarCartCount');
             const coursesGrid = document.getElementById('coursesGrid');
             const checkoutSection = document.getElementById('checkoutSection');
             const emptyCart = document.getElementById('emptyCart');
@@ -2921,8 +2851,12 @@
             const clearCartBtn = document.getElementById('clearCartBtn');
             const cancelOrderBtn = document.getElementById('cancelOrderBtn');
             const authLink = document.getElementById('authLink');
+            const userInfo = document.getElementById('userInfo');
+            const headerUserEmail = document.getElementById('headerUserEmail');
             const userDashboard = document.getElementById('userDashboard');
             const adminWrapper = document.getElementById('adminWrapper');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
 
             // Upload elements
             const uploadUserSelect = document.getElementById('uploadUserSelect');
@@ -3007,6 +2941,49 @@
                     console.error('Fetch error:', error);
                     throw error;
                 }
+            }
+
+            // ===== SUPABASE STORAGE =====
+            async function uploadToStorage(file, path) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${path}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    console.error('Storage upload error:', error);
+                    throw new Error(error);
+                }
+
+                const data = await response.json();
+                return data.Key || data.path;
+            }
+
+            async function deleteFromStorage(path) {
+                const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${path}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    }
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    console.error('Storage delete error:', error);
+                    return false;
+                }
+                return true;
+            }
+
+            function getPublicUrl(path) {
+                return `${SUPABASE_URL}/storage/v1/object/public/${path}`;
             }
 
             // ===== SUPABASE FUNCTIONS =====
@@ -3108,6 +3085,15 @@
 
             async function deleteUser(email) {
                 try {
+                    // First delete user's materials from storage
+                    const user = await getCurrentUser();
+                    if (user && user.materials) {
+                        for (const mat of user.materials) {
+                            if (mat.storagePath) {
+                                await deleteFromStorage(mat.storagePath);
+                            }
+                        }
+                    }
                     return await supabaseFetch(`users?email=eq.${email}`, {
                         method: 'DELETE'
                     });
@@ -3135,6 +3121,10 @@
                 const users = await getUsers();
                 if (!users[email]) return false;
                 if (!users[email].materials) return false;
+                const material = users[email].materials.find(m => m.id === materialId);
+                if (material && material.storagePath) {
+                    await deleteFromStorage(material.storagePath);
+                }
                 users[email].materials = users[email].materials.filter(m => m.id !== materialId);
                 await saveUsers(users);
                 return true;
@@ -3270,6 +3260,7 @@
                 const cart = await getCart();
                 const count = cart.length;
                 cartCountEl.textContent = count;
+                if (sidebarCartCountEl) sidebarCartCountEl.textContent = count;
 
                 if (count === 0 && !isCheckingout) {
                     checkoutSection.classList.remove('show');
@@ -3295,18 +3286,30 @@
             async function updateAuthUI() {
                 const user = await getCurrentUser();
                 if (user) {
-                    authLink.innerHTML = `
-                                👤 ${user.email}
-                                <span class="logout-btn" onclick="logoutUser()">(logout)</span>
-                            `;
+                    authLink.style.display = 'none';
+                    userInfo.style.display = 'flex';
+                    headerUserEmail.textContent = user.email;
                     authLink.className = 'auth-link logged-in';
-                    authLink.href = '#';
                 } else {
-                    authLink.innerHTML = '🔑 Login';
+                    authLink.style.display = 'flex';
+                    userInfo.style.display = 'none';
                     authLink.className = 'auth-link';
-                    authLink.href = '#';
                 }
             }
+
+            // ===== HAMBURGER MENU =====
+            hamburgerBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('open');
+            });
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.nav a, .nav .user-info button').forEach(el => {
+                el.addEventListener('click', function() {
+                    hamburgerBtn.classList.remove('active');
+                    navMenu.classList.remove('open');
+                });
+            });
 
             // ===== DASHBOARD FUNCTIONS =====
 
@@ -3381,12 +3384,8 @@
                 const ordersList = document.getElementById('ordersList');
                 const orders = user.orders || [];
                 if (orders.length === 0) {
-                    ordersList.innerHTML = `
-                                <div class="empty-state">
-                                    <div class="icon">📭</div>
-                                    <p>No orders yet. Start learning today!</p>
-                                </div>
-                            `;
+                    ordersList.innerHTML =
+                        '<div class="empty-state"><div class="icon">📭</div><p>No orders yet. Start learning today!</p></div>';
                 } else {
                     ordersList.innerHTML = orders.map(order => `
                                 <div class="order-card">
@@ -3406,26 +3405,21 @@
                 const materials = user.materials || [];
 
                 if (completedOrders.length === 0 && materials.length === 0) {
-                    coursesList.innerHTML = `
-                                <div class="empty-state">
-                                    <div class="icon">📚</div>
-                                    <p>You haven't enrolled in any courses yet.</p>
-                                    <p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p>
-                                </div>
-                            `;
+                    coursesList.innerHTML =
+                        '<div class="empty-state"><div class="icon">📚</div><p>You haven\'t enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div>';
                 } else {
                     let html = '';
 
                     completedOrders.forEach(order => {
                         const courseMaterials = materials.filter(m => m.course === order.course);
                         html += `
-                                    <div style="margin-bottom:16px;">
-                                        <div style="background:var(--bg-card-hover);border:1px solid rgba(212,168,83,0.2);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                                    <div style="margin-bottom:14px;">
+                                        <div style="background:var(--bg-card-hover);border:1px solid rgba(212,168,83,0.2);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
                                             <div>
-                                                <div style="font-weight:600;color:var(--text-primary);">📘 ${order.course || 'Course'}</div>
-                                                <div style="color:var(--text-muted);font-size:13px;">Enrolled on ${new Date(order.created).toLocaleDateString()}</div>
+                                                <div style="font-weight:600;color:var(--text-primary);font-size:14px;">📘 ${order.course || 'Course'}</div>
+                                                <div style="color:var(--text-muted);font-size:12px;">Enrolled on ${new Date(order.created).toLocaleDateString()}</div>
                                             </div>
-                                            <span style="color:var(--gold);font-size:13px;font-weight:600;">${courseMaterials.length} materials</span>
+                                            <span style="color:var(--gold);font-size:12px;font-weight:600;">${courseMaterials.length} materials</span>
                                         </div>
                                         ${courseMaterials.map(mat => `
                                             <div class="material-card">
@@ -3433,7 +3427,7 @@
                                                     <div class="title">📄 ${mat.title || 'Material'}</div>
                                                     <div class="desc">Uploaded: ${new Date(mat.uploaded).toLocaleDateString()}</div>
                                                 </div>
-                                                <button class="download-btn" onclick="downloadMaterial('${mat.id}', '${mat.title || 'material'}', '${mat.fileData || ''}')">📥 Download</button>
+                                                <button class="download-btn" onclick="downloadMaterial('${mat.storagePath || ''}', '${mat.title || 'material'}')">📥 Download</button>
                                             </div>
                                         `).join('')}
                                     </div>
@@ -3446,14 +3440,14 @@
 
                     if (standaloneMaterials.length > 0) {
                         html += `
-                                    <h4 style="margin-top:16px;font-size:15px;color:var(--text-muted);">📁 Additional Materials</h4>
+                                    <h4 style="margin-top:14px;font-size:14px;color:var(--text-muted);">📁 Additional Materials</h4>
                                     ${standaloneMaterials.map(mat => `
                                         <div class="material-card">
                                             <div class="info">
                                                 <div class="title">📄 ${mat.title || 'Material'}</div>
                                                 <div class="desc">Uploaded: ${new Date(mat.uploaded).toLocaleDateString()}</div>
                                             </div>
-                                            <button class="download-btn" onclick="downloadMaterial('${mat.id}', '${mat.title || 'material'}', '${mat.fileData || ''}')">📥 Download</button>
+                                            <button class="download-btn" onclick="downloadMaterial('${mat.storagePath || ''}', '${mat.title || 'material'}')">📥 Download</button>
                                         </div>
                                     `).join('')}
                                 `;
@@ -3461,9 +3455,38 @@
 
                     coursesList.innerHTML = html;
                 }
+
+                // Cart in sidebar
+                const cart = await getCart();
+                if (sidebarCartCountEl) sidebarCartCountEl.textContent = cart.length;
+
+                // Cart page
+                const cartList = document.getElementById('cartList');
+                if (cart.length === 0) {
+                    cartList.innerHTML = '<div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p></div>';
+                } else {
+                    cartList.innerHTML = cart.map((item, index) => `
+                                <div class="order-card">
+                                    <div class="info">
+                                        <div class="course">${item.course}</div>
+                                        <div class="details">$${item.price} USDT</div>
+                                    </div>
+                                    <button onclick="removeFromCart(${index})" style="color:#ff6b6b;background:none;border:none;cursor:pointer;font-size:16px;">✕</button>
+                                </div>
+                            `).join('');
+                }
             }
 
-            // ===== USER DASHBOARD NAVIGATION =====
+            async function removeFromCart(index) {
+                const cart = await getCart();
+                cart.splice(index, 1);
+                await setCart(cart);
+                await updateCartUI();
+                await updateUserDashboard();
+                showNotification('Item removed from cart');
+            }
+
+            // ===== DASHBOARD NAVIGATION =====
 
             document.querySelectorAll('.dashboard-sidebar .menu-item[data-page]').forEach(item => {
                 item.addEventListener('click', function() {
@@ -3472,7 +3495,7 @@
                     this.classList.add('active');
                     const page = this.dataset.page;
                     document.querySelectorAll('.dashboard-content-area .page').forEach(p => p.classList.remove(
-                    'active'));
+                        'active'));
                     document.getElementById('page' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add(
                         'active');
                 });
@@ -3487,7 +3510,7 @@
                     this.classList.add('active');
                     const page = this.dataset.adminPage;
                     document.querySelectorAll('.admin-content-area .page').forEach(p => p.classList.remove(
-                    'active'));
+                        'active'));
                     const pageMap = {
                         'dashboard': 'adminPageDashboard',
                         'users': 'adminPageUsers',
@@ -3544,7 +3567,7 @@
                 const ordersTable = document.getElementById('adminOrdersTable');
                 if (allOrders.length === 0) {
                     ordersTable.innerHTML =
-                        '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-muted);">No orders yet</td></tr>';
+                        '<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--text-muted);">No orders yet</td></tr>';
                 } else {
                     ordersTable.innerHTML = allOrders.sort((a, b) => b.created - a.created).map(order => {
                         const statusText = order.status === 'completed' ? 'Completed' :
@@ -3557,12 +3580,12 @@
                         const orderId = order.id || 'N/A';
                         return `
                                     <tr>
-                                        <td style="color:var(--text-muted);font-size:12px;font-family:monospace;">${orderId}</td>
+                                        <td style="color:var(--text-muted);font-size:11px;font-family:monospace;">${orderId}</td>
                                         <td style="color:var(--text-primary);">${order.userEmail || 'Unknown'}</td>
                                         <td style="color:var(--gold);font-weight:600;">$${order.amount ? order.amount.toFixed(2) : '0.00'}</td>
-                                        <td style="color:var(--text-secondary);font-size:13px;">${courses}</td>
+                                        <td style="color:var(--text-secondary);font-size:12px;">${courses}</td>
                                         <td><span class="badge ${statusClass}">${statusText}</span></td>
-                                        <td style="color:var(--text-muted);font-size:13px;">${date}</td>
+                                        <td style="color:var(--text-muted);font-size:12px;">${date}</td>
                                     </tr>
                                 `;
                     }).join('');
@@ -3572,7 +3595,7 @@
                 const userEntries = Object.entries(users);
                 if (userEntries.length === 0) {
                     usersTable.innerHTML =
-                        '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted);">No users yet</td></tr>';
+                        '<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--text-muted);">No users yet</td></tr>';
                 } else {
                     usersTable.innerHTML = userEntries.map(([email, user]) => {
                         const orderCount = user.orders ? user.orders.length : 0;
@@ -3584,7 +3607,7 @@
                                         <td style="color:var(--text-primary);">${email}</td>
                                         <td>${orderCount}</td>
                                         <td style="color:var(--gold);font-weight:600;">$${spent.toFixed(2)}</td>
-                                        <td style="color:var(--text-muted);font-size:13px;">${joined}</td>
+                                        <td style="color:var(--text-muted);font-size:12px;">${joined}</td>
                                         <td>
                                             <button class="action-btn" onclick="uploadToUser('${email}')" title="Upload materials">📤</button>
                                             <button class="action-btn danger" onclick="confirmDeleteUser('${email}')" title="Delete user">🗑️</button>
@@ -3595,7 +3618,7 @@
                 }
             }
 
-            // ===== ADMIN UPLOAD FUNCTIONS =====
+            // ===== ADMIN UPLOAD FUNCTIONS (FIXED - Uses Supabase Storage) =====
 
             async function populateUserSelect() {
                 const users = await getUsers();
@@ -3614,7 +3637,7 @@
                 const email = uploadUserSelect.value;
                 if (!email) {
                     uploadedFilesList.innerHTML =
-                    '<p style="color:var(--text-muted);font-size:13px;">Select a user to see their materials</p>';
+                        '<p style="color:var(--text-muted);font-size:13px;">Select a user to see their materials</p>';
                     return;
                 }
                 const materials = await getUserMaterials(email);
@@ -3668,7 +3691,7 @@
                 }
                 fileList.innerHTML = selectedFiles.map((file, index) => `
                             <div class="file-item">
-                                <span class="name">📄 ${file.name}</span>
+                                <span class="name">📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
                                 <span class="remove" onclick="removeFile(${index})">✕</span>
                             </div>
                         `).join('');
@@ -3702,26 +3725,30 @@
                 const total = selectedFiles.length;
 
                 for (const file of selectedFiles) {
-                    const reader = new FileReader();
-                    const fileData = await new Promise((resolve) => {
-                        reader.onload = (e) => resolve(e.target.result.split(',')[1]);
-                        reader.readAsDataURL(file);
-                    });
+                    try {
+                        // Upload to Supabase Storage
+                        const path = `materials/${email}/${Date.now()}_${file.name}`;
+                        const storagePath = await uploadToStorage(file, path);
 
-                    const material = {
-                        id: 'mat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                        title: title,
-                        course: course,
-                        fileName: file.name,
-                        fileType: file.type,
-                        fileData: fileData,
-                        size: file.size,
-                        uploaded: Date.now()
-                    };
+                        const material = {
+                            id: 'mat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                            title: title,
+                            course: course,
+                            fileName: file.name,
+                            fileType: file.type,
+                            storagePath: path,
+                            publicUrl: getPublicUrl(path),
+                            size: file.size,
+                            uploaded: Date.now()
+                        };
 
-                    await addUserMaterial(email, material);
-                    uploaded++;
-                    progressBar.style.width = `${(uploaded / total) * 100}%`;
+                        await addUserMaterial(email, material);
+                        uploaded++;
+                        progressBar.style.width = `${(uploaded / total) * 100}%`;
+                    } catch (error) {
+                        console.error('Upload error for file:', file.name, error);
+                        showNotification('❌ Failed to upload: ' + file.name, 'error');
+                    }
                 }
 
                 showNotification(`✅ ${uploaded} file(s) uploaded to ${email}`);
@@ -3734,15 +3761,15 @@
                 this.textContent = '📤 Upload to User';
                 await loadUploadedFiles();
                 await refreshAdminPanel();
+                // Update user dashboard if the user is the same
                 const user = await getCurrentUser();
-                if (user && user.email !== email) {
-                    // Don't update user dashboard for admin
+                if (user && user.email === email) {
+                    await updateUserDashboard();
                 }
             });
 
             function uploadToUser(email) {
                 uploadUserSelect.value = email;
-                // Switch to upload tab
                 document.querySelectorAll('.admin-sidebar .menu-item[data-admin-page]').forEach(i => i.classList.remove(
                 'active'));
                 document.querySelector('.admin-sidebar .menu-item[data-admin-page="upload"]').classList.add('active');
@@ -3756,10 +3783,18 @@
                 if (confirm('Delete this material?')) {
                     const users = await getUsers();
                     if (users[email] && users[email].materials) {
+                        const material = users[email].materials[index];
+                        if (material && material.storagePath) {
+                            await deleteFromStorage(material.storagePath);
+                        }
                         users[email].materials.splice(index, 1);
                         await saveUsers(users);
                         await loadUploadedFiles();
                         await refreshAdminPanel();
+                        const user = await getCurrentUser();
+                        if (user && user.email === email) {
+                            await updateUserDashboard();
+                        }
                         showNotification('Material deleted');
                     }
                 }
@@ -3767,17 +3802,13 @@
 
             // ===== USER MATERIAL DOWNLOAD =====
 
-            window.downloadMaterial = function(id, title, fileData) {
-                if (fileData) {
-                    const link = document.createElement('a');
-                    link.href = 'data:application/octet-stream;base64,' + fileData;
-                    link.download = title + '.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    showNotification('📥 Downloading "' + title + '"');
+            window.downloadMaterial = function(storagePath, title) {
+                if (storagePath) {
+                    const url = getPublicUrl(storagePath);
+                    window.open(url, '_blank');
+                    showNotification('📥 Opening "' + title + '"');
                 } else {
-                    showNotification('⚠️ File data not available. Please contact admin.', 'error');
+                    showNotification('⚠️ File not available. Please contact admin.', 'error');
                 }
             };
 
@@ -3871,6 +3902,8 @@
                 userDashboard.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('open');
                 goToHome();
                 showNotification('👋 Logged out successfully');
             }
@@ -3924,6 +3957,8 @@
                         userDashboard.style.display = 'none';
                         adminWrapper.classList.remove('show');
                         adminWrapper.style.display = 'none';
+                        hamburgerBtn.classList.remove('active');
+                        navMenu.classList.remove('open');
                         goToHome();
                         showNotification('✅ Your account has been deleted.');
                     } else {
@@ -4046,7 +4081,7 @@
                     html += `
                                 <li>
                                     <span>${item.course}</span>
-                                    <span style="display:flex;align-items:center;gap:12px;">
+                                    <span style="display:flex;align-items:center;gap:10px;">
                                         <span>$${item.price} USDT</span>
                                         <button class="remove-item" data-index="${index}" title="Remove item">✕</button>
                                     </span>
@@ -4079,8 +4114,8 @@
                 try {
                     new QRCode(qrContainer, {
                         text: 'UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE',
-                        width: 180,
-                        height: 180,
+                        width: 160,
+                        height: 160,
                         colorDark: '#d4a853',
                         colorLight: '#ffffff',
                     });
@@ -4246,20 +4281,14 @@
                             }
 
                             if (attempts > 5) {
-                                paymentStatus.innerHTML = `
-                                            <span class="status-icon">⏳</span>
-                                            <p>Still waiting for payment...</p>
-                                            <p class="status-detail">We've checked ${attempts} times. Send $${expectedAmount.toFixed(2)} USDT to the address above.</p>
-                                        `;
+                                paymentStatus.innerHTML =
+                                    `<span class="status-icon">⏳</span><p>Still waiting for payment...</p><p class="status-detail">We've checked ${attempts} times. Send $${expectedAmount.toFixed(2)} USDT to the address above.</p>`;
                             }
                         }
                     } catch (error) {
                         if (attempts % 10 === 0) {
-                            paymentStatus.innerHTML = `
-                                        <span class="status-icon">⏳</span>
-                                        <p>Checking for payment...</p>
-                                        <p class="status-detail">Network check in progress. Please ensure you've sent the exact amount.</p>
-                                    `;
+                            paymentStatus.innerHTML =
+                                '<span class="status-icon">⏳</span><p>Checking for payment...</p><p class="status-detail">Network check in progress. Please ensure you\'ve sent the exact amount.</p>';
                         }
                     }
                 }, 5000);
@@ -4272,9 +4301,7 @@
                                     <p>Still waiting for payment...</p>
                                     <p class="status-detail">If you've sent the payment, it may take a few minutes to appear on the blockchain.</p>
                                     <p class="status-detail" style="margin-top:12px;">
-                                        <button onclick="location.reload()" style="background:#d4a853;color:#0a0a12;border:none;padding:10px 28px;border-radius:100px;font-weight:700;cursor:pointer;font-size:14px;">
-                                            Check Again
-                                        </button>
+                                        <button onclick="location.reload()" style="background:#d4a853;color:#0a0a12;border:none;padding:8px 24px;border-radius:100px;font-weight:700;cursor:pointer;font-size:13px;">Check Again</button>
                                     </p>
                                 `;
                     }
@@ -4289,17 +4316,9 @@
                             <span class="status-icon">✅</span>
                             <p>Payment Received!</p>
                             <p class="status-detail">Thank you for your purchase of $${amount.toFixed(2)} USDT.</p>
-                            <p class="status-detail" style="margin-top:12px;font-weight:500;color:#d4a853;">
-                                You will receive access to your course(s) within 24 hours.
-                            </p>
-                            <p class="status-detail" style="margin-top:8px;font-size:13px;color:#6a6690;">
-                                A confirmation email has been sent to your registered email address.
-                            </p>
-                            <p class="status-detail" style="margin-top:16px;">
-                                <a href="#" onclick="completeOrder()" style="display:inline-block;background:#d4a853;color:#0a0a12;padding:10px 32px;border-radius:100px;text-decoration:none;font-weight:700;font-size:15px;cursor:pointer;">
-                                    Return to Courses
-                                </a>
-                            </p>
+                            <p class="status-detail" style="margin-top:10px;font-weight:500;color:#d4a853;">You will receive access to your course(s) within 24 hours.</p>
+                            <p class="status-detail" style="margin-top:6px;font-size:12px;color:#6a6690;">A confirmation email has been sent to your registered email address.</p>
+                            <p class="status-detail" style="margin-top:12px;"><a href="#" onclick="completeOrder()" style="display:inline-block;background:#d4a853;color:#0a0a12;padding:8px 28px;border-radius:100px;text-decoration:none;font-weight:700;font-size:14px;cursor:pointer;">Return to Courses</a></p>
                         `;
 
                 const user = await getCurrentUser();
@@ -4392,6 +4411,7 @@
                 cart.push({ course: courseName, price: price });
                 await setCart(cart);
                 await updateCartUI();
+                await updateUserDashboard();
 
                 btn.textContent = 'Added ✓';
                 btn.classList.add('added');
@@ -4484,6 +4504,7 @@
                     }
                     await setCart([]);
                     await updateCartUI();
+                    await updateUserDashboard();
                     if (isCheckingout) {
                         isCheckingout = false;
                         goToHome();
@@ -4558,6 +4579,7 @@
             window.downloadMaterial = downloadMaterial;
             window.uploadToUser = uploadToUser;
             window.deleteMaterial = deleteMaterial;
+            window.removeFromCart = removeFromCart;
 
             // Close modals on Escape key
             document.addEventListener('keydown', function(e) {
