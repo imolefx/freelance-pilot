@@ -234,7 +234,7 @@
             color: #ff6b6b;
         }
 
-        /* ===== ADMIN MODE ===== */
+        /* ===== ADMIN MODE - HIDE COURSE STORE ===== */
         body.admin-mode .hero,
         body.admin-mode .courses,
         body.admin-mode .guarantee,
@@ -244,7 +244,7 @@
             display: none !important;
         }
 
-        body.admin-mode .admin-dashboard {
+        body.admin-mode .admin-wrapper {
             display: flex !important;
         }
 
@@ -1518,10 +1518,14 @@
         USER DASHBOARD - SIDEBAR LAYOUT
         ============================================================ */
         .dashboard-wrapper {
-            display: flex;
+            display: none;
             min-height: 70vh;
             background: var(--bg-primary);
             padding: 24px 0 60px;
+        }
+
+        .dashboard-wrapper.show {
+            display: flex;
         }
 
         .dashboard-sidebar {
@@ -2233,6 +2237,17 @@
             background: rgba(255, 107, 107, 0.1);
             border-radius: 4px;
         }
+
+        .upload-card .uploaded-files .mat-item .file-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 13px;
+            margin-right: 12px;
+        }
+
+        .upload-card .uploaded-files .mat-item .file-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -2411,12 +2426,19 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Course Name</label>
-                            <input type="text" id="uploadCourseName" placeholder="e.g., Traffic Arbitrage" />
+                            <label>Select Course</label>
+                            <select id="uploadCourseSelect">
+                                <option value="General">General</option>
+                                <option value="Master Traffic Arbitrage and Scale Your Portfolio">Master Traffic Arbitrage and Scale Your Portfolio</option>
+                                <option value="Build Any Kind of Website from Frontend to Backend">Build Any Kind of Website from Frontend to Backend</option>
+                                <option value="Automate Your Workflow with RPA Concepts">Automate Your Workflow with RPA Concepts</option>
+                                <option value="Build Software and Mobile Applications from Scratch">Build Software and Mobile Applications from Scratch</option>
+                                <option value="AI Powered Freelancing to Win More Clients">AI Powered Freelancing to Win More Clients</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>File Title</label>
-                            <input type="text" id="uploadFileTitle" placeholder="e.g., Course Guide" />
+                            <input type="text" id="uploadFileTitle" placeholder="e.g., Course Guide PDF" />
                         </div>
                         <div class="file-drop" id="fileDrop">
                             <div class="icon">📁</div>
@@ -2442,7 +2464,7 @@
         <!-- ============================================================
         USER DASHBOARD - SIDEBAR LAYOUT
         ============================================================ -->
-        <div class="dashboard-wrapper" id="userDashboard" style="display:none;">
+        <div class="dashboard-wrapper" id="userDashboard">
             <div class="dashboard-sidebar">
                 <div class="sidebar-title">Menu</div>
                 <button class="menu-item active" data-page="profile">
@@ -2871,6 +2893,15 @@
             const SUPABASE_URL = 'https://fvtcavphqqbsjcyobely.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2dGNhdnBocXFic2pjeW9iZWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTIxMDIsImV4cCI6MjEwMDU2ODEwMn0.sk_0XjON3NIhCyi4_oZAsKQIQJwr9rqwQVmB6Hncdxk';
 
+            // ===== COURSES LIST (for dropdown) =====
+            const COURSES_LIST = [
+                'Master Traffic Arbitrage and Scale Your Portfolio',
+                'Build Any Kind of Website from Frontend to Backend',
+                'Automate Your Workflow with RPA Concepts',
+                'Build Software and Mobile Applications from Scratch',
+                'AI Powered Freelancing to Win More Clients'
+            ];
+
             // ===== DOM REFS =====
             const cartCountEl = document.getElementById('cartCount');
             const coursesGrid = document.getElementById('coursesGrid');
@@ -2895,7 +2926,7 @@
 
             // Upload elements
             const uploadUserSelect = document.getElementById('uploadUserSelect');
-            const uploadCourseName = document.getElementById('uploadCourseName');
+            const uploadCourseSelect = document.getElementById('uploadCourseSelect');
             const uploadFileTitle = document.getElementById('uploadFileTitle');
             const fileInput = document.getElementById('fileInput');
             const fileDrop = document.getElementById('fileDrop');
@@ -3209,12 +3240,14 @@
                     await updateCartUI();
 
                     if (isAdmin()) {
+                        document.body.classList.add('admin-mode');
                         showAdminDashboard();
                         await refreshAdminPanel();
                         await populateUserSelect();
                         await loadUploadedFiles();
                         showNotification('🔑 Admin logged in!');
                     } else {
+                        document.body.classList.remove('admin-mode');
                         showUserDashboard();
                         await updateUserDashboard();
                         showNotification('✅ Welcome back, ' + email + '!');
@@ -3242,9 +3275,11 @@
                     checkoutSection.classList.remove('show');
                     checkoutSection.style.display = 'none';
                     emptyCart.style.display = 'block';
-                    heroSection.style.display = 'block';
-                    coursesSection.style.display = 'block';
-                    faqSection.style.display = 'block';
+                    if (!document.body.classList.contains('admin-mode')) {
+                        heroSection.style.display = 'block';
+                        coursesSection.style.display = 'block';
+                        faqSection.style.display = 'block';
+                    }
                 } else if (count === 0 && isCheckingout) {
                     checkoutSection.classList.remove('show');
                     checkoutSection.style.display = 'none';
@@ -3280,12 +3315,12 @@
             }
 
             function showUserDashboard() {
-                userDashboard.style.display = 'flex';
+                userDashboard.classList.add('show');
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
                 heroSection.style.display = 'none';
                 coursesSection.style.display = 'none';
-                guarantee.style.display = 'none';
+                document.querySelector('.guarantee').style.display = 'none';
                 faqSection.style.display = 'none';
                 checkoutSection.classList.remove('show');
                 checkoutSection.style.display = 'none';
@@ -3295,10 +3330,11 @@
             function showAdminDashboard() {
                 adminWrapper.style.display = 'flex';
                 adminWrapper.classList.add('show');
+                userDashboard.classList.remove('show');
                 userDashboard.style.display = 'none';
                 heroSection.style.display = 'none';
                 coursesSection.style.display = 'none';
-                guarantee.style.display = 'none';
+                document.querySelector('.guarantee').style.display = 'none';
                 faqSection.style.display = 'none';
                 checkoutSection.classList.remove('show');
                 checkoutSection.style.display = 'none';
@@ -3310,10 +3346,13 @@
                 checkoutSection.classList.remove('show');
                 checkoutSection.style.display = 'none';
                 emptyCart.style.display = 'none';
-                heroSection.style.display = 'block';
-                coursesSection.style.display = 'block';
-                guarantee.style.display = 'block';
-                faqSection.style.display = 'block';
+                if (!document.body.classList.contains('admin-mode')) {
+                    heroSection.style.display = 'block';
+                    coursesSection.style.display = 'block';
+                    document.querySelector('.guarantee').style.display = 'block';
+                    faqSection.style.display = 'block';
+                }
+                userDashboard.classList.remove('show');
                 userDashboard.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
@@ -3647,7 +3686,7 @@
 
             uploadFilesBtn.addEventListener('click', async function() {
                 const email = uploadUserSelect.value;
-                const course = uploadCourseName.value || 'General';
+                const course = uploadCourseSelect.value || 'General';
                 const title = uploadFileTitle.value;
 
                 if (!email || !title || selectedFiles.length === 0) {
@@ -3691,7 +3730,6 @@
                 uploadProgress.classList.remove('show');
                 progressBar.style.width = '0%';
                 uploadFileTitle.value = '';
-                uploadCourseName.value = '';
                 this.disabled = true;
                 this.textContent = '📤 Upload to User';
                 await loadUploadedFiles();
@@ -3826,8 +3864,10 @@
             async function logoutUser() {
                 localStorage.removeItem('fp_currentUser');
                 currentUser = null;
+                document.body.classList.remove('admin-mode');
                 await updateCartUI();
                 await updateAuthUI();
+                userDashboard.classList.remove('show');
                 userDashboard.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
@@ -3877,8 +3917,10 @@
                     if (result) {
                         localStorage.removeItem('fp_currentUser');
                         currentUser = null;
+                        document.body.classList.remove('admin-mode');
                         await updateAuthUI();
                         await updateCartUI();
+                        userDashboard.classList.remove('show');
                         userDashboard.style.display = 'none';
                         adminWrapper.classList.remove('show');
                         adminWrapper.style.display = 'none';
@@ -3992,6 +4034,7 @@
                 heroSection.style.display = 'none';
                 coursesSection.style.display = 'none';
                 faqSection.style.display = 'none';
+                userDashboard.classList.remove('show');
                 userDashboard.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
@@ -4473,16 +4516,19 @@
                     await updateCartUI();
 
                     if (user.email === 'admin@freelancepilot.com') {
+                        document.body.classList.add('admin-mode');
                         showAdminDashboard();
                         await refreshAdminPanel();
                         await populateUserSelect();
                         await loadUploadedFiles();
                         showNotification('🔑 Admin session restored');
                     } else {
+                        document.body.classList.remove('admin-mode');
                         showUserDashboard();
                         await updateUserDashboard();
                     }
                 } else {
+                    document.body.classList.remove('admin-mode');
                     await updateAuthUI();
                     await updateCartUI();
                 }
