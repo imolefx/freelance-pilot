@@ -193,7 +193,7 @@
         }
 
         .hamburger {
-            display: flex;
+            display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
@@ -234,6 +234,10 @@
 
         .hamburger.active span:nth-child(3) {
             transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        .hamburger.hidden {
+            display: none !important;
         }
 
         /* ===== FLOATING CART BUTTON ===== */
@@ -550,6 +554,11 @@
 
         body.admin-mode .header .logo svg circle:first-child {
             fill: rgba(255, 107, 107, 0.1);
+        }
+
+        /* Hide regular nav items for admin */
+        body.admin-mode .sidebar-nav .nav-item:not([data-nav="admin"]) {
+            display: none !important;
         }
 
         /* ============================================================
@@ -1152,7 +1161,7 @@
         }
 
         /* ============================================================
-        ADMIN DASHBOARD - REDESIGNED WITH DROPDOWNS
+        ADMIN DASHBOARD
         ============================================================ */
         .admin-wrapper {
             display: none;
@@ -1192,7 +1201,6 @@
             font-size: 14px;
         }
 
-        /* Admin Dropdown Cards */
         .admin-dropdown-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -2320,9 +2328,9 @@
             }
         }
 
-        /* Always show hamburger on desktop too */
+        /* Always show hamburger on desktop too when logged in */
         @media (min-width: 769px) {
-            .hamburger {
+            .hamburger:not(.hidden) {
                 display: flex;
             }
         }
@@ -2350,7 +2358,7 @@
 
             <div class="header-right">
                 <a href="#" class="auth-link" id="authLink">🔑 <span>Login</span></a>
-                <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <button class="hamburger hidden" id="hamburgerBtn" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -2380,7 +2388,8 @@
 
                 <nav class="sidebar-nav">
                     <div class="nav-section">
-                        <button class="nav-item active" data-nav="home" id="navHome">
+                        <!-- Regular user nav items - hidden for admin -->
+                        <button class="nav-item" data-nav="home" id="navHome">
                             <span class="icon">🏠</span> Home
                         </button>
                         <button class="nav-item" data-nav="courses" id="navCoursesBtn">
@@ -2394,6 +2403,10 @@
                         </button>
                         <button class="nav-item" data-nav="settings" id="navSettings">
                             <span class="icon">⚙️</span> Settings
+                        </button>
+                        <!-- Admin only - hidden for regular users -->
+                        <button class="nav-item hidden" data-nav="admin" id="navAdmin">
+                            <span class="icon">🔐</span> Admin Panel
                         </button>
                     </div>
                 </nav>
@@ -2450,7 +2463,7 @@
         </section>
 
         <!-- ============================================================
-        ADMIN DASHBOARD - REDESIGNED WITH DROPDOWNS
+        ADMIN DASHBOARD
         ============================================================ -->
         <div class="admin-wrapper" id="adminWrapper">
             <div class="admin-content-area">
@@ -2825,6 +2838,7 @@
             const navMyCourses = document.getElementById('navMyCourses');
             const navTransactions = document.getElementById('navTransactions');
             const navSettings = document.getElementById('navSettings');
+            const navAdmin = document.getElementById('navAdmin');
 
             const authModal = document.getElementById('authModal');
             const authModalIcon = document.getElementById('authModalIcon');
@@ -2858,7 +2872,6 @@
                     const arrow = this.querySelector('.arrow');
                     const isOpen = body.classList.contains('open');
 
-                    // Close all other dropdowns
                     document.querySelectorAll('.admin-dropdown-body').forEach(b => {
                         if (b !== body) {
                             b.classList.remove('open');
@@ -2950,6 +2963,13 @@
                         }
                         showUserInterface('settings');
                         break;
+                    case 'admin':
+                        if (!currentUser || !isAdmin()) {
+                            showNotification('❌ Admin access only', 'error');
+                            return;
+                        }
+                        showAdminDashboard();
+                        break;
                     default:
                         goToHome();
                 }
@@ -2972,6 +2992,7 @@
             navMyCourses.addEventListener('click', function() { navigateTo('mycourses'); });
             navTransactions.addEventListener('click', function() { navigateTo('transactions'); });
             navSettings.addEventListener('click', function() { navigateTo('settings'); });
+            navAdmin.addEventListener('click', function() { navigateTo('admin'); });
 
             sidebarLogoutBtn.addEventListener('click', function() {
                 closeSidebar();
@@ -3354,20 +3375,44 @@
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = '👤';
 
+                    // Show hamburger
+                    hamburgerBtn.classList.remove('hidden');
+
+                    // Update sidebar user
                     sidebarUser.classList.remove('hidden');
                     sidebarUserName.textContent = user.email.split('@')[0];
                     sidebarUserEmail.textContent = user.email;
                     sidebarUserRole.textContent = isAdmin() ? 'Admin' : 'Member';
 
                     sidebarLogoutBtn.textContent = '🚪 Logout';
+
+                    // Show/hide admin nav item
+                    if (isAdmin()) {
+                        navAdmin.classList.remove('hidden');
+                        // Hide regular nav items for admin
+                        document.querySelectorAll('.sidebar-nav .nav-item:not([data-nav="admin"])').forEach(el => {
+                            el.style.display = 'none';
+                        });
+                        // Show admin nav item
+                        navAdmin.style.display = 'flex';
+                    } else {
+                        navAdmin.classList.add('hidden');
+                        document.querySelectorAll('.sidebar-nav .nav-item:not([data-nav="admin"])').forEach(el => {
+                            el.style.display = 'flex';
+                        });
+                    }
                 } else {
                     authLink.style.display = 'flex';
                     authLink.className = 'auth-link';
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = 'Login';
 
+                    // Hide hamburger for non-logged in users
+                    hamburgerBtn.classList.add('hidden');
+
                     sidebarUser.classList.add('hidden');
                     sidebarLogoutBtn.textContent = '🔑 Login';
+                    navAdmin.classList.add('hidden');
                 }
             }
 
@@ -3878,7 +3923,7 @@
                 await updateCartUI();
             }
 
-            // ===== CANCEL ORDER - DELETE COMPLETELY, DON'T STORE =====
+            // ===== CANCEL ORDER - DELETE COMPLETELY =====
 
             cancelOrderBtn.addEventListener('click', async function() {
                 if (confirm('Are you sure you want to cancel this order? It will be permanently removed.')) {
@@ -3887,13 +3932,10 @@
                         const users = await getUsers();
                         const userData = users[user.email];
                         if (userData && userData.orders) {
-                            // Find the pending order and remove it completely
                             const orderIndex = userData.orders.findIndex(o => o.status === 'pending');
                             if (orderIndex !== -1) {
-                                // Delete from orders table too
                                 const orderId = userData.orders[orderIndex].id;
                                 await deleteOrder(orderId);
-                                // Remove from user's orders
                                 userData.orders.splice(orderIndex, 1);
                                 await saveUsers(users);
                                 if (isAdmin()) {
