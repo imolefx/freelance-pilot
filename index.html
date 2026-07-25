@@ -2180,7 +2180,7 @@
 
     <script>
         // ============================================================
-        // FREELANCE PILOT — SUPABASE INTEGRATION
+        // FREELANCE PILOT — SUPABASE INTEGRATION (FIXED)
         // ============================================================
 
         (function() {
@@ -2248,11 +2248,34 @@
 
                 try {
                     const response = await fetch(url, { ...options, headers });
+                    
+                    // For POST/PATCH/DELETE, check status
+                    if (options.method === 'POST' || options.method === 'PATCH') {
+                        if (response.status === 201 || response.status === 200) {
+                            return await response.json().catch(() => true);
+                        } else {
+                            const error = await response.text();
+                            console.error('Supabase write error:', error);
+                            return null;
+                        }
+                    }
+                    
+                    if (options.method === 'DELETE') {
+                        if (response.status === 200 || response.status === 204) {
+                            return true;
+                        } else {
+                            const error = await response.text();
+                            console.error('Supabase delete error:', error);
+                            return false;
+                        }
+                    }
+
                     if (!response.ok) {
                         const error = await response.text();
                         console.error('Supabase error:', error);
                         throw new Error(error);
                     }
+                    
                     return response.json();
                 } catch (error) {
                     console.error('Fetch error:', error);
@@ -2260,7 +2283,7 @@
                 }
             }
 
-            // ===== SUPABASE FUNCTIONS (REPLACING localStorage) =====
+            // ===== SUPABASE FUNCTIONS =====
 
             // Get all users
             async function getUsers() {
@@ -2368,13 +2391,98 @@
             // Delete user
             async function deleteUser(email) {
                 try {
-                    await supabaseFetch(`users?email=eq.${email}`, {
+                    return await supabaseFetch(`users?email=eq.${email}`, {
                         method: 'DELETE'
                     });
-                    return true;
                 } catch (error) {
                     console.error('Error deleting user:', error);
                     return false;
+                }
+            }
+
+            // ===== FIXED: HANDLE REGISTER =====
+            async function handleRegister(email) {
+                try {
+                    // Check if user already exists in Supabase
+                    const users = await getUsers();
+                    if (users[email]) {
+                        authError.textContent = 'Email already registered. Please login.';
+                        authError.style.display = 'block';
+                        return;
+                    }
+
+                    // Create user in Supabase
+                    const newUser = {
+                        email: email,
+                        created: Date.now(),
+                        orders: [],
+                        total_spent: 0,
+                        cart: []
+                    };
+
+                    // Save to Supabase
+                    const result = await supabaseFetch('users', {
+                        method: 'POST',
+                        body: JSON.stringify(newUser)
+                    });
+
+                    if (result) {
+                        authSuccess.textContent = 'Account created successfully! Please login.';
+                        authSuccess.style.display = 'block';
+                        
+                        // Switch to login mode after 1 second
+                        setTimeout(() => {
+                            openAuthModal('login');
+                        }, 1000);
+                    } else {
+                        authError.textContent = 'Failed to create account. Please try again.';
+                        authError.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    authError.textContent = 'Error creating account. Please try again.';
+                    authError.style.display = 'block';
+                }
+            }
+
+            // ===== FIXED: HANDLE LOGIN =====
+            async function handleLogin(email) {
+                try {
+                    // Fetch users from Supabase
+                    const users = await getUsers();
+                    
+                    if (!users[email]) {
+                        authError.textContent = 'Email not found. Please register first.';
+                        authError.style.display = 'block';
+                        return;
+                    }
+
+                    // Set current user in localStorage (just for session tracking)
+                    localStorage.setItem('fp_currentUser', email);
+                    currentUser = users[email];
+                    
+                    closeAuthModal();
+                    await updateAuthUI();
+                    await updateCartUI();
+
+                    if (isAdmin()) {
+                        setAdminMode(true);
+                        await renderAdminPanel();
+                        showNotification('🔑 Admin logged in!');
+                    } else {
+                        setAdminMode(false);
+                        showNotification('✅ Welcome back, ' + email + '!');
+                    }
+
+                    // Check if user has items in cart
+                    const cart = await getCart();
+                    if (cart.length > 0 && !isCheckingout) {
+                        renderCheckout();
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    authError.textContent = 'Error logging in. Please try again.';
+                    authError.style.display = 'block';
                 }
             }
 
@@ -2475,60 +2583,6 @@
                 }
             });
 
-            async function handleLogin(email) {
-                const users = await getUsers();
-                if (!users[email]) {
-                    authError.textContent = 'Email not found. Please register first.';
-                    authError.style.display = 'block';
-                    return;
-                }
-
-                localStorage.setItem('fp_currentUser', email);
-                currentUser = users[email];
-                closeAuthModal();
-                await updateAuthUI();
-                await updateCartUI();
-
-                if (isAdmin()) {
-                    setAdminMode(true);
-                    await renderAdminPanel();
-                    showNotification('🔑 Admin logged in!');
-                } else {
-                    setAdminMode(false);
-                    showNotification('✅ Welcome back, ' + email + '!');
-                }
-
-                const cart = await getCart();
-                if (cart.length > 0 && !isCheckingout) {
-                    renderCheckout();
-                }
-            }
-
-            async function handleRegister(email) {
-                const users = await getUsers();
-                if (users[email]) {
-                    authError.textContent = 'Email already registered. Please login.';
-                    authError.style.display = 'block';
-                    return;
-                }
-
-                await saveUsers({
-                    [email]: {
-                        created: Date.now(),
-                        orders: [],
-                        total_spent: 0,
-                        cart: []
-                    }
-                });
-
-                authSuccess.textContent = 'Account created! Please login.';
-                authSuccess.style.display = 'block';
-
-                setTimeout(() => {
-                    openAuthModal('login');
-                }, 1000);
-            }
-
             // ===== LOGOUT =====
             async function logoutUser() {
                 localStorage.removeItem('fp_currentUser');
@@ -2572,15 +2626,33 @@
                 const allOrders = [];
                 let totalSpent = 0;
 
+                // Process orders
+                if (orders && orders.length > 0) {
+                    orders.forEach(order => {
+                        allOrders.push({
+                            ...order,
+                            userEmail: order.user_email
+                        });
+                        if (order.status === 'completed') {
+                            totalSpent += order.amount || 0;
+                        }
+                    });
+                }
+
+                // Also check user objects for orders
                 for (const [email, user] of Object.entries(users)) {
                     if (user.orders && user.orders.length > 0) {
                         user.orders.forEach(order => {
-                            allOrders.push({
-                                ...order,
-                                userEmail: email
-                            });
-                            if (order.status === 'completed') {
-                                totalSpent += order.amount || 0;
+                            // Check if this order is already in allOrders
+                            const exists = allOrders.some(o => o.id === order.id);
+                            if (!exists) {
+                                allOrders.push({
+                                    ...order,
+                                    userEmail: email
+                                });
+                                if (order.status === 'completed') {
+                                    totalSpent += order.amount || 0;
+                                }
                             }
                         });
                     }
@@ -2617,7 +2689,7 @@
                         return `
                                     <tr>
                                         <td class="orderid">${orderId}</td>
-                                        <td class="user">${order.userEmail}</td>
+                                        <td class="user">${order.userEmail || 'Unknown'}</td>
                                         <td class="amount">$${order.amount ? order.amount.toFixed(2) : '0.00'}</td>
                                         <td class="courses">${courses}</td>
                                         <td><span class="badge ${statusClass}">${statusText}</span></td>
@@ -2772,7 +2844,7 @@
                 qrContainer.innerHTML = '';
                 try {
                     new QRCode(qrContainer, {
-                        text: WALLET_ADDRESS,
+                        text: 'UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE',
                         width: 180,
                         height: 180,
                         colorDark: '#d4a853',
