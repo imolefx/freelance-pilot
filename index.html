@@ -98,15 +98,6 @@
             }
         }
 
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                transform: translateX(100%);
-            }
-        }
-
         @keyframes float {
             0%,
             100% {
@@ -174,45 +165,7 @@
             flex-shrink: 0;
         }
 
-        /* Cart link - ONLY for regular users, hidden for admin */
-        .cart-link-header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(212, 168, 83, 0.12);
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--gold) !important;
-            border: 1px solid rgba(212, 168, 83, 0.2);
-            transition: var(--transition);
-            cursor: pointer;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .cart-link-header:hover {
-            background: rgba(212, 168, 83, 0.2);
-            border-color: var(--gold);
-        }
-
-        .cart-link-header.hidden {
-            display: none !important;
-        }
-
-        .cart-count {
-            background: var(--gold);
-            color: var(--bg-primary);
-            border-radius: 50%;
-            padding: 0 6px;
-            font-size: 11px;
-            font-weight: 700;
-            min-width: 20px;
-            text-align: center;
-            line-height: 20px;
-        }
-
+        /* Auth link - only login/logout in header */
         .auth-link {
             display: flex;
             align-items: center;
@@ -238,24 +191,6 @@
         .auth-link.logged-in {
             border-color: rgba(212, 168, 83, 0.3);
             color: var(--gold) !important;
-        }
-
-        .header-user-email {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-            padding: 4px 12px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 100px;
-            border: 1px solid var(--border);
-        }
-
-        .header-user-email .email {
-            color: var(--gold);
-            font-weight: 600;
         }
 
         .hamburger {
@@ -300,6 +235,54 @@
 
         .hamburger.active span:nth-child(3) {
             transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        /* ===== FLOATING CART BUTTON ===== */
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(212, 168, 83, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(212, 168, 83, 0.6);
+        }
+
+        .floating-cart .cart-count-float {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff6b6b;
+            color: #fff;
+            border-radius: 50%;
+            padding: 0 6px;
+            font-size: 12px;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+            line-height: 24px;
+            border: 2px solid var(--bg-primary);
+        }
+
+        .floating-cart.hidden {
+            display: none !important;
         }
 
         /* ===== SIDEBAR MENU ===== */
@@ -389,6 +372,59 @@
         .sidebar-close:hover {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-primary);
+        }
+
+        /* User info in sidebar */
+        .sidebar-user {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(212, 168, 83, 0.05);
+        }
+
+        .sidebar-user .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 168, 83, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .sidebar-user .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar-user .user-details .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+
+        .sidebar-user .user-details .email {
+            font-size: 12px;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+
+        .sidebar-user .user-details .role {
+            font-size: 10px;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-user.hidden {
+            display: none !important;
         }
 
         .sidebar-nav {
@@ -484,7 +520,7 @@
         }
 
         /* ============================================================
-        ADMIN MODE - HIDE COURSE STORE & CART
+        ADMIN MODE - HIDE COURSE STORE
         ============================================================ */
         body.admin-mode .hero,
         body.admin-mode .courses,
@@ -496,10 +532,6 @@
 
         body.admin-mode .admin-wrapper {
             display: block !important;
-        }
-
-        body.admin-mode .cart-link-header {
-            display: none !important;
         }
 
         body.admin-mode .header {
@@ -926,7 +958,7 @@
         }
 
         /* ============================================================
-        USER INTERFACE (NO DASHBOARD)
+        USER INTERFACE
         ============================================================ */
         .user-wrapper {
             display: none;
@@ -1103,42 +1135,6 @@
             color: var(--gold);
             font-weight: 700;
             font-size: 14px;
-        }
-
-        .order-card .admin-actions {
-            display: flex;
-            gap: 6px;
-        }
-
-        .order-card .admin-actions button {
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            min-height: 32px;
-            transition: var(--transition);
-        }
-
-        .order-card .admin-actions .btn-delete {
-            background: rgba(255, 107, 107, 0.15);
-            color: #ff6b6b;
-            border: 1px solid rgba(255, 107, 107, 0.2);
-        }
-
-        .order-card .admin-actions .btn-delete:hover {
-            background: rgba(255, 107, 107, 0.25);
-        }
-
-        .order-card .admin-actions .btn-complete {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ecc71;
-            border: 1px solid rgba(46, 204, 113, 0.2);
-        }
-
-        .order-card .admin-actions .btn-complete:hover {
-            background: rgba(46, 204, 113, 0.25);
         }
 
         .empty-state {
@@ -2029,22 +2025,6 @@
                 gap: 4px;
             }
 
-            .cart-link-header {
-                padding: 4px 10px;
-                font-size: 12px;
-                min-height: 36px;
-            }
-
-            .cart-link-header span:not(.cart-count) {
-                display: none;
-            }
-
-            .cart-count {
-                font-size: 10px;
-                min-width: 18px;
-                line-height: 18px;
-            }
-
             .auth-link {
                 padding: 4px 10px;
                 font-size: 12px;
@@ -2052,10 +2032,6 @@
             }
 
             .auth-link span {
-                display: none;
-            }
-
-            .header-user-email {
                 display: none;
             }
 
@@ -2079,6 +2055,20 @@
                 transform: translateY(-6px) rotate(-45deg);
             }
 
+            .floating-cart {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .floating-cart .cart-count-float {
+                font-size: 11px;
+                min-width: 20px;
+                line-height: 20px;
+            }
+
             .sidebar-menu {
                 width: var(--sidebar-width);
                 max-width: 85vw;
@@ -2086,6 +2076,10 @@
 
             .sidebar-header {
                 padding: 16px 20px 12px;
+            }
+
+            .sidebar-user {
+                padding: 12px 16px;
             }
 
             .sidebar-nav {
@@ -2217,6 +2211,20 @@
                 padding: 20px 16px;
             }
 
+            .floating-cart {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .floating-cart .cart-count-float {
+                font-size: 10px;
+                min-width: 18px;
+                line-height: 18px;
+            }
+
             .sidebar-menu {
                 width: 90vw;
                 max-width: 280px;
@@ -2231,6 +2239,13 @@
             .sidebar-nav .nav-item .icon {
                 font-size: 15px;
                 width: 20px;
+            }
+
+            .sidebar-user .user-details .name {
+                font-size: 13px;
+            }
+            .sidebar-user .user-details .email {
+                font-size: 11px;
             }
         }
 
@@ -2256,16 +2271,7 @@
             </a>
 
             <div class="header-right">
-                <div class="header-user-email" id="headerUserDisplay" style="display:none;">
-                    👤 <span class="email" id="headerUserEmail">user@email.com</span>
-                </div>
-
-                <!-- Cart - ONLY for regular users, hidden for admin via CSS -->
-                <a href="#" class="cart-link-header" id="headerCartLink">
-                    <span>🛒</span>
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
-
+                <!-- Auth link - only login/logout -->
                 <a href="#" class="auth-link" id="authLink">🔑 <span>Login</span></a>
 
                 <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
@@ -2286,6 +2292,17 @@
                     </div>
                     <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
                 </div>
+
+                <!-- User info in sidebar -->
+                <div class="sidebar-user hidden" id="sidebarUser">
+                    <div class="avatar">👤</div>
+                    <div class="user-details">
+                        <div class="name" id="sidebarUserName">User</div>
+                        <div class="email" id="sidebarUserEmail">user@email.com</div>
+                        <div class="role" id="sidebarUserRole">Member</div>
+                    </div>
+                </div>
+
                 <nav class="sidebar-nav">
                     <div class="nav-section">
                         <button class="nav-item active" data-nav="home" id="navHome">
@@ -2296,10 +2313,6 @@
                         </button>
                         <button class="nav-item" data-nav="mycourses" id="navMyCourses">
                             <span class="icon">📖</span> My Courses
-                        </button>
-                        <button class="nav-item" data-nav="cart" id="navCartBtn">
-                            <span class="icon">🛒</span> Cart
-                            <span class="badge" id="sidebarCartBadge">0</span>
                         </button>
                         <button class="nav-item" data-nav="transactions" id="navTransactions">
                             <span class="icon">📊</span> Previous Transactions
@@ -2315,6 +2328,12 @@
             </div>
         </div>
     </header>
+
+    <!-- ===== FLOATING CART BUTTON ===== -->
+    <button class="floating-cart hidden" id="floatingCartBtn" aria-label="Open cart">
+        🛒
+        <span class="cart-count-float" id="floatingCartCount">0</span>
+    </button>
 
     <!-- ===== MAIN APP ===== -->
     <div id="app">
@@ -2388,7 +2407,7 @@
         </div>
 
         <!-- ============================================================
-        USER INTERFACE (NO DASHBOARD)
+        USER INTERFACE
         ============================================================ -->
         <div class="user-wrapper" id="userWrapper">
             <div class="user-content-area">
@@ -2670,8 +2689,8 @@
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2dGNhdnBocXFic2pjeW9iZWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTIxMDIsImV4cCI6MjEwMDU2ODEwMn0.sk_0XjON3NIhCyi4_oZAsKQIQJwr9rqwQVmB6Hncdxk';
 
             // ===== DOM REFS =====
-            const cartCountEl = document.getElementById('cartCount');
-            const sidebarCartBadge = document.getElementById('sidebarCartBadge');
+            const floatingCartBtn = document.getElementById('floatingCartBtn');
+            const floatingCartCount = document.getElementById('floatingCartCount');
             const coursesGrid = document.getElementById('coursesGrid');
             const checkoutSection = document.getElementById('checkoutSection');
             const emptyCart = document.getElementById('emptyCart');
@@ -2681,15 +2700,12 @@
             const cartItemsEl = document.getElementById('cartItems');
             const totalAmountEl = document.getElementById('totalAmount');
             const paymentStatus = document.getElementById('paymentStatus');
-            const headerCartLink = document.getElementById('headerCartLink');
             const backLink = document.getElementById('backLink');
             const logoLink = document.getElementById('logoLink');
             const emptyCartLink = document.getElementById('emptyCartLink');
             const clearCartBtn = document.getElementById('clearCartBtn');
             const cancelOrderBtn = document.getElementById('cancelOrderBtn');
             const authLink = document.getElementById('authLink');
-            const headerUserDisplay = document.getElementById('headerUserDisplay');
-            const headerUserEmail = document.getElementById('headerUserEmail');
             const userWrapper = document.getElementById('userWrapper');
             const adminWrapper = document.getElementById('adminWrapper');
 
@@ -2699,12 +2715,15 @@
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const sidebarClose = document.getElementById('sidebarClose');
             const sidebarLogoutBtn = document.getElementById('sidebarLogoutBtn');
+            const sidebarUser = document.getElementById('sidebarUser');
+            const sidebarUserName = document.getElementById('sidebarUserName');
+            const sidebarUserEmail = document.getElementById('sidebarUserEmail');
+            const sidebarUserRole = document.getElementById('sidebarUserRole');
 
             // Nav buttons
             const navHome = document.getElementById('navHome');
             const navCoursesBtn = document.getElementById('navCoursesBtn');
             const navMyCourses = document.getElementById('navMyCourses');
-            const navCartBtn = document.getElementById('navCartBtn');
             const navTransactions = document.getElementById('navTransactions');
             const navSettings = document.getElementById('navSettings');
 
@@ -2787,18 +2806,6 @@
                         }
                         showUserInterface('mycourses');
                         break;
-                    case 'cart':
-                        const user = getCurrentUserSync();
-                        if (!user) {
-                            openAuthModal('login');
-                            return;
-                        }
-                        if (isAdmin()) {
-                            showNotification('❌ Admins cannot purchase courses.', 'error');
-                            return;
-                        }
-                        renderCheckout();
-                        break;
                     case 'transactions':
                         if (!currentUser) {
                             openAuthModal('login');
@@ -2841,7 +2848,6 @@
             navHome.addEventListener('click', function() { navigateTo('home'); });
             navCoursesBtn.addEventListener('click', function() { navigateTo('courses'); });
             navMyCourses.addEventListener('click', function() { navigateTo('mycourses'); });
-            navCartBtn.addEventListener('click', function() { navigateTo('cart'); });
             navTransactions.addEventListener('click', function() { navigateTo('transactions'); });
             navSettings.addEventListener('click', function() { navigateTo('settings'); });
 
@@ -2854,6 +2860,22 @@
                 } else {
                     openAuthModal('login');
                 }
+            });
+
+            // ===== FLOATING CART =====
+
+            floatingCartBtn.addEventListener('click', function() {
+                const user = getCurrentUserSync();
+                if (!user) {
+                    openAuthModal('login');
+                    return;
+                }
+                if (isAdmin()) {
+                    showNotification('❌ Admins cannot purchase courses.', 'error');
+                    return;
+                }
+                renderCheckout();
+                closeSidebar();
             });
 
             // ===== SUPABASE API HELPER =====
@@ -3167,8 +3189,13 @@
             async function updateCartUI() {
                 const cart = await getCart();
                 const count = cart.length;
-                cartCountEl.textContent = count;
-                if (sidebarCartBadge) sidebarCartBadge.textContent = count;
+                floatingCartCount.textContent = count;
+
+                if (count > 0 && !isAdmin()) {
+                    floatingCartBtn.classList.remove('hidden');
+                } else {
+                    floatingCartBtn.classList.add('hidden');
+                }
 
                 if (count === 0 && !isCheckingout) {
                     checkoutSection.classList.remove('show');
@@ -3195,18 +3222,24 @@
                 const user = await getCurrentUser();
                 if (user) {
                     authLink.style.display = 'flex';
-                    headerUserDisplay.style.display = 'flex';
-                    headerUserEmail.textContent = user.email;
                     authLink.className = 'auth-link logged-in';
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = '👤';
+
+                    // Update sidebar user info
+                    sidebarUser.classList.remove('hidden');
+                    sidebarUserName.textContent = user.email.split('@')[0];
+                    sidebarUserEmail.textContent = user.email;
+                    sidebarUserRole.textContent = isAdmin() ? 'Admin' : 'Member';
+
                     sidebarLogoutBtn.textContent = '🚪 Logout';
                 } else {
                     authLink.style.display = 'flex';
-                    headerUserDisplay.style.display = 'none';
                     authLink.className = 'auth-link';
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = 'Login';
+
+                    sidebarUser.classList.add('hidden');
                     sidebarLogoutBtn.textContent = '🔑 Login';
                 }
             }
@@ -3328,7 +3361,7 @@
                 }
 
                 const cart = await getCart();
-                if (sidebarCartBadge) sidebarCartBadge.textContent = cart.length;
+                floatingCartCount.textContent = cart.length;
             }
 
             // ===== ADMIN DASHBOARD =====
@@ -3965,23 +3998,6 @@
                 }, 1500);
 
                 showNotification('✅ Course added to cart!');
-            });
-
-            // ===== HEADER CART LINK =====
-
-            headerCartLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const user = getCurrentUserSync();
-                if (!user) {
-                    openAuthModal('login');
-                    return;
-                }
-                if (isAdmin()) {
-                    showNotification('❌ Admins cannot purchase courses.', 'error');
-                    return;
-                }
-                renderCheckout();
-                closeSidebar();
             });
 
             // ===== AUTH LINK CLICK =====
