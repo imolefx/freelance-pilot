@@ -36,6 +36,7 @@
             --radius-sm: 10px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --header-height: 64px;
+            --sidebar-width: 320px;
         }
 
         html {
@@ -85,6 +86,24 @@
             }
             to {
                 opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(100%);
             }
         }
 
@@ -155,7 +174,7 @@
             flex-shrink: 0;
         }
 
-        /* Cart link always visible on desktop and mobile */
+        /* Cart link always visible */
         .cart-link-header {
             display: flex;
             align-items: center;
@@ -217,7 +236,26 @@
             color: var(--gold) !important;
         }
 
-        /* Hamburger Menu Button - improved touch target */
+        /* User email display in header */
+        .header-user-email {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 100px;
+            border: 1px solid var(--border);
+        }
+
+        .header-user-email .email {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Hamburger Menu Button */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -262,82 +300,194 @@
             transform: translateY(-7.5px) rotate(-45deg);
         }
 
-        /* ===== NAV MENU - IMPROVED MOBILE ===== */
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            transition: var(--transition);
-            cursor: pointer;
-            padding: 6px 4px;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav a:hover {
-            color: var(--gold);
-        }
-
-        .nav .user-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .nav .user-info .logout-link {
-            color: var(--text-muted);
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            background: none;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 6px;
-            min-height: 36px;
-        }
-
-        .nav .user-info .logout-link:hover {
-            color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.08);
-        }
-
-        .menu-divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 4px 0;
-            width: 100%;
-        }
-
-        /* Overlay for mobile menu */
-        .nav-overlay {
+        /* ===== SIDEBAR MENU - FIXED ===== */
+        .sidebar-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
             z-index: 999;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        .nav-overlay.active {
+        .sidebar-overlay.active {
             display: block;
             opacity: 1;
+        }
+
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: var(--sidebar-width);
+            max-width: 85vw;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border);
+            z-index: 1000;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .sidebar-menu.open {
+            right: 0;
+            animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-header .brand .logo-icon {
+            font-size: 24px;
+        }
+
+        .sidebar-header .brand .title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px 8px;
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .sidebar-close:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav {
+            padding: 12px 12px 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav .nav-section {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-nav .nav-section-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 8px 12px 4px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            min-height: 48px;
+        }
+
+        .sidebar-nav .nav-item:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav .nav-item.active {
+            background: rgba(212, 168, 83, 0.12);
+            color: var(--gold);
+        }
+
+        .sidebar-nav .nav-item .icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav .nav-item .badge {
+            margin-left: auto;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            padding: 0 6px;
+            font-size: 11px;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .sidebar-nav .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 8px 12px;
+        }
+
+        .sidebar-footer {
+            padding: 12px 20px 20px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.08);
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            min-height: 48px;
+        }
+
+        .sidebar-footer .logout-btn:hover {
+            background: rgba(255, 107, 107, 0.15);
         }
 
         /* ============================================================
@@ -347,8 +497,7 @@
         body.admin-mode .courses,
         body.admin-mode .guarantee,
         body.admin-mode .faq,
-        body.admin-mode .empty-cart,
-        body.admin-mode .nav-courses {
+        body.admin-mode .empty-cart {
             display: none !important;
         }
 
@@ -782,7 +931,6 @@
         /* ============================================================
         DASHBOARD SECTIONS
         ============================================================ */
-        /* User Dashboard */
         .dashboard-wrapper {
             display: none;
             min-height: 70vh;
@@ -874,7 +1022,6 @@
             font-size: 14px;
         }
 
-        /* Stats */
         .stat-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -914,7 +1061,6 @@
             margin-top: 2px;
         }
 
-        /* Profile Card */
         .profile-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1002,7 +1148,6 @@
             background: rgba(255, 107, 107, 0.2);
         }
 
-        /* Order Cards */
         .order-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1055,7 +1200,6 @@
             font-size: 14px;
         }
 
-        /* Material Cards */
         .material-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1326,7 +1470,7 @@
         }
 
         /* ============================================================
-        ADMIN UPLOAD - WITH SUPABASE STORAGE
+        ADMIN UPLOAD - FIXED
         ============================================================ */
         .upload-card {
             background: var(--bg-card);
@@ -2073,24 +2217,6 @@
             display: none;
         }
 
-        .modal-content input[type="password"] {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            font-size: 14px;
-            margin-bottom: 10px;
-            transition: var(--transition);
-            min-height: 48px;
-        }
-
-        .modal-content input[type="password"]:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
         .password-hint {
             color: var(--text-muted);
             font-size: 11px;
@@ -2248,7 +2374,6 @@
         RESPONSIVE - MOBILE (FIXED)
         ============================================================ */
         @media (max-width: 768px) {
-            /* Header adjustments */
             .header {
                 padding: 6px 0;
                 min-height: 56px;
@@ -2292,7 +2417,10 @@
                 display: none;
             }
 
-            /* Hamburger - always visible on mobile */
+            .header-user-email {
+                display: none;
+            }
+
             .hamburger {
                 display: flex;
                 min-width: 40px;
@@ -2313,82 +2441,100 @@
                 transform: translateY(-6px) rotate(-45deg);
             }
 
-            /* Nav - mobile drawer */
-            .nav {
-                display: none;
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 85%;
-                max-width: 320px;
-                height: 100vh;
-                background: var(--bg-secondary);
-                border-left: 1px solid var(--border);
-                flex-direction: column;
-                align-items: stretch;
-                padding: 20px 16px;
-                gap: 4px;
-                overflow-y: auto;
-                transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 1000;
-                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            .sidebar-menu {
+                width: var(--sidebar-width);
+                max-width: 85vw;
             }
 
-            .nav.open {
-                display: flex;
-                right: 0;
+            .sidebar-header {
+                padding: 16px 20px 12px;
             }
 
-            .nav a {
-                padding: 12px 14px;
-                font-size: 15px;
-                min-height: 48px;
-                border-radius: 8px;
-                width: 100%;
+            .sidebar-nav {
+                padding: 8px 8px 16px;
             }
 
-            .nav a:hover {
-                background: var(--bg-card);
-            }
-
-            .nav .user-info {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 8px 0;
-                width: 100%;
-                gap: 4px;
-            }
-
-            .nav .user-info span {
+            .sidebar-nav .nav-item {
                 padding: 10px 14px;
                 font-size: 14px;
-                background: var(--bg-card);
-                border-radius: 8px;
-                border: 1px solid var(--border);
-                word-break: break-all;
-            }
-
-            .nav .user-info .logout-link {
-                padding: 10px 14px;
-                font-size: 14px;
-                text-align: center;
                 min-height: 44px;
-                width: 100%;
-                justify-content: center;
-                border-radius: 8px;
             }
 
-            /* Hide cart link inside nav on mobile - it's in header */
-            .nav .cart-link-header {
-                display: none;
+            .sidebar-nav .nav-item .icon {
+                font-size: 16px;
+                width: 22px;
             }
 
-            /* Overlay for mobile */
-            .nav-overlay.active {
-                display: block;
+            .sidebar-footer {
+                padding: 10px 16px 16px;
             }
 
-            /* Dashboard sidebar mobile fix */
+            .sidebar-footer .logout-btn {
+                padding: 10px 14px;
+                font-size: 13px;
+                min-height: 44px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero-stats {
+                gap: 16px;
+            }
+            .hero-stat .number {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .checkout-inner {
+                padding: 0 4px;
+            }
+            .order-summary,
+            .payment-section {
+                padding: 16px;
+            }
+
+            .upload-card {
+                padding: 16px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .profile-card {
+                padding: 16px;
+            }
+
+            .courses-grid {
+                gap: 12px;
+            }
+            .course-card {
+                padding: 14px 16px;
+            }
+
+            .modal-content {
+                padding: 24px 20px;
+                max-width: 95%;
+            }
+
+            .admin-table-wrap .table-scroll {
+                padding: 0 8px 12px 8px;
+            }
+
+            .admin-table-wrap table {
+                font-size: 12px;
+            }
+
+            .admin-table-wrap table th,
+            .admin-table-wrap table td {
+                padding: 6px 4px;
+            }
+
             .dashboard-wrapper {
                 flex-direction: column;
             }
@@ -2430,7 +2576,6 @@
                 font-size: 20px;
             }
 
-            /* Admin sidebar mobile fix */
             .admin-wrapper {
                 flex-direction: column;
             }
@@ -2470,70 +2615,6 @@
 
             .admin-content-area .page h2 {
                 font-size: 20px;
-            }
-
-            /* Hero */
-            .hero h1 {
-                font-size: 28px;
-            }
-            .hero-stats {
-                gap: 16px;
-            }
-            .hero-stat .number {
-                font-size: 20px;
-            }
-
-            .section-title {
-                font-size: 22px;
-            }
-
-            /* Checkout */
-            .checkout-inner {
-                padding: 0 4px;
-            }
-            .order-summary,
-            .payment-section {
-                padding: 16px;
-            }
-
-            .upload-card {
-                padding: 16px;
-            }
-
-            .stat-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-
-            .profile-card {
-                padding: 16px;
-            }
-
-            .courses-grid {
-                gap: 12px;
-            }
-            .course-card {
-                padding: 14px 16px;
-            }
-
-            /* Modal */
-            .modal-content {
-                padding: 24px 20px;
-                max-width: 95%;
-            }
-
-            /* Table scroll fix */
-            .admin-table-wrap .table-scroll {
-                padding: 0 8px 12px 8px;
-            }
-
-            .admin-table-wrap table {
-                font-size: 12px;
-            }
-
-            .admin-table-wrap table th,
-            .admin-table-wrap table td {
-                padding: 6px 4px;
             }
         }
 
@@ -2596,7 +2677,22 @@
                 padding: 20px 16px;
             }
 
-            /* Smaller touch targets on very small screens */
+            .sidebar-menu {
+                width: 90vw;
+                max-width: 280px;
+            }
+
+            .sidebar-nav .nav-item {
+                font-size: 13px;
+                padding: 8px 12px;
+                min-height: 40px;
+            }
+
+            .sidebar-nav .nav-item .icon {
+                font-size: 15px;
+                width: 20px;
+            }
+
             .dashboard-sidebar .menu-item {
                 font-size: 11px !important;
                 padding: 6px 8px !important;
@@ -2616,28 +2712,6 @@
             }
             .admin-content-area {
                 padding: 12px 8px !important;
-            }
-
-            .nav {
-                width: 92%;
-                max-width: 280px;
-                padding: 16px 12px;
-            }
-
-            .nav a {
-                font-size: 14px;
-                padding: 10px 12px;
-                min-height: 44px;
-            }
-
-            /* Cart link in header - show only icon */
-            .cart-link-header span:not(.cart-count) {
-                display: none;
-            }
-
-            .cart-link-header {
-                padding: 4px 8px;
-                min-height: 32px;
             }
         }
 
@@ -2663,6 +2737,11 @@
             </a>
 
             <div class="header-right">
+                <!-- User email display - always in header -->
+                <div class="header-user-email" id="headerUserDisplay" style="display:none;">
+                    👤 <span class="email" id="headerUserEmail">user@email.com</span>
+                </div>
+
                 <!-- Cart link - always visible -->
                 <a href="#" class="cart-link-header" id="headerCartLink">
                     <span>🛒</span>
@@ -2678,16 +2757,66 @@
                 </button>
             </div>
 
-            <!-- Mobile Overlay -->
-            <div class="nav-overlay" id="navOverlay"></div>
+            <!-- Sidebar Overlay -->
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-            <nav class="nav" id="navMenu">
-                <a href="#" class="nav-courses" id="navCourses">📚 Courses</a>
-                <div class="user-info" id="userInfo" style="display:none;">
-                    <span>👤 <span id="headerUserEmail">user@email.com</span></span>
-                    <button class="logout-link" onclick="logoutUser()">🚪 Logout</button>
+            <!-- SIDEBAR MENU - ALL NAVIGATION IN ONE PLACE -->
+            <div class="sidebar-menu" id="sidebarMenu">
+                <div class="sidebar-header">
+                    <div class="brand">
+                        <span class="logo-icon">✈️</span>
+                        <span class="title">Freelance Pilot</span>
+                    </div>
+                    <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">✕</button>
                 </div>
-            </nav>
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-section-title">Main</div>
+                        <button class="nav-item active" data-nav="home" id="navHome">
+                            <span class="icon">🏠</span> Home
+                        </button>
+                        <button class="nav-item" data-nav="courses" id="navCoursesBtn">
+                            <span class="icon">📚</span> Courses
+                        </button>
+                        <button class="nav-item" data-nav="cart" id="navCartBtn">
+                            <span class="icon">🛒</span> Cart
+                            <span class="badge" id="sidebarCartBadge">0</span>
+                        </button>
+                    </div>
+
+                    <hr class="divider" />
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Account</div>
+                        <button class="nav-item" data-nav="dashboard" id="navDashboard">
+                            <span class="icon">👤</span> Dashboard
+                        </button>
+                        <button class="nav-item" data-nav="orders" id="navOrders">
+                            <span class="icon">📦</span> Orders
+                        </button>
+                        <button class="nav-item" data-nav="mycourses" id="navMyCourses">
+                            <span class="icon">📖</span> My Courses
+                        </button>
+                        <button class="nav-item" data-nav="settings" id="navSettings">
+                            <span class="icon">⚙️</span> Settings
+                        </button>
+                    </div>
+
+                    <hr class="divider" />
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Admin</div>
+                        <button class="nav-item" data-nav="admin" id="navAdmin" style="display:none;">
+                            <span class="icon">🔐</span> Admin Panel
+                        </button>
+                    </div>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="logout-btn" id="sidebarLogoutBtn">
+                        🚪 Logout
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -2747,7 +2876,6 @@
                 </button>
             </div>
             <div class="admin-content-area">
-                <!-- Admin Dashboard -->
                 <div class="page active" id="adminPageDashboard">
                     <h2>📊 Dashboard</h2>
                     <p class="sub">Overview of users and orders</p>
@@ -2768,8 +2896,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Admin Users -->
                 <div class="page" id="adminPageUsers">
                     <h2>👥 Users</h2>
                     <p class="sub">Manage all registered users</p>
@@ -2783,8 +2909,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Admin Upload -->
                 <div class="page" id="adminPageUpload">
                     <h2>📤 Upload Materials</h2>
                     <p class="sub">Upload course materials to specific users</p>
@@ -2839,7 +2963,6 @@
                 <button class="menu-item" data-page="settings"><span class="icon">⚙️</span> Settings</button>
             </div>
             <div class="dashboard-content-area">
-                <!-- Profile -->
                 <div class="page active" id="pageProfile">
                     <h2>👤 Dashboard</h2>
                     <p class="sub" id="dashboardUserEmail">user@example.com</p>
@@ -2856,29 +2979,21 @@
                         <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
                     </div>
                 </div>
-
-                <!-- Orders -->
                 <div class="page" id="pageOrders">
                     <h2>📦 Order History</h2>
                     <p class="sub">View all your past orders</p>
                     <div id="ordersList"><div class="empty-state"><div class="icon">📭</div><p>No orders yet. Start learning today!</p></div></div>
                 </div>
-
-                <!-- My Courses -->
                 <div class="page" id="pageCourses">
                     <h2>📚 My Courses & Materials</h2>
                     <p class="sub">Access all your course materials</p>
                     <div id="coursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
                 </div>
-
-                <!-- Cart -->
                 <div class="page" id="pageCart">
                     <h2>🛒 Your Cart</h2>
                     <p class="sub">Review items in your cart</p>
                     <div id="cartList"><div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p></div></div>
                 </div>
-
-                <!-- Settings -->
                 <div class="page" id="pageSettings">
                     <h2>⚙️ Settings</h2>
                     <p class="sub">Manage your account settings</p>
@@ -3128,7 +3243,7 @@
 
     <script>
         // ============================================================
-        // FREELANCE PILOT — COMPLETE APPLICATION (FIXED MOBILE MENU)
+        // FREELANCE PILOT — COMPLETE APPLICATION (FIXED)
         // ============================================================
 
         (function() {
@@ -3138,18 +3253,10 @@
             const SUPABASE_URL = 'https://fvtcavphqqbsjcyobely.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2dGNhdnBocXFic2pjeW9iZWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTIxMDIsImV4cCI6MjEwMDU2ODEwMn0.sk_0XjON3NIhCyi4_oZAsKQIQJwr9rqwQVmB6Hncdxk';
 
-            // ===== COURSES LIST =====
-            const COURSES_LIST = [
-                'Master Traffic Arbitrage and Scale Your Portfolio',
-                'Build Any Kind of Website from Frontend to Backend',
-                'Automate Your Workflow with RPA Concepts',
-                'Build Software and Mobile Applications from Scratch',
-                'AI Powered Freelancing to Win More Clients'
-            ];
-
             // ===== DOM REFS =====
             const cartCountEl = document.getElementById('cartCount');
-            const sidebarCartCountEl = document.getElementById('sidebarCartCount');
+            const sidebarCartBadge = document.getElementById('sidebarCartBadge');
+            const sidebarCartCount = document.getElementById('sidebarCartCount');
             const coursesGrid = document.getElementById('coursesGrid');
             const checkoutSection = document.getElementById('checkoutSection');
             const emptyCart = document.getElementById('emptyCart');
@@ -3162,18 +3269,31 @@
             const headerCartLink = document.getElementById('headerCartLink');
             const backLink = document.getElementById('backLink');
             const logoLink = document.getElementById('logoLink');
-            const navCourses = document.getElementById('navCourses');
             const emptyCartLink = document.getElementById('emptyCartLink');
             const clearCartBtn = document.getElementById('clearCartBtn');
             const cancelOrderBtn = document.getElementById('cancelOrderBtn');
             const authLink = document.getElementById('authLink');
-            const userInfo = document.getElementById('userInfo');
+            const headerUserDisplay = document.getElementById('headerUserDisplay');
             const headerUserEmail = document.getElementById('headerUserEmail');
             const userDashboard = document.getElementById('userDashboard');
             const adminWrapper = document.getElementById('adminWrapper');
+
+            // Sidebar elements
             const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const navMenu = document.getElementById('navMenu');
-            const navOverlay = document.getElementById('navOverlay');
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const sidebarLogoutBtn = document.getElementById('sidebarLogoutBtn');
+
+            // Nav buttons
+            const navHome = document.getElementById('navHome');
+            const navCoursesBtn = document.getElementById('navCoursesBtn');
+            const navCartBtn = document.getElementById('navCartBtn');
+            const navDashboard = document.getElementById('navDashboard');
+            const navOrders = document.getElementById('navOrders');
+            const navMyCourses = document.getElementById('navMyCourses');
+            const navSettings = document.getElementById('navSettings');
+            const navAdmin = document.getElementById('navAdmin');
 
             // Upload elements
             const uploadUserSelect = document.getElementById('uploadUserSelect');
@@ -3213,71 +3333,165 @@
             let deleteTarget = null;
             let selectedFiles = [];
             let confirmCallback = null;
-            let isMobileNavOpen = false;
+            let isSidebarOpen = false;
 
-            // ===== MOBILE NAV FUNCTIONS =====
+            // ===== SIDEBAR FUNCTIONS =====
 
-            function toggleMobileNav(forceState) {
-                const shouldOpen = forceState !== undefined ? forceState : !isMobileNavOpen;
+            function openSidebar() {
+                sidebarMenu.classList.add('open');
+                sidebarOverlay.classList.add('active');
+                hamburgerBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                isSidebarOpen = true;
+            }
 
-                if (shouldOpen) {
-                    navMenu.classList.add('open');
-                    hamburgerBtn.classList.add('active');
-                    navOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    isMobileNavOpen = true;
+            function closeSidebar() {
+                sidebarMenu.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+                document.body.style.overflow = '';
+                isSidebarOpen = false;
+            }
+
+            function toggleSidebar() {
+                if (isSidebarOpen) {
+                    closeSidebar();
                 } else {
-                    navMenu.classList.remove('open');
-                    hamburgerBtn.classList.remove('active');
-                    navOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                    isMobileNavOpen = false;
+                    openSidebar();
                 }
             }
 
-            function closeMobileNav() {
-                if (isMobileNavOpen) {
-                    toggleMobileNav(false);
+            // ===== SIDEBAR NAVIGATION =====
+
+            function navigateTo(section) {
+                // Close sidebar first
+                closeSidebar();
+
+                // Handle navigation based on section
+                switch (section) {
+                    case 'home':
+                        goToHome();
+                        break;
+                    case 'courses':
+                        goToHome();
+                        setTimeout(() => {
+                            document.getElementById('coursesSection').scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                        break;
+                    case 'cart':
+                        const user = getCurrentUserSync();
+                        if (!user) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showNotification('❌ Admins cannot purchase courses.', 'error');
+                            return;
+                        }
+                        renderCheckout();
+                        break;
+                    case 'dashboard':
+                        if (!currentUser) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showAdminDashboard();
+                        } else {
+                            showUserDashboard();
+                            updateUserDashboard();
+                        }
+                        break;
+                    case 'orders':
+                        if (!currentUser) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showAdminDashboard();
+                            document.querySelector('[data-admin-page="dashboard"]')?.click();
+                        } else {
+                            showUserDashboard();
+                            updateUserDashboard();
+                            document.querySelector('[data-page="orders"]')?.click();
+                        }
+                        break;
+                    case 'mycourses':
+                        if (!currentUser) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showNotification('Admin mode: Use Upload section to manage materials', 'error');
+                            return;
+                        }
+                        showUserDashboard();
+                        updateUserDashboard();
+                        document.querySelector('[data-page="courses"]')?.click();
+                        break;
+                    case 'settings':
+                        if (!currentUser) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showAdminDashboard();
+                            document.querySelector('[data-admin-page="dashboard"]')?.click();
+                            return;
+                        }
+                        showUserDashboard();
+                        updateUserDashboard();
+                        document.querySelector('[data-page="settings"]')?.click();
+                        break;
+                    case 'admin':
+                        if (isAdmin()) {
+                            showAdminDashboard();
+                        } else {
+                            showNotification('❌ Admin access only', 'error');
+                        }
+                        break;
+                    default:
+                        goToHome();
                 }
             }
 
-            // ===== HAMBURGER CLICK =====
-            hamburgerBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleMobileNav();
-            });
+            // ===== SIDEBAR EVENT LISTENERS =====
 
-            // ===== OVERLAY CLICK =====
-            navOverlay.addEventListener('click', function() {
-                closeMobileNav();
-            });
+            hamburgerBtn.addEventListener('click', toggleSidebar);
 
-            // ===== ESCAPE KEY CLOSE =====
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            sidebarClose.addEventListener('click', closeSidebar);
+
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && isMobileNavOpen) {
-                    closeMobileNav();
+                if (e.key === 'Escape' && isSidebarOpen) {
+                    closeSidebar();
                 }
             });
 
-            // ===== CLOSE NAV ON LINK CLICKS =====
-            document.querySelectorAll('.nav a, .nav .user-info button, .nav .user-info span').forEach(el => {
-                el.addEventListener('click', function() {
-                    setTimeout(closeMobileNav, 150);
-                });
-            });
+            // Nav item clicks
+            navHome.addEventListener('click', function() { navigateTo('home'); });
+            navCoursesBtn.addEventListener('click', function() { navigateTo('courses'); });
+            navCartBtn.addEventListener('click', function() { navigateTo('cart'); });
+            navDashboard.addEventListener('click', function() { navigateTo('dashboard'); });
+            navOrders.addEventListener('click', function() { navigateTo('orders'); });
+            navMyCourses.addEventListener('click', function() { navigateTo('mycourses'); });
+            navSettings.addEventListener('click', function() { navigateTo('settings'); });
+            navAdmin.addEventListener('click', function() { navigateTo('admin'); });
 
-            // ===== RESIZE HANDLER =====
-            let resizeTimer;
-            window.addEventListener('resize', function() {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(function() {
-                    if (window.innerWidth > 768 && isMobileNavOpen) {
-                        closeMobileNav();
+            sidebarLogoutBtn.addEventListener('click', function() {
+                closeSidebar();
+                if (currentUser) {
+                    if (confirm('Logout ' + currentUser.email + '?')) {
+                        logoutUser();
                     }
-                }, 200);
+                } else {
+                    openAuthModal('login');
+                }
             });
 
             // ===== SUPABASE API HELPER =====
+
             async function supabaseFetch(endpoint, options = {}) {
                 const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
                 const headers = {
@@ -3323,47 +3537,99 @@
                 }
             }
 
-            // ===== SUPABASE STORAGE =====
+            // ===== SUPABASE STORAGE - FIXED =====
+
+            async function checkBucketExists() {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/storage/v1/bucket/materials`, {
+                        headers: {
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        }
+                    });
+                    return response.ok;
+                } catch (error) {
+                    console.error('Bucket check error:', error);
+                    return false;
+                }
+            }
+
             async function uploadToStorage(file, path) {
                 const formData = new FormData();
                 formData.append('file', file);
 
-                const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${path}`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                    },
-                    body: formData
-                });
+                try {
+                    // Check if bucket exists first
+                    const bucketExists = await checkBucketExists();
+                    if (!bucketExists) {
+                        console.log('Bucket does not exist, attempting to create...');
+                        // Try to create the bucket
+                        const createResponse = await fetch(`${SUPABASE_URL}/storage/v1/bucket`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                id: 'materials',
+                                name: 'materials',
+                                public: true,
+                            })
+                        });
+                        if (!createResponse.ok) {
+                            const error = await createResponse.text();
+                            console.error('Bucket creation failed:', error);
+                            throw new Error('Failed to create storage bucket: ' + error);
+                        }
+                        console.log('Bucket created successfully');
+                    }
 
-                if (!response.ok) {
-                    const error = await response.text();
-                    console.error('Storage upload error:', error);
-                    throw new Error(error);
+                    // Upload the file
+                    const response = await fetch(`${SUPABASE_URL}/storage/v1/object/materials/${path}`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        },
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.text();
+                        console.error('Storage upload error:', error);
+                        throw new Error(error);
+                    }
+
+                    const data = await response.json();
+                    console.log('Upload successful:', data);
+                    return data.Key || path;
+                } catch (error) {
+                    console.error('Upload function error:', error);
+                    throw error;
                 }
-
-                const data = await response.json();
-                return data.Key || data.path;
             }
 
             async function deleteFromStorage(path) {
-                const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${path}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                    }
-                });
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/storage/v1/object/materials/${path}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        }
+                    });
 
-                if (!response.ok) {
-                    const error = await response.text();
-                    console.error('Storage delete error:', error);
+                    if (!response.ok) {
+                        const error = await response.text();
+                        console.error('Storage delete error:', error);
+                        return false;
+                    }
+                    return true;
+                } catch (error) {
+                    console.error('Delete error:', error);
                     return false;
                 }
-                return true;
             }
 
             function getPublicUrl(path) {
-                return `${SUPABASE_URL}/storage/v1/object/public/${path}`;
+                return `${SUPABASE_URL}/storage/v1/object/public/materials/${path}`;
             }
 
             // ===== SUPABASE FUNCTIONS =====
@@ -3384,9 +3650,9 @@
             async function saveUsers(users) {
                 try {
                     for (const [email, data] of Object.entries(users)) {
-                        const existing = await supabaseFetch(`users?email=eq.${email}`);
+                        const existing = await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`);
                         if (existing.length > 0) {
-                            await supabaseFetch(`users?email=eq.${email}`, {
+                            await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`, {
                                 method: 'PATCH',
                                 body: JSON.stringify(data)
                             });
@@ -3408,12 +3674,16 @@
                 const email = localStorage.getItem('fp_currentUser');
                 if (!email) return null;
                 try {
-                    const result = await supabaseFetch(`users?email=eq.${email}`);
+                    const result = await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`);
                     return result[0] || null;
                 } catch (error) {
                     console.error('Error fetching user:', error);
                     return null;
                 }
+            }
+
+            function getCurrentUserSync() {
+                return currentUser;
             }
 
             async function getCart() {
@@ -3426,7 +3696,7 @@
                 const user = await getCurrentUser();
                 if (!user) return;
                 try {
-                    await supabaseFetch(`users?email=eq.${user.email}`, {
+                    await supabaseFetch(`users?email=eq.${encodeURIComponent(user.email)}`, {
                         method: 'PATCH',
                         body: JSON.stringify({ cart: cart })
                     });
@@ -3473,7 +3743,7 @@
                             }
                         }
                     }
-                    return await supabaseFetch(`users?email=eq.${email}`, {
+                    return await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`, {
                         method: 'DELETE'
                     });
                 } catch (error) {
@@ -3510,6 +3780,7 @@
             }
 
             // ===== PASSWORD FUNCTIONS =====
+
             function hashPassword(password) {
                 let hash = 0;
                 for (let i = 0; i < password.length; i++) {
@@ -3610,6 +3881,7 @@
 
                     if (isAdmin()) {
                         document.body.classList.add('admin-mode');
+                        navAdmin.style.display = 'flex';
                         showAdminDashboard();
                         await refreshAdminPanel();
                         await populateUserSelect();
@@ -3617,6 +3889,7 @@
                         showNotification('🔑 Admin logged in!');
                     } else {
                         document.body.classList.remove('admin-mode');
+                        navAdmin.style.display = 'none';
                         showUserDashboard();
                         await updateUserDashboard();
                         showNotification('✅ Welcome back, ' + email + '!');
@@ -3639,7 +3912,8 @@
                 const cart = await getCart();
                 const count = cart.length;
                 cartCountEl.textContent = count;
-                if (sidebarCartCountEl) sidebarCartCountEl.textContent = count;
+                if (sidebarCartBadge) sidebarCartBadge.textContent = count;
+                if (sidebarCartCount) sidebarCartCount.textContent = count;
 
                 if (count === 0 && !isCheckingout) {
                     checkoutSection.classList.remove('show');
@@ -3666,17 +3940,19 @@
                 const user = await getCurrentUser();
                 if (user) {
                     authLink.style.display = 'flex';
-                    userInfo.style.display = 'flex';
+                    headerUserDisplay.style.display = 'flex';
                     headerUserEmail.textContent = user.email;
                     authLink.className = 'auth-link logged-in';
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = '👤';
+                    sidebarLogoutBtn.textContent = '🚪 Logout';
                 } else {
                     authLink.style.display = 'flex';
-                    userInfo.style.display = 'none';
+                    headerUserDisplay.style.display = 'none';
                     authLink.className = 'auth-link';
                     const authSpan = authLink.querySelector('span');
                     if (authSpan) authSpan.textContent = 'Login';
+                    sidebarLogoutBtn.textContent = '🔑 Login';
                 }
             }
 
@@ -3698,7 +3974,6 @@
                 checkoutSection.classList.remove('show');
                 checkoutSection.style.display = 'none';
                 emptyCart.style.display = 'none';
-                closeMobileNav();
             }
 
             function showAdminDashboard() {
@@ -3713,7 +3988,6 @@
                 checkoutSection.classList.remove('show');
                 checkoutSection.style.display = 'none';
                 emptyCart.style.display = 'none';
-                closeMobileNav();
             }
 
             function goToHome() {
@@ -3735,7 +4009,6 @@
                     clearInterval(verificationInterval);
                     verificationInterval = null;
                 }
-                closeMobileNav();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -3753,7 +4026,6 @@
                 document.getElementById('profileCourses').textContent = (user.orders || []).filter(o => o.status === 'completed')
                     .length;
 
-                // Orders
                 const ordersList = document.getElementById('ordersList');
                 const orders = user.orders || [];
                 if (orders.length === 0) {
@@ -3772,7 +4044,6 @@
                             `).join('');
                 }
 
-                // My Courses
                 const coursesList = document.getElementById('coursesList');
                 const completedOrders = orders.filter(o => o.status === 'completed');
                 const materials = user.materials || [];
@@ -3829,11 +4100,10 @@
                     coursesList.innerHTML = html;
                 }
 
-                // Cart in sidebar
                 const cart = await getCart();
-                if (sidebarCartCountEl) sidebarCartCountEl.textContent = cart.length;
+                if (sidebarCartBadge) sidebarCartBadge.textContent = cart.length;
+                if (sidebarCartCount) sidebarCartCount.textContent = cart.length;
 
-                // Cart page
                 const cartList = document.getElementById('cartList');
                 if (cart.length === 0) {
                     cartList.innerHTML = '<div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p></div>';
@@ -3869,9 +4139,14 @@
                     const page = this.dataset.page;
                     document.querySelectorAll('.dashboard-content-area .page').forEach(p => p.classList.remove(
                         'active'));
-                    document.getElementById('page' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add(
-                        'active');
-                    closeMobileNav();
+                    const pageMap = {
+                        'profile': 'pageProfile',
+                        'orders': 'pageOrders',
+                        'courses': 'pageCourses',
+                        'cart': 'pageCart',
+                        'settings': 'pageSettings'
+                    };
+                    document.getElementById(pageMap[page]).classList.add('active');
                 });
             });
 
@@ -3891,7 +4166,6 @@
                         'upload': 'adminPageUpload'
                     };
                     document.getElementById(pageMap[page]).classList.add('active');
-                    closeMobileNav();
                 });
             });
 
@@ -4101,7 +4375,11 @@
 
                 for (const file of selectedFiles) {
                     try {
-                        const path = `materials/${email}/${Date.now()}_${file.name}`;
+                        // Sanitize filename for storage
+                        const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                        const path = `${email}/${Date.now()}_${safeFileName}`;
+
+                        console.log('Uploading to path:', path);
                         const storagePath = await uploadToStorage(file, path);
 
                         const material = {
@@ -4119,9 +4397,10 @@
                         await addUserMaterial(email, material);
                         uploaded++;
                         progressBar.style.width = `${(uploaded / total) * 100}%`;
+                        console.log('Uploaded:', uploaded, 'of', total);
                     } catch (error) {
                         console.error('Upload error for file:', file.name, error);
-                        showNotification('❌ Failed to upload: ' + file.name, 'error');
+                        showNotification('❌ Failed to upload: ' + file.name + ' - ' + error.message, 'error');
                     }
                 }
 
@@ -4144,13 +4423,12 @@
             function uploadToUser(email) {
                 uploadUserSelect.value = email;
                 document.querySelectorAll('.admin-sidebar .menu-item[data-admin-page]').forEach(i => i.classList.remove(
-                'active'));
+                    'active'));
                 document.querySelector('.admin-sidebar .menu-item[data-admin-page="upload"]').classList.add('active');
                 document.querySelectorAll('.admin-content-area .page').forEach(p => p.classList.remove('active'));
                 document.getElementById('adminPageUpload').classList.add('active');
                 loadUploadedFiles();
                 showNotification('Selected user: ' + email);
-                closeMobileNav();
             }
 
             async function deleteMaterial(email, index) {
@@ -4187,8 +4465,7 @@
             };
 
             window.goToCourses = function() {
-                goToHome();
-                document.getElementById('coursesSection').scrollIntoView({ behavior: 'smooth' });
+                navigateTo('courses');
             };
 
             // ===== AUTH MODAL FUNCTIONS =====
@@ -4221,7 +4498,7 @@
                 authEmail.value = '';
                 authPassword.value = '';
                 authModal.classList.add('active');
-                closeMobileNav();
+                closeSidebar();
             }
 
             function closeAuthModal() {
@@ -4271,13 +4548,13 @@
                 localStorage.removeItem('fp_currentUser');
                 currentUser = null;
                 document.body.classList.remove('admin-mode');
+                navAdmin.style.display = 'none';
                 await updateCartUI();
                 await updateAuthUI();
                 userDashboard.classList.remove('show');
                 userDashboard.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
-                closeMobileNav();
                 goToHome();
                 showNotification('👋 Logged out successfully');
             }
@@ -4307,7 +4584,7 @@
                     deleteTarget = null;
                     closeConfirmModal();
                 };
-                closeMobileNav();
+                closeSidebar();
             }
 
             // ===== DELETE ACCOUNT (USER) =====
@@ -4326,13 +4603,13 @@
                         localStorage.removeItem('fp_currentUser');
                         currentUser = null;
                         document.body.classList.remove('admin-mode');
+                        navAdmin.style.display = 'none';
                         await updateAuthUI();
                         await updateCartUI();
                         userDashboard.classList.remove('show');
                         userDashboard.style.display = 'none';
                         adminWrapper.classList.remove('show');
                         adminWrapper.style.display = 'none';
-                        closeMobileNav();
                         goToHome();
                         showNotification('✅ Your account has been deleted.');
                     } else {
@@ -4340,7 +4617,7 @@
                     }
                     closeConfirmModal();
                 };
-                closeMobileNav();
+                closeSidebar();
             }
 
             function closeConfirmModal() {
@@ -4448,7 +4725,7 @@
                 userDashboard.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
-                closeMobileNav();
+                closeSidebar();
 
                 let html = '';
                 let total = 0;
@@ -4803,7 +5080,7 @@
 
             headerCartLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                const user = getCurrentUser();
+                const user = getCurrentUserSync();
                 if (!user) {
                     openAuthModal('login');
                     return;
@@ -4813,7 +5090,7 @@
                     return;
                 }
                 renderCheckout();
-                closeMobileNav();
+                closeSidebar();
             });
 
             // ===== AUTH LINK CLICK =====
@@ -4828,7 +5105,7 @@
                 } else {
                     openAuthModal('login');
                 }
-                closeMobileNav();
+                closeSidebar();
             });
 
             // ===== BACK LINK =====
@@ -4845,12 +5122,6 @@
             logoLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 goToHome();
-            });
-
-            navCourses.addEventListener('click', function(e) {
-                e.preventDefault();
-                goToHome();
-                document.getElementById('coursesSection').scrollIntoView({ behavior: 'smooth' });
             });
 
             emptyCartLink.addEventListener('click', function(e) {
@@ -4916,6 +5187,7 @@
 
                     if (user.email === 'admin@freelancepilot.com') {
                         document.body.classList.add('admin-mode');
+                        navAdmin.style.display = 'flex';
                         showAdminDashboard();
                         await refreshAdminPanel();
                         await populateUserSelect();
@@ -4923,11 +5195,13 @@
                         showNotification('🔑 Admin session restored');
                     } else {
                         document.body.classList.remove('admin-mode');
+                        navAdmin.style.display = 'none';
                         showUserDashboard();
                         await updateUserDashboard();
                     }
                 } else {
                     document.body.classList.remove('admin-mode');
+                    navAdmin.style.display = 'none';
                     await updateAuthUI();
                     await updateCartUI();
                 }
@@ -4958,6 +5232,7 @@
             window.uploadToUser = uploadToUser;
             window.deleteMaterial = deleteMaterial;
             window.removeFromCart = removeFromCart;
+            window.navigateTo = navigateTo;
 
             // Close modals on Escape key
             document.addEventListener('keydown', function(e) {
@@ -4968,20 +5243,13 @@
                     if (confirmModal.classList.contains('active')) {
                         closeConfirmModal();
                     }
-                    if (isMobileNavOpen) {
-                        closeMobileNav();
+                    if (isSidebarOpen) {
+                        closeSidebar();
                     }
                     document.querySelectorAll('.course-details.open').forEach(el => {
                         el.classList.remove('open');
                         el.closest('.course-card').querySelector('.toggle-details').classList.remove('open');
                     });
-                }
-            });
-
-            // Close mobile nav on window resize to desktop
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768 && isMobileNavOpen) {
-                    closeMobileNav();
                 }
             });
 
