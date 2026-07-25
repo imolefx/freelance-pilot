@@ -192,7 +192,6 @@
             color: var(--gold) !important;
         }
 
-        /* Hamburger - visible on ALL screen sizes */
         .hamburger {
             display: flex;
             flex-direction: column;
@@ -519,7 +518,7 @@
         }
 
         /* ============================================================
-        ADMIN MODE - HIDE COURSE STORE
+        ADMIN MODE
         ============================================================ */
         body.admin-mode .hero,
         body.admin-mode .courses,
@@ -1153,7 +1152,7 @@
         }
 
         /* ============================================================
-        ADMIN DASHBOARD - DROPDOWN STYLES
+        ADMIN DASHBOARD - REDESIGNED WITH DROPDOWNS
         ============================================================ */
         .admin-wrapper {
             display: none;
@@ -1200,10 +1199,9 @@
             border-radius: var(--radius);
             margin-bottom: 16px;
             overflow: hidden;
-            transition: var(--transition);
         }
 
-        .admin-dropdown-card .card-header {
+        .admin-dropdown-header {
             padding: 16px 20px;
             display: flex;
             justify-content: space-between;
@@ -1211,21 +1209,30 @@
             cursor: pointer;
             transition: var(--transition);
             user-select: none;
+            min-height: 56px;
         }
 
-        .admin-dropdown-card .card-header:hover {
-            background: var(--bg-card-hover);
+        .admin-dropdown-header:hover {
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        .admin-dropdown-card .card-header .title {
-            font-size: 16px;
-            font-weight: 700;
+        .admin-dropdown-header .title-section {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .admin-dropdown-card .card-header .title .count {
+        .admin-dropdown-header .title-section .icon {
+            font-size: 20px;
+        }
+
+        .admin-dropdown-header .title-section .label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .admin-dropdown-header .title-section .count {
             background: var(--gold);
             color: var(--bg-primary);
             border-radius: 50%;
@@ -1237,30 +1244,29 @@
             line-height: 24px;
         }
 
-        .admin-dropdown-card .card-header .arrow {
-            font-size: 20px;
-            transition: var(--transition);
+        .admin-dropdown-header .arrow {
+            font-size: 18px;
             color: var(--text-muted);
+            transition: var(--transition);
         }
 
-        .admin-dropdown-card .card-header .arrow.open {
+        .admin-dropdown-header .arrow.open {
             transform: rotate(180deg);
         }
 
-        .admin-dropdown-card .card-body {
+        .admin-dropdown-body {
             display: none;
-            padding: 0 16px 16px 16px;
+            padding: 0 20px 20px;
             border-top: 1px solid var(--border);
         }
 
-        .admin-dropdown-card .card-body.open {
+        .admin-dropdown-body.open {
             display: block;
             animation: fadeUp 0.3s ease-out;
         }
 
         .admin-table-wrap {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            background: var(--bg-primary);
             border-radius: 8px;
             overflow: hidden;
             margin-top: 12px;
@@ -1268,7 +1274,7 @@
 
         .admin-table-wrap .table-scroll {
             overflow-x: auto;
-            padding: 0 16px 16px 16px;
+            padding: 0 0 0 0;
         }
 
         .admin-table-wrap table {
@@ -1279,20 +1285,26 @@
 
         .admin-table-wrap table th {
             text-align: left;
-            padding: 10px 6px;
+            padding: 10px 12px;
             color: var(--text-muted);
             font-weight: 600;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .admin-table-wrap table td {
-            padding: 8px 6px;
+            padding: 10px 12px;
             border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .admin-table-wrap table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .admin-table-wrap table td .badge {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 10px;
             border-radius: 100px;
             font-size: 11px;
             font-weight: 600;
@@ -1308,17 +1320,22 @@
             color: #f39c12;
         }
 
+        .admin-table-wrap table td .badge.canceled {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
         .admin-table-wrap table td .action-btn {
             background: rgba(212, 168, 83, 0.12);
             color: var(--gold);
             border: 1px solid rgba(212, 168, 83, 0.2);
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 100px;
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            margin-right: 3px;
+            margin-right: 4px;
             min-height: 32px;
         }
 
@@ -1336,11 +1353,21 @@
             background: rgba(255, 107, 107, 0.15);
         }
 
+        .admin-table-wrap table td .action-btn.success {
+            color: #2ecc71;
+            border-color: rgba(46, 204, 113, 0.2);
+            background: rgba(46, 204, 113, 0.08);
+        }
+
+        .admin-table-wrap table td .action-btn.success:hover {
+            background: rgba(46, 204, 113, 0.15);
+        }
+
         .admin-refresh-btn {
             background: var(--gold);
             color: #0a0a12;
             border: none;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 100px;
             font-weight: 600;
             cursor: pointer;
@@ -2045,7 +2072,7 @@
         }
 
         /* ============================================================
-        RESPONSIVE - MOBILE
+        RESPONSIVE
         ============================================================ */
         @media (max-width: 768px) {
             .header {
@@ -2073,6 +2100,26 @@
 
             .auth-link span {
                 display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                min-width: 40px;
+                min-height: 40px;
+                padding: 6px;
+            }
+
+            .hamburger span {
+                width: 22px;
+                height: 2px;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(6px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-6px) rotate(-45deg);
             }
 
             .floating-cart {
@@ -2166,7 +2213,7 @@
             }
 
             .admin-table-wrap .table-scroll {
-                padding: 0 8px 12px 8px;
+                padding: 0 8px 0 8px;
             }
 
             .admin-table-wrap table {
@@ -2175,7 +2222,7 @@
 
             .admin-table-wrap table th,
             .admin-table-wrap table td {
-                padding: 6px 4px;
+                padding: 6px 8px;
             }
 
             .user-content-area {
@@ -2186,7 +2233,7 @@
                 padding: 0 12px !important;
             }
 
-            .admin-dropdown-card .card-header {
+            .admin-dropdown-header {
                 padding: 12px 16px;
             }
         }
@@ -2270,6 +2317,13 @@
             }
             .sidebar-user .user-details .email {
                 font-size: 11px;
+            }
+        }
+
+        /* Always show hamburger on desktop too */
+        @media (min-width: 769px) {
+            .hamburger {
+                display: flex;
             }
         }
 
@@ -2396,24 +2450,30 @@
         </section>
 
         <!-- ============================================================
-        ADMIN DASHBOARD - DROPDOWN MENUS
+        ADMIN DASHBOARD - REDESIGNED WITH DROPDOWNS
         ============================================================ -->
         <div class="admin-wrapper" id="adminWrapper">
             <div class="admin-content-area">
                 <div class="page active" id="adminPageDashboard">
-                    <h2>📊 Admin Dashboard</h2>
-                    <p class="sub">Manage users and orders</p>
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+                        <div>
+                            <h2>📊 Admin Dashboard</h2>
+                            <p class="sub" style="margin-bottom:0;">Manage users and orders</p>
+                        </div>
+                        <button class="admin-refresh-btn" onclick="refreshAdminPanel()">🔄 Refresh</button>
+                    </div>
 
                     <!-- Users Dropdown -->
                     <div class="admin-dropdown-card">
-                        <div class="card-header" onclick="toggleAdminDropdown('usersDropdown')">
-                            <div class="title">
-                                👥 All Users
-                                <span class="count" id="userCountBadge">0</span>
+                        <div class="admin-dropdown-header" data-dropdown="users">
+                            <div class="title-section">
+                                <span class="icon">👥</span>
+                                <span class="label">All Users</span>
+                                <span class="count" id="adminUserCount">0</span>
                             </div>
-                            <span class="arrow" id="usersDropdownArrow">▼</span>
+                            <span class="arrow">▼</span>
                         </div>
-                        <div class="card-body" id="usersDropdown">
+                        <div class="admin-dropdown-body" id="dropdownUsers">
                             <div class="admin-table-wrap">
                                 <div class="table-scroll">
                                     <table>
@@ -2422,32 +2482,27 @@
                                     </table>
                                 </div>
                             </div>
-                            <div style="margin-top:10px;text-align:right;">
-                                <button class="admin-refresh-btn" onclick="refreshAdminPanel()">🔄 Refresh</button>
-                            </div>
                         </div>
                     </div>
 
-                    <!-- Transactions Dropdown -->
+                    <!-- Orders Dropdown -->
                     <div class="admin-dropdown-card">
-                        <div class="card-header" onclick="toggleAdminDropdown('transactionsDropdown')">
-                            <div class="title">
-                                📋 All Transactions
-                                <span class="count" id="transactionCountBadge">0</span>
+                        <div class="admin-dropdown-header" data-dropdown="orders">
+                            <div class="title-section">
+                                <span class="icon">📋</span>
+                                <span class="label">All Orders</span>
+                                <span class="count" id="adminOrderCount">0</span>
                             </div>
-                            <span class="arrow" id="transactionsDropdownArrow">▼</span>
+                            <span class="arrow">▼</span>
                         </div>
-                        <div class="card-body" id="transactionsDropdown">
+                        <div class="admin-dropdown-body" id="dropdownOrders">
                             <div class="admin-table-wrap">
                                 <div class="table-scroll">
                                     <table>
                                         <thead><tr><th>Order ID</th><th>User</th><th>Amount</th><th>Courses</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
-                                        <tbody id="adminOrdersTable"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-muted);">No transactions yet</td></tr></tbody>
+                                        <tbody id="adminOrdersTable"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-muted);">No orders yet</td></tr></tbody>
                                     </table>
                                 </div>
-                            </div>
-                            <div style="margin-top:10px;text-align:right;">
-                                <button class="admin-refresh-btn" onclick="refreshAdminPanel()">🔄 Refresh</button>
                             </div>
                         </div>
                     </div>
@@ -2755,7 +2810,6 @@
             const userWrapper = document.getElementById('userWrapper');
             const adminWrapper = document.getElementById('adminWrapper');
 
-            // Sidebar elements
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const sidebarMenu = document.getElementById('sidebarMenu');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -2766,14 +2820,12 @@
             const sidebarUserEmail = document.getElementById('sidebarUserEmail');
             const sidebarUserRole = document.getElementById('sidebarUserRole');
 
-            // Nav buttons
             const navHome = document.getElementById('navHome');
             const navCoursesBtn = document.getElementById('navCoursesBtn');
             const navMyCourses = document.getElementById('navMyCourses');
             const navTransactions = document.getElementById('navTransactions');
             const navSettings = document.getElementById('navSettings');
 
-            // Auth Modal Elements
             const authModal = document.getElementById('authModal');
             const authModalIcon = document.getElementById('authModalIcon');
             const authModalTitle = document.getElementById('authModalTitle');
@@ -2784,7 +2836,6 @@
             const authError = document.getElementById('authError');
             const authSuccess = document.getElementById('authSuccess');
 
-            // Confirm Modal Elements
             const confirmModal = document.getElementById('confirmModal');
             const confirmModalMessage = document.getElementById('confirmModalMessage');
             const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
@@ -2799,6 +2850,31 @@
             let deleteTarget = null;
             let confirmCallback = null;
             let isSidebarOpen = false;
+
+            // ===== ADMIN DROPDOWN TOGGLE =====
+            document.querySelectorAll('.admin-dropdown-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const body = this.nextElementSibling;
+                    const arrow = this.querySelector('.arrow');
+                    const isOpen = body.classList.contains('open');
+
+                    // Close all other dropdowns
+                    document.querySelectorAll('.admin-dropdown-body').forEach(b => {
+                        if (b !== body) {
+                            b.classList.remove('open');
+                            b.previousElementSibling.querySelector('.arrow').classList.remove('open');
+                        }
+                    });
+
+                    if (isOpen) {
+                        body.classList.remove('open');
+                        arrow.classList.remove('open');
+                    } else {
+                        body.classList.add('open');
+                        arrow.classList.add('open');
+                    }
+                });
+            });
 
             // ===== SIDEBAR FUNCTIONS =====
 
@@ -2924,20 +3000,6 @@
                 closeSidebar();
             });
 
-            // ===== ADMIN DROPDOWN TOGGLE =====
-
-            window.toggleAdminDropdown = function(id) {
-                const body = document.getElementById(id);
-                const arrow = document.getElementById(id + 'Arrow');
-                if (body.classList.contains('open')) {
-                    body.classList.remove('open');
-                    arrow.classList.remove('open');
-                } else {
-                    body.classList.add('open');
-                    arrow.classList.add('open');
-                }
-            };
-
             // ===== SUPABASE API HELPER =====
 
             async function supabaseFetch(endpoint, options = {}) {
@@ -3010,10 +3072,14 @@
                                 body: JSON.stringify(data)
                             });
                         } else {
-                            await supabaseFetch('users', {
+                            const result = await supabaseFetch('users', {
                                 method: 'POST',
                                 body: JSON.stringify({ email, ...data })
                             });
+                            if (!result) {
+                                console.error('Failed to create user:', email);
+                                return false;
+                            }
                         }
                     }
                     return true;
@@ -3066,11 +3132,11 @@
 
             async function saveOrder(orderData) {
                 try {
-                    await supabaseFetch('orders', {
+                    const result = await supabaseFetch('orders', {
                         method: 'POST',
                         body: JSON.stringify(orderData)
                     });
-                    return true;
+                    return result !== null;
                 } catch (error) {
                     console.error('Error saving order:', error);
                     return false;
@@ -3141,7 +3207,7 @@
 
             async function handleRegister(email, password) {
                 try {
-                    if (!password || password.length < 6) {
+                    if (!email || !password || password.length < 6) {
                         authError.textContent = 'Password must be at least 6 characters.';
                         authError.style.display = 'block';
                         return;
@@ -3166,6 +3232,7 @@
                         cart: []
                     };
 
+                    // Try to create the user with a direct POST
                     const result = await supabaseFetch('users', {
                         method: 'POST',
                         body: JSON.stringify(newUser)
@@ -3183,10 +3250,11 @@
                     } else {
                         authError.textContent = 'Failed to create account. Please try again.';
                         authError.style.display = 'block';
+                        console.error('Registration failed - no result from Supabase');
                     }
                 } catch (error) {
                     console.error('Registration error:', error);
-                    authError.textContent = 'Error creating account. Please try again.';
+                    authError.textContent = 'Error creating account: ' + error.message;
                     authError.style.display = 'block';
                 }
             }
@@ -3377,7 +3445,7 @@
                 document.getElementById('profileEmail').textContent = user.email;
                 document.getElementById('profileJoined').textContent = new Date(user.created).toLocaleDateString();
 
-                // Transactions - ONLY pending and completed
+                // Transactions - ONLY show pending and completed
                 const transactionsList = document.getElementById('transactionsList');
                 const orders = (user.orders || []).filter(o => o.status === 'pending' || o.status === 'completed');
 
@@ -3397,7 +3465,7 @@
                             `).join('');
                 }
 
-                // My Courses - ONLY completed orders
+                // My Courses - only completed
                 const myCoursesList = document.getElementById('myCoursesList');
                 const completedOrders = (user.orders || []).filter(o => o.status === 'completed');
 
@@ -3456,16 +3524,16 @@
                     }
                 }
 
-                // Update badges
-                document.getElementById('userCountBadge').textContent = Object.keys(users).length;
-                document.getElementById('transactionCountBadge').textContent = allOrders.length;
+                // Update counts
+                document.getElementById('adminUserCount').textContent = Object.keys(users).length;
+                document.getElementById('adminOrderCount').textContent = allOrders.length;
 
                 // Users table
                 const usersTable = document.getElementById('adminUsersTable');
                 const userEntries = Object.entries(users);
                 if (userEntries.length === 0) {
                     usersTable.innerHTML =
-                        '<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--text-muted);">No users yet</td></tr>';
+                        '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-muted);">No users yet</td></tr>';
                 } else {
                     usersTable.innerHTML = userEntries.map(([email, user]) => {
                         const orderCount = user.orders ? user.orders.length : 0;
@@ -3486,11 +3554,11 @@
                     }).join('');
                 }
 
-                // Orders table with admin actions
+                // Orders table
                 const ordersTable = document.getElementById('adminOrdersTable');
                 if (allOrders.length === 0) {
                     ordersTable.innerHTML =
-                        '<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--text-muted);">No transactions yet</td></tr>';
+                        '<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-muted);">No orders yet</td></tr>';
                 } else {
                     ordersTable.innerHTML = allOrders.sort((a, b) => b.created - a.created).map(order => {
                         const statusText = order.status === 'completed' ? 'Completed' :
@@ -3510,7 +3578,7 @@
                                         <td><span class="badge ${statusClass}">${statusText}</span></td>
                                         <td style="color:var(--text-muted);font-size:12px;">${date}</td>
                                         <td>
-                                            ${order.status !== 'completed' && order.status !== 'canceled' ? `<button class="action-btn" onclick="adminCompleteOrder('${orderId}')">✅ Complete</button>` : ''}
+                                            ${order.status !== 'completed' ? `<button class="action-btn success" onclick="adminCompleteOrder('${orderId}')">✅ Complete</button>` : ''}
                                             <button class="action-btn danger" onclick="adminDeleteOrder('${orderId}')">🗑️</button>
                                         </td>
                                     </tr>
@@ -3810,20 +3878,20 @@
                 await updateCartUI();
             }
 
-            // ===== CANCEL ORDER - DELETE COMPLETELY =====
+            // ===== CANCEL ORDER - DELETE COMPLETELY, DON'T STORE =====
 
             cancelOrderBtn.addEventListener('click', async function() {
-                if (confirm('Are you sure you want to cancel this order? It will be permanently deleted.')) {
+                if (confirm('Are you sure you want to cancel this order? It will be permanently removed.')) {
                     const user = await getCurrentUser();
                     if (user) {
                         const users = await getUsers();
                         const userData = users[user.email];
                         if (userData && userData.orders) {
-                            // Find pending order and remove it completely
+                            // Find the pending order and remove it completely
                             const orderIndex = userData.orders.findIndex(o => o.status === 'pending');
                             if (orderIndex !== -1) {
+                                // Delete from orders table too
                                 const orderId = userData.orders[orderIndex].id;
-                                // Delete from orders table
                                 await deleteOrder(orderId);
                                 // Remove from user's orders
                                 userData.orders.splice(orderIndex, 1);
@@ -3831,7 +3899,6 @@
                                 if (isAdmin()) {
                                     await refreshAdminPanel();
                                 }
-                                showNotification('❌ Order canceled and removed');
                             }
                         }
                     }
@@ -3843,6 +3910,7 @@
                     await clearCart();
                     await updateCartUI();
                     goToHome();
+                    showNotification('❌ Order canceled and removed');
                 }
             });
 
@@ -4293,7 +4361,6 @@
             window.goToCourses = function() { navigateTo('courses'); };
             window.changePassword = changePassword;
             window.navigateTo = navigateTo;
-            window.toggleAdminDropdown = toggleAdminDropdown;
 
             // Close modals on Escape key
             document.addEventListener('keydown', function(e) {
