@@ -1100,7 +1100,6 @@
             color: #3498db;
         }
 
-        /* Admin Tabs */
         .admin-tabs {
             display: flex;
             gap: 4px;
@@ -1284,84 +1283,6 @@
 
         .admin-tab-content.active {
             display: block;
-        }
-
-        /* User delete confirmation modal */
-        .confirm-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(12px);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-
-        .confirm-modal.active {
-            display: flex;
-        }
-
-        .confirm-modal .modal-box {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 40px;
-            max-width: 420px;
-            width: 100%;
-            border-top: 3px solid #ff6b6b;
-            text-align: center;
-        }
-
-        .confirm-modal .modal-box h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .confirm-modal .modal-box p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            margin-bottom: 24px;
-        }
-
-        .confirm-modal .modal-box .btn-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .confirm-modal .modal-box .btn-group button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 100px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            font-size: 14px;
-            transition: var(--transition);
-        }
-
-        .confirm-modal .modal-box .btn-group .cancel-btn {
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-
-        .confirm-modal .modal-box .btn-group .cancel-btn:hover {
-            background: var(--bg-card-hover);
-        }
-
-        .confirm-modal .modal-box .btn-group .delete-btn {
-            background: #ff6b6b;
-            color: #fff;
-        }
-
-        .confirm-modal .modal-box .btn-group .delete-btn:hover {
-            background: #ff4757;
         }
 
         /* ===== AUTH MODAL ===== */
@@ -1702,6 +1623,84 @@
         .notification-toast.error {
             background: #ff6b6b;
         }
+
+        /* Delete Confirm Modal */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .confirm-modal.active {
+            display: flex;
+        }
+
+        .confirm-modal .modal-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            max-width: 420px;
+            width: 100%;
+            border-top: 3px solid #ff6b6b;
+            text-align: center;
+        }
+
+        .confirm-modal .modal-box h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .confirm-modal .modal-box p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 24px;
+        }
+
+        .confirm-modal .modal-box .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .confirm-modal .modal-box .btn-group button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 100px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .confirm-modal .modal-box .btn-group .cancel-btn {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .confirm-modal .modal-box .btn-group .cancel-btn:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .confirm-modal .modal-box .btn-group .delete-btn {
+            background: #ff6b6b;
+            color: #fff;
+        }
+
+        .confirm-modal .modal-box .btn-group .delete-btn:hover {
+            background: #ff4757;
+        }
     </style>
 </head>
 <body>
@@ -1799,13 +1798,11 @@
                     </div>
                 </div>
 
-                <!-- Admin Tabs -->
                 <div class="admin-tabs">
                     <button class="active" data-tab="orders">📋 Orders</button>
                     <button data-tab="users">👥 Users</button>
                 </div>
 
-                <!-- Orders Tab -->
                 <div class="admin-tab-content active" id="tabOrders">
                     <div class="admin-table-wrap">
                         <div class="header">
@@ -1834,7 +1831,6 @@
                     </div>
                 </div>
 
-                <!-- Users Tab -->
                 <div class="admin-tab-content" id="tabUsers">
                     <div class="admin-table-wrap">
                         <div class="header">
@@ -2184,16 +2180,15 @@
 
     <script>
         // ============================================================
-        // FREELANCE PILOT — COMPLETE APPLICATION
+        // FREELANCE PILOT — SUPABASE INTEGRATION
         // ============================================================
 
         (function() {
             'use strict';
 
-            // ===== CONFIGURATION =====
-            const WALLET_ADDRESS = 'UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE';
-            const COURSE_PRICE = 30;
-            const ADMIN_EMAIL = 'admin@freelancepilot.com';
+            // ===== SUPABASE CONFIGURATION =====
+            const SUPABASE_URL = 'https://fvtcavphqqbsjcyobely.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2dGNhdnBocXFic2pjeW9iZWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5OTIxMDIsImV4cCI6MjEwMDU2ODEwMn0.sk_0XjON3NIhCyi4_oZAsKQIQJwr9rqwQVmB6Hncdxk';
 
             // ===== DOM REFS =====
             const cartCountEl = document.getElementById('cartCount');
@@ -2241,68 +2236,151 @@
             let isLoginMode = true;
             let deleteTarget = null;
 
-            // ===== CART SYSTEM (PER USER) =====
-            function getCart() {
-                const user = getCurrentUser();
-                if (!user) return [];
-                const cartKey = 'fp_cart_' + user.email;
-                return JSON.parse(localStorage.getItem(cartKey) || '[]');
-            }
+            // ===== SUPABASE API HELPER =====
+            async function supabaseFetch(endpoint, options = {}) {
+                const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
+                const headers = {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation'
+                };
 
-            function setCart(cart) {
-                const user = getCurrentUser();
-                if (!user) return;
-                const cartKey = 'fp_cart_' + user.email;
-                localStorage.setItem(cartKey, JSON.stringify(cart));
-            }
-
-            function clearCart() {
-                const user = getCurrentUser();
-                if (!user) return;
-                const cartKey = 'fp_cart_' + user.email;
-                localStorage.removeItem(cartKey);
-            }
-
-            // ===== AUTH SYSTEM =====
-            function getUsers() {
-                return JSON.parse(localStorage.getItem('fp_users') || '{}');
-            }
-
-            function saveUsers(users) {
-                localStorage.setItem('fp_users', JSON.stringify(users));
-            }
-
-            function getCurrentUser() {
-                const email = localStorage.getItem('fp_currentUser');
-                if (!email) return null;
-                const users = getUsers();
-                return users[email] || null;
-            }
-
-            function setCurrentUser(email) {
-                if (email) {
-                    localStorage.setItem('fp_currentUser', email);
-                } else {
-                    localStorage.removeItem('fp_currentUser');
+                try {
+                    const response = await fetch(url, { ...options, headers });
+                    if (!response.ok) {
+                        const error = await response.text();
+                        console.error('Supabase error:', error);
+                        throw new Error(error);
+                    }
+                    return response.json();
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                    throw error;
                 }
             }
 
-            function isAdmin() {
-                const user = getCurrentUser();
-                return user && user.email === ADMIN_EMAIL;
+            // ===== SUPABASE FUNCTIONS (REPLACING localStorage) =====
+
+            // Get all users
+            async function getUsers() {
+                try {
+                    const result = await supabaseFetch('users?select=*');
+                    return result.reduce((acc, user) => {
+                        acc[user.email] = user;
+                        return acc;
+                    }, {});
+                } catch (error) {
+                    console.error('Error fetching users:', error);
+                    return {};
+                }
             }
 
-            function setAdminMode(enabled) {
-                if (enabled) {
-                    document.body.classList.add('admin-mode');
-                } else {
-                    document.body.classList.remove('admin-mode');
+            // Save/update users
+            async function saveUsers(users) {
+                try {
+                    for (const [email, data] of Object.entries(users)) {
+                        const existing = await supabaseFetch(`users?email=eq.${email}`);
+                        if (existing.length > 0) {
+                            await supabaseFetch(`users?email=eq.${email}`, {
+                                method: 'PATCH',
+                                body: JSON.stringify(data)
+                            });
+                        } else {
+                            await supabaseFetch('users', {
+                                method: 'POST',
+                                body: JSON.stringify({ email, ...data })
+                            });
+                        }
+                    }
+                    return true;
+                } catch (error) {
+                    console.error('Error saving users:', error);
+                    return false;
+                }
+            }
+
+            // Get current user
+            async function getCurrentUser() {
+                const email = localStorage.getItem('fp_currentUser');
+                if (!email) return null;
+                try {
+                    const result = await supabaseFetch(`users?email=eq.${email}`);
+                    return result[0] || null;
+                } catch (error) {
+                    console.error('Error fetching user:', error);
+                    return null;
+                }
+            }
+
+            // Get cart
+            async function getCart() {
+                const user = await getCurrentUser();
+                if (!user) return [];
+                return user.cart || [];
+            }
+
+            // Set cart
+            async function setCart(cart) {
+                const user = await getCurrentUser();
+                if (!user) return;
+                try {
+                    await supabaseFetch(`users?email=eq.${user.email}`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({ cart: cart })
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('Error saving cart:', error);
+                    return false;
+                }
+            }
+
+            // Clear cart
+            async function clearCart() {
+                await setCart([]);
+            }
+
+            // Save order
+            async function saveOrder(orderData) {
+                try {
+                    await supabaseFetch('orders', {
+                        method: 'POST',
+                        body: JSON.stringify(orderData)
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('Error saving order:', error);
+                    return false;
+                }
+            }
+
+            // Get all orders
+            async function getOrders() {
+                try {
+                    return await supabaseFetch('orders?select=*');
+                } catch (error) {
+                    console.error('Error fetching orders:', error);
+                    return [];
+                }
+            }
+
+            // Delete user
+            async function deleteUser(email) {
+                try {
+                    await supabaseFetch(`users?email=eq.${email}`, {
+                        method: 'DELETE'
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('Error deleting user:', error);
+                    return false;
                 }
             }
 
             // ===== UPDATE CART UI =====
-            function updateCartUI() {
-                const cart = getCart();
+            async function updateCartUI() {
+                const cart = await getCart();
                 const count = cart.length;
                 cartCountEl.textContent = count;
 
@@ -2326,8 +2404,8 @@
             }
 
             // ===== UPDATE AUTH UI =====
-            function updateAuthUI() {
-                const user = getCurrentUser();
+            async function updateAuthUI() {
+                const user = await getCurrentUser();
                 if (user) {
                     authLink.innerHTML = `
                                 👤 ${user.email}
@@ -2350,8 +2428,6 @@
                     authModalTitle.textContent = 'Welcome Back';
                     authModalSub.textContent = 'Login to track your orders.';
                     authActionBtn.textContent = 'Login';
-                    authSwitchLink.textContent = 'Register';
-                    authSwitchLink.onclick = function() { openAuthModal('register'); };
                     document.getElementById('authSwitch').innerHTML =
                         "Don't have an account? <a href='#' id='authSwitchLink'>Register</a>";
                     document.getElementById('authSwitchLink').onclick = function() { openAuthModal('register'); };
@@ -2360,8 +2436,6 @@
                     authModalTitle.textContent = 'Create Account';
                     authModalSub.textContent = 'Get started with Freelance Pilot.';
                     authActionBtn.textContent = 'Create Account';
-                    authSwitchLink.textContent = 'Login';
-                    authSwitchLink.onclick = function() { openAuthModal('login'); };
                     document.getElementById('authSwitch').innerHTML =
                         "Already have an account? <a href='#' id='authSwitchLink'>Login</a>";
                     document.getElementById('authSwitchLink').onclick = function() { openAuthModal('login'); };
@@ -2401,48 +2475,51 @@
                 }
             });
 
-            function handleLogin(email) {
-                const users = getUsers();
+            async function handleLogin(email) {
+                const users = await getUsers();
                 if (!users[email]) {
                     authError.textContent = 'Email not found. Please register first.';
                     authError.style.display = 'block';
                     return;
                 }
 
-                setCurrentUser(email);
+                localStorage.setItem('fp_currentUser', email);
                 currentUser = users[email];
                 closeAuthModal();
-                updateAuthUI();
-                updateCartUI();
+                await updateAuthUI();
+                await updateCartUI();
 
                 if (isAdmin()) {
                     setAdminMode(true);
-                    renderAdminPanel();
+                    await renderAdminPanel();
                     showNotification('🔑 Admin logged in!');
                 } else {
                     setAdminMode(false);
                     showNotification('✅ Welcome back, ' + email + '!');
                 }
 
-                if (getCart().length > 0 && !isCheckingout) {
+                const cart = await getCart();
+                if (cart.length > 0 && !isCheckingout) {
                     renderCheckout();
                 }
             }
 
-            function handleRegister(email) {
-                const users = getUsers();
+            async function handleRegister(email) {
+                const users = await getUsers();
                 if (users[email]) {
                     authError.textContent = 'Email already registered. Please login.';
                     authError.style.display = 'block';
                     return;
                 }
 
-                users[email] = {
-                    email: email,
-                    created: Date.now(),
-                    orders: []
-                };
-                saveUsers(users);
+                await saveUsers({
+                    [email]: {
+                        created: Date.now(),
+                        orders: [],
+                        total_spent: 0,
+                        cart: []
+                    }
+                });
 
                 authSuccess.textContent = 'Account created! Please login.';
                 authSuccess.style.display = 'block';
@@ -2452,11 +2529,12 @@
                 }, 1000);
             }
 
-            function logoutUser() {
-                setCurrentUser(null);
+            // ===== LOGOUT =====
+            async function logoutUser() {
+                localStorage.removeItem('fp_currentUser');
                 currentUser = null;
-                updateCartUI();
-                updateAuthUI();
+                await updateCartUI();
+                await updateAuthUI();
                 setAdminMode(false);
                 adminDashboard.style.display = 'none';
                 goToHome();
@@ -2464,20 +2542,33 @@
             }
 
             // ===== ADMIN DASHBOARD =====
-            function renderAdminPanel() {
+            function isAdmin() {
+                return currentUser && currentUser.email === 'admin@freelancepilot.com';
+            }
+
+            function setAdminMode(enabled) {
+                if (enabled) {
+                    document.body.classList.add('admin-mode');
+                } else {
+                    document.body.classList.remove('admin-mode');
+                }
+            }
+
+            async function renderAdminPanel() {
                 if (!isAdmin()) {
                     adminDashboard.style.display = 'none';
                     return;
                 }
 
                 adminDashboard.style.display = 'block';
-                refreshAdminPanel();
+                await refreshAdminPanel();
             }
 
-            function refreshAdminPanel() {
+            async function refreshAdminPanel() {
                 if (!isAdmin()) return;
 
-                const users = getUsers();
+                const users = await getUsers();
+                const orders = await getOrders();
                 const allOrders = [];
                 let totalSpent = 0;
 
@@ -2565,7 +2656,7 @@
 
             // ===== DELETE USER =====
             window.confirmDeleteUser = function(email) {
-                if (email === ADMIN_EMAIL) {
+                if (email === 'admin@freelancepilot.com') {
                     showNotification('❌ Cannot delete admin account', 'error');
                     return;
                 }
@@ -2579,15 +2670,15 @@
                 deleteTarget = null;
             }
 
-            confirmDeleteBtn.addEventListener('click', function() {
+            confirmDeleteBtn.addEventListener('click', async function() {
                 if (!deleteTarget) return;
 
-                const users = getUsers();
-                if (users[deleteTarget]) {
-                    delete users[deleteTarget];
-                    saveUsers(users);
-                    refreshAdminPanel();
+                const result = await deleteUser(deleteTarget);
+                if (result) {
+                    await refreshAdminPanel();
                     showNotification('✅ User "' + deleteTarget + '" deleted successfully');
+                } else {
+                    showNotification('❌ Failed to delete user', 'error');
                 }
 
                 closeConfirmModal();
@@ -2615,14 +2706,14 @@
             });
 
             // ===== RENDER CHECKOUT =====
-            function renderCheckout() {
-                const user = getCurrentUser();
+            async function renderCheckout() {
+                const user = await getCurrentUser();
                 if (!user) {
                     openAuthModal('login');
                     return;
                 }
 
-                const cart = getCart();
+                const cart = await getCart();
                 if (cart.length === 0) {
                     checkoutSection.classList.remove('show');
                     checkoutSection.style.display = 'none';
@@ -2630,7 +2721,7 @@
                     heroSection.style.display = 'none';
                     coursesSection.style.display = 'none';
                     faqSection.style.display = 'none';
-                    updateCartUI();
+                    await updateCartUI();
                     return;
                 }
 
@@ -2660,12 +2751,12 @@
                 totalAmountEl.textContent = `$${total} USDT`;
 
                 document.querySelectorAll('.remove-item').forEach(btn => {
-                    btn.addEventListener('click', function() {
+                    btn.addEventListener('click', async function() {
                         const index = parseInt(this.dataset.index, 10);
-                        const cart = getCart();
+                        const cart = await getCart();
                         cart.splice(index, 1);
-                        setCart(cart);
-                        updateCartUI();
+                        await setCart(cart);
+                        await updateCartUI();
                         if (cart.length === 0) {
                             isCheckingout = false;
                             goToHome();
@@ -2705,42 +2796,54 @@
                         `;
                 paymentDetected = false;
 
-                const users = getUsers();
-                if (!users[user.email].orders) users[user.email].orders = [];
+                // Save order to Supabase
                 const orderData = {
+                    id: orderId,
+                    user_email: user.email,
+                    amount: total,
+                    courses: cart.map(item => item.course),
+                    status: 'pending',
+                    created: Date.now()
+                };
+                await saveOrder(orderData);
+
+                // Update user's orders array
+                const users = await getUsers();
+                if (!users[user.email].orders) users[user.email].orders = [];
+                users[user.email].orders.push({
                     id: orderId,
                     amount: total,
                     courses: cart.map(item => item.course),
                     created: Date.now(),
                     status: 'pending'
-                };
-                users[user.email].orders.push(orderData);
-                saveUsers(users);
+                });
+                await saveUsers(users);
+
                 pendingOrder = orderData;
 
                 if (isAdmin()) {
-                    refreshAdminPanel();
+                    await refreshAdminPanel();
                 }
 
                 startVerification(total);
                 checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                updateCartUI();
+                await updateCartUI();
             }
 
             // ===== CANCEL ORDER =====
-            cancelOrderBtn.addEventListener('click', function() {
+            cancelOrderBtn.addEventListener('click', async function() {
                 if (confirm('Are you sure you want to cancel this order?')) {
-                    const user = getCurrentUser();
+                    const user = await getCurrentUser();
                     if (user) {
-                        const users = getUsers();
+                        const users = await getUsers();
                         const userData = users[user.email];
                         if (userData && userData.orders) {
                             const order = userData.orders.find(o => o.status === 'pending');
                             if (order) {
                                 order.status = 'canceled';
-                                saveUsers(users);
+                                await saveUsers(users);
                                 if (isAdmin()) {
-                                    refreshAdminPanel();
+                                    await refreshAdminPanel();
                                 }
                             }
                         }
@@ -2750,8 +2853,8 @@
                         verificationInterval = null;
                     }
                     pendingOrder = null;
-                    clearCart();
-                    updateCartUI();
+                    await clearCart();
+                    await updateCartUI();
                     goToHome();
                     showNotification('❌ Order canceled');
                 }
@@ -2799,6 +2902,8 @@
 
             // ===== VERIFICATION =====
             function startVerification(expectedAmount) {
+                const WALLET_ADDRESS = 'UQBbNdH5Aveyzw28Q4mqy3P8A5i_aML0193UKAMCaisq1sCE';
+
                 if (verificationInterval) {
                     clearInterval(verificationInterval);
                 }
@@ -2870,7 +2975,7 @@
             }
 
             // ===== SHOW PAYMENT SUCCESS =====
-            function showPaymentSuccess(amount) {
+            async function showPaymentSuccess(amount) {
                 paymentStatus.className = 'payment-status success';
                 paymentStatus.innerHTML = `
                             <span class="status-icon">✅</span>
@@ -2889,24 +2994,24 @@
                             </p>
                         `;
 
-                const user = getCurrentUser();
+                const user = await getCurrentUser();
                 if (user) {
-                    const users = getUsers();
+                    const users = await getUsers();
                     const userData = users[user.email];
                     if (userData && userData.orders) {
                         const order = userData.orders.find(o => o.status === 'pending');
                         if (order) {
                             order.status = 'completed';
-                            saveUsers(users);
+                            await saveUsers(users);
                             if (isAdmin()) {
-                                refreshAdminPanel();
+                                await refreshAdminPanel();
                             }
                         }
                     }
                 }
 
-                clearCart();
-                updateCartUI();
+                await clearCart();
+                await updateCartUI();
                 pendingOrder = null;
             }
 
@@ -2944,7 +3049,7 @@
             });
 
             // ===== ADD TO CART =====
-            coursesGrid.addEventListener('click', function(e) {
+            coursesGrid.addEventListener('click', async function(e) {
                 const btn = e.target.closest('.add-to-cart');
                 if (!btn) return;
 
@@ -2952,13 +3057,13 @@
                 const courseName = card.dataset.course;
                 const price = parseInt(card.dataset.price, 10);
 
-                const user = getCurrentUser();
+                const user = await getCurrentUser();
                 if (!user) {
                     openAuthModal('login');
                     return;
                 }
 
-                const cart = getCart();
+                const cart = await getCart();
                 if (cart.some(item => item.course === courseName)) {
                     btn.textContent = 'Already Added ✓';
                     btn.classList.add('added');
@@ -2970,8 +3075,8 @@
                 }
 
                 cart.push({ course: courseName, price: price });
-                setCart(cart);
-                updateCartUI();
+                await setCart(cart);
+                await updateCartUI();
 
                 btn.textContent = 'Added ✓';
                 btn.classList.add('added');
@@ -2986,18 +3091,13 @@
             // ===== HEADER CART LINK =====
             headerCartLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                const cart = getCart();
-                if (cart.length === 0) {
-                    alert('Your cart is empty. Add a course first.');
-                    return;
-                }
                 renderCheckout();
             });
 
             // ===== AUTH LINK CLICK =====
-            authLink.addEventListener('click', function(e) {
+            authLink.addEventListener('click', async function(e) {
                 e.preventDefault();
-                const user = getCurrentUser();
+                const user = await getCurrentUser();
                 if (user) {
                     if (confirm('Logout ' + user.email + '?')) {
                         logoutUser();
@@ -3050,27 +3150,27 @@
             });
 
             // ===== CLEAR CART =====
-            clearCartBtn.addEventListener('click', function() {
-                const cart = getCart();
+            clearCartBtn.addEventListener('click', async function() {
+                const cart = await getCart();
                 if (cart.length === 0) return;
                 if (confirm('Are you sure you want to clear your cart?')) {
-                    const user = getCurrentUser();
+                    const user = await getCurrentUser();
                     if (user) {
-                        const users = getUsers();
+                        const users = await getUsers();
                         const userData = users[user.email];
                         if (userData && userData.orders) {
                             const order = userData.orders.find(o => o.status === 'pending');
                             if (order) {
                                 order.status = 'canceled';
-                                saveUsers(users);
+                                await saveUsers(users);
                                 if (isAdmin()) {
-                                    refreshAdminPanel();
+                                    await refreshAdminPanel();
                                 }
                             }
                         }
                     }
-                    setCart([]);
-                    updateCartUI();
+                    await setCart([]);
+                    await updateCartUI();
                     if (isCheckingout) {
                         isCheckingout = false;
                         goToHome();
@@ -3113,33 +3213,36 @@
             });
 
             // ===== INIT =====
-            function init() {
-                const user = getCurrentUser();
-                if (user && user.email === ADMIN_EMAIL) {
+            async function init() {
+                const user = await getCurrentUser();
+                if (user && user.email === 'admin@freelancepilot.com') {
                     setAdminMode(true);
-                    renderAdminPanel();
+                    await renderAdminPanel();
                 } else {
                     setAdminMode(false);
                 }
 
-                updateAuthUI();
-                updateCartUI();
+                await updateAuthUI();
+                await updateCartUI();
 
-                setInterval(() => {
+                setInterval(async () => {
                     if (isAdmin()) {
-                        refreshAdminPanel();
+                        await refreshAdminPanel();
                     }
                 }, 30000);
 
-                if (getCart().length > 0) {
+                const cart = await getCart();
+                if (cart.length > 0) {
                     renderCheckout();
                 }
             }
 
+            // Make functions globally accessible
             window.refreshAdminPanel = refreshAdminPanel;
             window.closeAuthModal = closeAuthModal;
             window.logoutUser = logoutUser;
             window.closeConfirmModal = closeConfirmModal;
+            window.confirmDeleteUser = window.confirmDeleteUser;
 
             // Close modals on Escape key
             document.addEventListener('keydown', function(e) {
