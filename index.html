@@ -1701,6 +1701,32 @@
         .confirm-modal .modal-box .btn-group .delete-btn:hover {
             background: #ff4757;
         }
+
+        /* Password input field */
+        .modal-content input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 15px;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .modal-content input[type="password"]:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .password-hint {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-align: left;
+            margin-top: -8px;
+            margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
@@ -2157,6 +2183,8 @@
             <div id="authError" class="error-msg"></div>
             <div id="authSuccess" class="success-msg"></div>
             <input type="email" id="authEmail" placeholder="Enter your email" />
+            <input type="password" id="authPassword" placeholder="Enter your password" />
+            <div class="password-hint">Password must be at least 6 characters</div>
             <button class="auth-btn" id="authActionBtn">Login</button>
             <p class="auth-switch" id="authSwitch">
                 Don't have an account? <a href="#" id="authSwitchLink">Register</a>
@@ -2217,6 +2245,7 @@
             const authModalTitle = document.getElementById('authModalTitle');
             const authModalSub = document.getElementById('authModalSub');
             const authEmail = document.getElementById('authEmail');
+            const authPassword = document.getElementById('authPassword');
             const authActionBtn = document.getElementById('authActionBtn');
             const authSwitchLink = document.getElementById('authSwitchLink');
             const authError = document.getElementById('authError');
@@ -2248,8 +2277,7 @@
 
                 try {
                     const response = await fetch(url, { ...options, headers });
-                    
-                    // For POST/PATCH/DELETE, check status
+
                     if (options.method === 'POST' || options.method === 'PATCH') {
                         if (response.status === 201 || response.status === 200) {
                             return await response.json().catch(() => true);
@@ -2259,7 +2287,7 @@
                             return null;
                         }
                     }
-                    
+
                     if (options.method === 'DELETE') {
                         if (response.status === 200 || response.status === 204) {
                             return true;
@@ -2275,7 +2303,7 @@
                         console.error('Supabase error:', error);
                         throw new Error(error);
                     }
-                    
+
                     return response.json();
                 } catch (error) {
                     console.error('Fetch error:', error);
@@ -2285,7 +2313,6 @@
 
             // ===== SUPABASE FUNCTIONS =====
 
-            // Get all users
             async function getUsers() {
                 try {
                     const result = await supabaseFetch('users?select=*');
@@ -2299,7 +2326,6 @@
                 }
             }
 
-            // Save/update users
             async function saveUsers(users) {
                 try {
                     for (const [email, data] of Object.entries(users)) {
@@ -2323,7 +2349,6 @@
                 }
             }
 
-            // Get current user
             async function getCurrentUser() {
                 const email = localStorage.getItem('fp_currentUser');
                 if (!email) return null;
@@ -2336,14 +2361,12 @@
                 }
             }
 
-            // Get cart
             async function getCart() {
                 const user = await getCurrentUser();
                 if (!user) return [];
                 return user.cart || [];
             }
 
-            // Set cart
             async function setCart(cart) {
                 const user = await getCurrentUser();
                 if (!user) return;
@@ -2359,12 +2382,10 @@
                 }
             }
 
-            // Clear cart
             async function clearCart() {
                 await setCart([]);
             }
 
-            // Save order
             async function saveOrder(orderData) {
                 try {
                     await supabaseFetch('orders', {
@@ -2378,7 +2399,6 @@
                 }
             }
 
-            // Get all orders
             async function getOrders() {
                 try {
                     return await supabaseFetch('orders?select=*');
@@ -2388,7 +2408,6 @@
                 }
             }
 
-            // Delete user
             async function deleteUser(email) {
                 try {
                     return await supabaseFetch(`users?email=eq.${email}`, {
@@ -2400,10 +2419,33 @@
                 }
             }
 
-            // ===== FIXED: HANDLE REGISTER =====
-            async function handleRegister(email) {
+            // ===== PASSWORD FUNCTIONS =====
+            function hashPassword(password) {
+                // Simple hash for demo - in production use bcrypt
+                let hash = 0;
+                for (let i = 0; i < password.length; i++) {
+                    const char = password.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                return hash.toString(36);
+            }
+
+            function verifyPassword(password, hashed) {
+                return hashPassword(password) === hashed;
+            }
+
+            // ===== FIXED: HANDLE REGISTER WITH PASSWORD =====
+            async function handleRegister(email, password) {
                 try {
-                    // Check if user already exists in Supabase
+                    // Validate password
+                    if (!password || password.length < 6) {
+                        authError.textContent = 'Password must be at least 6 characters.';
+                        authError.style.display = 'block';
+                        return;
+                    }
+
+                    // Check if user already exists
                     const users = await getUsers();
                     if (users[email]) {
                         authError.textContent = 'Email already registered. Please login.';
@@ -2411,16 +2453,19 @@
                         return;
                     }
 
+                    // Hash password
+                    const hashedPassword = hashPassword(password);
+
                     // Create user in Supabase
                     const newUser = {
                         email: email,
+                        password: hashedPassword,
                         created: Date.now(),
                         orders: [],
                         total_spent: 0,
                         cart: []
                     };
 
-                    // Save to Supabase
                     const result = await supabaseFetch('users', {
                         method: 'POST',
                         body: JSON.stringify(newUser)
@@ -2429,8 +2474,9 @@
                     if (result) {
                         authSuccess.textContent = 'Account created successfully! Please login.';
                         authSuccess.style.display = 'block';
-                        
-                        // Switch to login mode after 1 second
+                        authEmail.value = '';
+                        authPassword.value = '';
+
                         setTimeout(() => {
                             openAuthModal('login');
                         }, 1000);
@@ -2445,22 +2491,37 @@
                 }
             }
 
-            // ===== FIXED: HANDLE LOGIN =====
-            async function handleLogin(email) {
+            // ===== FIXED: HANDLE LOGIN WITH PASSWORD =====
+            async function handleLogin(email, password) {
                 try {
+                    // Validate password
+                    if (!password || password.length < 6) {
+                        authError.textContent = 'Please enter your password.';
+                        authError.style.display = 'block';
+                        return;
+                    }
+
                     // Fetch users from Supabase
                     const users = await getUsers();
-                    
+
                     if (!users[email]) {
                         authError.textContent = 'Email not found. Please register first.';
                         authError.style.display = 'block';
                         return;
                     }
 
-                    // Set current user in localStorage (just for session tracking)
+                    // Verify password
+                    const user = users[email];
+                    if (!verifyPassword(password, user.password)) {
+                        authError.textContent = 'Incorrect password. Please try again.';
+                        authError.style.display = 'block';
+                        return;
+                    }
+
+                    // Set current user in localStorage
                     localStorage.setItem('fp_currentUser', email);
-                    currentUser = users[email];
-                    
+                    currentUser = user;
+
                     closeAuthModal();
                     await updateAuthUI();
                     await updateCartUI();
@@ -2474,7 +2535,6 @@
                         showNotification('✅ Welcome back, ' + email + '!');
                     }
 
-                    // Check if user has items in cart
                     const cart = await getCart();
                     if (cart.length > 0 && !isCheckingout) {
                         renderCheckout();
@@ -2539,6 +2599,8 @@
                     document.getElementById('authSwitch').innerHTML =
                         "Don't have an account? <a href='#' id='authSwitchLink'>Register</a>";
                     document.getElementById('authSwitchLink').onclick = function() { openAuthModal('register'); };
+                    authPassword.style.display = 'block';
+                    document.querySelector('.password-hint').style.display = 'none';
                 } else {
                     authModalIcon.textContent = '🚀';
                     authModalTitle.textContent = 'Create Account';
@@ -2547,10 +2609,13 @@
                     document.getElementById('authSwitch').innerHTML =
                         "Already have an account? <a href='#' id='authSwitchLink'>Login</a>";
                     document.getElementById('authSwitchLink').onclick = function() { openAuthModal('login'); };
+                    authPassword.style.display = 'block';
+                    document.querySelector('.password-hint').style.display = 'block';
                 }
                 authError.style.display = 'none';
                 authSuccess.style.display = 'none';
                 authEmail.value = '';
+                authPassword.value = '';
                 authModal.classList.add('active');
             }
 
@@ -2561,6 +2626,7 @@
             // Auth action handler
             authActionBtn.addEventListener('click', function() {
                 const email = authEmail.value.trim();
+                const password = authPassword.value.trim();
                 authError.style.display = 'none';
                 authSuccess.style.display = 'none';
 
@@ -2570,14 +2636,26 @@
                     return;
                 }
 
+                if (!password) {
+                    authError.textContent = 'Please enter your password.';
+                    authError.style.display = 'block';
+                    return;
+                }
+
                 if (isLoginMode) {
-                    handleLogin(email);
+                    handleLogin(email, password);
                 } else {
-                    handleRegister(email);
+                    handleRegister(email, password);
                 }
             });
 
             authEmail.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    authPassword.focus();
+                }
+            });
+
+            authPassword.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     authActionBtn.click();
                 }
@@ -2626,7 +2704,6 @@
                 const allOrders = [];
                 let totalSpent = 0;
 
-                // Process orders
                 if (orders && orders.length > 0) {
                     orders.forEach(order => {
                         allOrders.push({
@@ -2639,11 +2716,9 @@
                     });
                 }
 
-                // Also check user objects for orders
                 for (const [email, user] of Object.entries(users)) {
                     if (user.orders && user.orders.length > 0) {
                         user.orders.forEach(order => {
-                            // Check if this order is already in allOrders
                             const exists = allOrders.some(o => o.id === order.id);
                             if (!exists) {
                                 allOrders.push({
@@ -2658,7 +2733,6 @@
                     }
                 }
 
-                // Stats
                 const total = allOrders.length;
                 const completed = allOrders.filter(o => o.status === 'completed').length;
                 const pending = allOrders.filter(o => o.status === 'pending').length;
@@ -2671,7 +2745,6 @@
                 document.getElementById('adminCanceledOrders').textContent = canceled;
                 document.getElementById('adminTotalUsers').textContent = userCount;
 
-                // Orders Table
                 const ordersTable = document.getElementById('adminOrdersTable');
                 if (allOrders.length === 0) {
                     ordersTable.innerHTML =
@@ -2684,7 +2757,7 @@
                             order.status === 'canceled' ? 'canceled' : 'pending';
                         const date = new Date(order.created).toLocaleString();
                         const courses = Array.isArray(order.courses) ? order.courses.join(', ') : order.course ||
-                        'N/A';
+                            'N/A';
                         const orderId = order.id || 'N/A';
                         return `
                                     <tr>
@@ -2699,7 +2772,6 @@
                     }).join('');
                 }
 
-                // Users Table
                 const usersTable = document.getElementById('adminUsersTable');
                 const userEntries = Object.entries(users);
                 if (userEntries.length === 0) {
@@ -2757,7 +2829,6 @@
                 deleteTarget = null;
             });
 
-            // Close confirm modal on overlay click
             confirmModal.addEventListener('click', function(e) {
                 if (e.target === this) {
                     closeConfirmModal();
@@ -2868,7 +2939,6 @@
                         `;
                 paymentDetected = false;
 
-                // Save order to Supabase
                 const orderData = {
                     id: orderId,
                     user_email: user.email,
@@ -2879,7 +2949,6 @@
                 };
                 await saveOrder(orderData);
 
-                // Update user's orders array
                 const users = await getUsers();
                 if (!users[user.email].orders) users[user.email].orders = [];
                 users[user.email].orders.push({
@@ -3284,19 +3353,31 @@
                 });
             });
 
-            // ===== INIT =====
+            // ===== FIXED: INIT WITH SESSION RESTORE =====
             async function init() {
+                // Check if user is logged in
                 const user = await getCurrentUser();
-                if (user && user.email === 'admin@freelancepilot.com') {
-                    setAdminMode(true);
-                    await renderAdminPanel();
+
+                if (user) {
+                    // Restore currentUser
+                    currentUser = user;
+                    await updateAuthUI();
+                    await updateCartUI();
+
+                    if (user.email === 'admin@freelancepilot.com') {
+                        setAdminMode(true);
+                        await renderAdminPanel();
+                        showNotification('✅ Admin session restored');
+                    } else {
+                        setAdminMode(false);
+                    }
                 } else {
                     setAdminMode(false);
+                    await updateAuthUI();
+                    await updateCartUI();
                 }
 
-                await updateAuthUI();
-                await updateCartUI();
-
+                // Auto-refresh every 30 seconds if admin
                 setInterval(async () => {
                     if (isAdmin()) {
                         await refreshAdminPanel();
