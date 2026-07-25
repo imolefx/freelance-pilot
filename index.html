@@ -240,7 +240,8 @@
         body.admin-mode .guarantee,
         body.admin-mode .faq,
         body.admin-mode .empty-cart,
-        body.admin-mode #headerCartLink {
+        body.admin-mode #headerCartLink,
+        body.admin-mode .dashboard-link {
             display: none !important;
         }
 
@@ -1425,6 +1426,31 @@
             display: none;
         }
 
+        .modal-content input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 15px;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+
+        .modal-content input[type="password"]:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .password-hint {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-align: left;
+            margin-top: -8px;
+            margin-bottom: 12px;
+        }
+
         /* ===== EMPTY CART ===== */
         .empty-cart {
             text-align: center;
@@ -1702,30 +1728,307 @@
             background: #ff4757;
         }
 
-        /* Password input field */
-        .modal-content input[type="password"] {
-            width: 100%;
-            padding: 12px 16px;
+        /* ===== USER DASHBOARD ===== */
+        .user-dashboard {
+            display: none;
+            padding: 40px 0 80px;
+            min-height: 70vh;
+        }
+
+        .user-dashboard.show {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .dashboard-header .email {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            background: var(--bg-card);
             border-radius: 8px;
+            padding: 4px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-tabs button {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .dashboard-tabs button:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dashboard-tabs button.active {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        .dashboard-content {
+            display: none;
+        }
+
+        .dashboard-content.active {
+            display: block;
+        }
+
+        /* Profile Card */
+        .profile-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 600px;
+        }
+
+        .profile-card .field {
+            margin-bottom: 16px;
+        }
+
+        .profile-card .field label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .profile-card .field .value {
             color: var(--text-primary);
-            font-size: 15px;
-            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .profile-card .field .value.muted {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .profile-card .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 20px 0;
+        }
+
+        .profile-card .btn-danger {
+            background: rgba(255, 107, 107, 0.12);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .modal-content input[type="password"]:focus {
-            outline: none;
-            border-color: var(--gold);
+        .profile-card .btn-danger:hover {
+            background: rgba(255, 107, 107, 0.2);
         }
 
-        .password-hint {
-            color: var(--text-muted);
-            font-size: 12px;
-            text-align: left;
-            margin-top: -8px;
+        /* Order History Cards */
+        .order-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
             margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .order-card .info {
+            flex: 1;
+        }
+
+        .order-card .info .course {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .order-card .info .details {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .order-card .status-badge {
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .order-card .status-badge.completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .order-card .status-badge.pending {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
+        .order-card .status-badge.canceled {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .order-card .amount {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Course Materials */
+        .material-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .material-card .info .title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .material-card .info .desc {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .material-card .download-btn {
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .material-card .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        .empty-state p {
+            font-size: 15px;
+        }
+
+        /* Dashboard link in nav */
+        .dashboard-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .dashboard-link:hover {
+            color: var(--gold);
+        }
+
+        .dashboard-link.active {
+            color: var(--gold);
+        }
+
+        /* Account deletion modal */
+        .delete-account-modal .modal-box {
+            border-top-color: #ff6b6b;
+        }
+
+        .delete-account-modal .modal-box .warning {
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .delete-account-modal .modal-box .btn-group .danger-btn {
+            background: #ff6b6b;
+            color: #fff;
+        }
+
+        .delete-account-modal .modal-box .btn-group .danger-btn:hover {
+            background: #ff4757;
+        }
+
+        /* Admin document upload */
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 40px 20px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--gold);
+            background: rgba(212, 168, 83, 0.05);
+        }
+
+        .upload-area .icon {
+            font-size: 48px;
+            opacity: 0.4;
+            margin-bottom: 12px;
+        }
+
+        .upload-area p {
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -1746,6 +2049,7 @@
             </a>
             <nav class="nav">
                 <a href="#" id="navCourses">Courses</a>
+                <a href="#" class="dashboard-link" id="dashboardLink">📊 Dashboard</a>
                 <a href="#" class="cart-link" id="headerCartLink">
                     🛒 Cart <span class="cart-count" id="cartCount">0</span>
                 </a>
@@ -1885,6 +2189,98 @@
                 </div>
             </div>
         </div>
+
+        <!-- ============================================================
+        USER DASHBOARD
+        ============================================================ -->
+        <section class="user-dashboard" id="userDashboard">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div>
+                        <h1>📊 Dashboard</h1>
+                        <div class="email" id="dashboardUserEmail">user@example.com</div>
+                    </div>
+                    <div>
+                        <span style="color:var(--text-muted);font-size:14px;">Member since: </span>
+                        <span style="color:var(--text-secondary);font-size:14px;" id="dashboardJoinDate">-</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-tabs">
+                    <button class="active" data-dtab="profile">👤 Profile</button>
+                    <button data-dtab="orders">📦 Orders</button>
+                    <button data-dtab="courses">📚 My Courses</button>
+                    <button data-dtab="settings">⚙️ Settings</button>
+                </div>
+
+                <!-- Profile Tab -->
+                <div class="dashboard-content active" id="dtabProfile">
+                    <div class="profile-card">
+                        <h3 style="margin-bottom:20px;font-size:18px;">👤 Profile Information</h3>
+                        <div class="field">
+                            <label>Email</label>
+                            <div class="value" id="profileEmail">-</div>
+                        </div>
+                        <div class="field">
+                            <label>Joined</label>
+                            <div class="value muted" id="profileJoined">-</div>
+                        </div>
+                        <div class="field">
+                            <label>Total Spent</label>
+                            <div class="value" style="color:var(--gold);" id="profileTotalSpent">$0.00</div>
+                        </div>
+                        <div class="field">
+                            <label>Total Orders</label>
+                            <div class="value muted" id="profileTotalOrders">0</div>
+                        </div>
+                        <div class="field">
+                            <label>Courses Enrolled</label>
+                            <div class="value muted" id="profileCourses">0</div>
+                        </div>
+                        <hr class="divider" />
+                        <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
+                    </div>
+                </div>
+
+                <!-- Orders Tab -->
+                <div class="dashboard-content" id="dtabOrders">
+                    <h3 style="margin-bottom:20px;font-size:18px;">📦 Order History</h3>
+                    <div id="ordersList">
+                        <div class="empty-state">
+                            <div class="icon">📭</div>
+                            <p>No orders yet. Start learning today!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Courses Tab -->
+                <div class="dashboard-content" id="dtabCourses">
+                    <h3 style="margin-bottom:20px;font-size:18px;">📚 My Courses</h3>
+                    <div id="coursesList">
+                        <div class="empty-state">
+                            <div class="icon">📚</div>
+                            <p>You haven't enrolled in any courses yet.</p>
+                            <p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div class="dashboard-content" id="dtabSettings">
+                    <div class="profile-card">
+                        <h3 style="margin-bottom:20px;font-size:18px;">⚙️ Account Settings</h3>
+                        <div class="field">
+                            <label>Change Password</label>
+                            <input type="password" id="newPassword" placeholder="New password (min 6 characters)" style="width:100%;padding:10px 14px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);margin-bottom:8px;" />
+                            <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width:100%;padding:10px 14px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);margin-bottom:12px;" />
+                            <button onclick="changePassword()" style="background:var(--gold);color:var(--bg-primary);border:none;padding:8px 24px;border-radius:100px;font-weight:600;cursor:pointer;">Update Password</button>
+                        </div>
+                        <hr class="divider" />
+                        <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- ============================================================
         COURSES
@@ -2193,7 +2589,7 @@
     </div>
 
     <!-- ============================================================
-    DELETE CONFIRM MODAL
+    DELETE CONFIRM MODAL (Admin)
     ============================================================ -->
     <div class="confirm-modal" id="confirmModal">
         <div class="modal-box">
@@ -2206,9 +2602,24 @@
         </div>
     </div>
 
+    <!-- ============================================================
+    DELETE ACCOUNT CONFIRM (User)
+    ============================================================ -->
+    <div class="confirm-modal delete-account-modal" id="deleteAccountModal">
+        <div class="modal-box">
+            <h3>⚠️ Delete Account</h3>
+            <p class="warning">This action is PERMANENT and cannot be undone!</p>
+            <p id="deleteAccountMessage">Are you sure you want to delete your account? All your data, orders, and course access will be permanently removed.</p>
+            <div class="btn-group">
+                <button class="cancel-btn" onclick="closeDeleteAccountModal()">Cancel</button>
+                <button class="delete-btn" id="confirmDeleteAccountBtn">Delete My Account</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================================
-        // FREELANCE PILOT — SUPABASE INTEGRATION (FIXED)
+        // FREELANCE PILOT — COMPLETE APPLICATION
         // ============================================================
 
         (function() {
@@ -2238,6 +2649,8 @@
             const cancelOrderBtn = document.getElementById('cancelOrderBtn');
             const authLink = document.getElementById('authLink');
             const adminDashboard = document.getElementById('adminDashboard');
+            const dashboardLink = document.getElementById('dashboardLink');
+            const userDashboard = document.getElementById('userDashboard');
 
             // Auth Modal Elements
             const authModal = document.getElementById('authModal');
@@ -2255,6 +2668,14 @@
             const confirmModal = document.getElementById('confirmModal');
             const confirmModalMessage = document.getElementById('confirmModalMessage');
             const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+            // Delete Account Modal
+            const deleteAccountModal = document.getElementById('deleteAccountModal');
+            const confirmDeleteAccountBtn = document.getElementById('confirmDeleteAccountBtn');
+
+            // Dashboard Elements
+            const dashboardTabs = document.querySelectorAll('[data-dtab]');
+            const dashboardContents = document.querySelectorAll('.dashboard-content');
 
             // ===== STATE =====
             let currentUser = null;
@@ -2421,7 +2842,6 @@
 
             // ===== PASSWORD FUNCTIONS =====
             function hashPassword(password) {
-                // Simple hash for demo - in production use bcrypt
                 let hash = 0;
                 for (let i = 0; i < password.length; i++) {
                     const char = password.charCodeAt(i);
@@ -2435,17 +2855,16 @@
                 return hashPassword(password) === hashed;
             }
 
-            // ===== FIXED: HANDLE REGISTER WITH PASSWORD =====
+            // ===== AUTH FUNCTIONS =====
+
             async function handleRegister(email, password) {
                 try {
-                    // Validate password
                     if (!password || password.length < 6) {
                         authError.textContent = 'Password must be at least 6 characters.';
                         authError.style.display = 'block';
                         return;
                     }
 
-                    // Check if user already exists
                     const users = await getUsers();
                     if (users[email]) {
                         authError.textContent = 'Email already registered. Please login.';
@@ -2453,10 +2872,8 @@
                         return;
                     }
 
-                    // Hash password
                     const hashedPassword = hashPassword(password);
 
-                    // Create user in Supabase
                     const newUser = {
                         email: email,
                         password: hashedPassword,
@@ -2491,17 +2908,14 @@
                 }
             }
 
-            // ===== FIXED: HANDLE LOGIN WITH PASSWORD =====
             async function handleLogin(email, password) {
                 try {
-                    // Validate password
                     if (!password || password.length < 6) {
                         authError.textContent = 'Please enter your password.';
                         authError.style.display = 'block';
                         return;
                     }
 
-                    // Fetch users from Supabase
                     const users = await getUsers();
 
                     if (!users[email]) {
@@ -2510,7 +2924,6 @@
                         return;
                     }
 
-                    // Verify password
                     const user = users[email];
                     if (!verifyPassword(password, user.password)) {
                         authError.textContent = 'Incorrect password. Please try again.';
@@ -2518,13 +2931,13 @@
                         return;
                     }
 
-                    // Set current user in localStorage
                     localStorage.setItem('fp_currentUser', email);
                     currentUser = user;
 
                     closeAuthModal();
                     await updateAuthUI();
                     await updateCartUI();
+                    await updateDashboard();
 
                     if (isAdmin()) {
                         setAdminMode(true);
@@ -2546,7 +2959,8 @@
                 }
             }
 
-            // ===== UPDATE CART UI =====
+            // ===== UPDATE UI FUNCTIONS =====
+
             async function updateCartUI() {
                 const cart = await getCart();
                 const count = cart.length;
@@ -2571,7 +2985,6 @@
                 }
             }
 
-            // ===== UPDATE AUTH UI =====
             async function updateAuthUI() {
                 const user = await getCurrentUser();
                 if (user) {
@@ -2581,11 +2994,84 @@
                             `;
                     authLink.className = 'auth-link logged-in';
                     authLink.href = '#';
+
+                    // Show dashboard link
+                    dashboardLink.style.display = 'inline';
                 } else {
                     authLink.innerHTML = '🔑 Login';
                     authLink.className = 'auth-link';
                     authLink.href = '#';
+                    dashboardLink.style.display = 'none';
                 }
+            }
+
+            async function updateDashboard() {
+                const user = await getCurrentUser();
+                if (!user) {
+                    userDashboard.classList.remove('show');
+                    userDashboard.style.display = 'none';
+                    return;
+                }
+
+                userDashboard.style.display = 'block';
+                userDashboard.classList.add('show');
+
+                // Profile info
+                document.getElementById('dashboardUserEmail').textContent = user.email;
+                document.getElementById('profileEmail').textContent = user.email;
+                document.getElementById('profileJoined').textContent = new Date(user.created).toLocaleDateString();
+                document.getElementById('profileTotalSpent').textContent = '$' + (user.total_spent || 0).toFixed(2);
+                document.getElementById('profileTotalOrders').textContent = (user.orders || []).length;
+                document.getElementById('profileCourses').textContent = (user.orders || []).filter(o => o.status === 'completed')
+                    .length;
+
+                // Orders
+                const ordersList = document.getElementById('ordersList');
+                const orders = user.orders || [];
+                if (orders.length === 0) {
+                    ordersList.innerHTML = `
+                                <div class="empty-state">
+                                    <div class="icon">📭</div>
+                                    <p>No orders yet. Start learning today!</p>
+                                </div>
+                            `;
+                } else {
+                    ordersList.innerHTML = orders.map(order => `
+                                <div class="order-card">
+                                    <div class="info">
+                                        <div class="course">${order.course || 'Course'}</div>
+                                        <div class="details">Order ID: ${order.id || 'N/A'} • ${new Date(order.created).toLocaleDateString()}</div>
+                                    </div>
+                                    <span class="status-badge ${order.status || 'pending'}">${order.status || 'Pending'}</span>
+                                    <span class="amount">$${(order.amount || 0).toFixed(2)}</span>
+                                </div>
+                            `).join('');
+                }
+
+                // My Courses
+                const coursesList = document.getElementById('coursesList');
+                const completedOrders = orders.filter(o => o.status === 'completed');
+                if (completedOrders.length === 0) {
+                    coursesList.innerHTML = `
+                                <div class="empty-state">
+                                    <div class="icon">📚</div>
+                                    <p>You haven't enrolled in any courses yet.</p>
+                                    <p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p>
+                                </div>
+                            `;
+                } else {
+                    coursesList.innerHTML = completedOrders.map(order => `
+                                <div class="material-card">
+                                    <div class="info">
+                                        <div class="title">${order.course || 'Course'}</div>
+                                        <div class="desc">Enrolled on ${new Date(order.created).toLocaleDateString()}</div>
+                                    </div>
+                                    <button class="download-btn" onclick="downloadCourse('${order.id}', '${order.course}')">📥 Download Materials</button>
+                                </div>
+                            `).join('');
+                }
+
+                document.getElementById('dashboardJoinDate').textContent = new Date(user.created).toLocaleDateString();
             }
 
             // ===== AUTH MODAL FUNCTIONS =====
@@ -2669,6 +3155,8 @@
                 await updateAuthUI();
                 setAdminMode(false);
                 adminDashboard.style.display = 'none';
+                userDashboard.classList.remove('show');
+                userDashboard.style.display = 'none';
                 goToHome();
                 showNotification('👋 Logged out successfully');
             }
@@ -2798,7 +3286,7 @@
                 }
             }
 
-            // ===== DELETE USER =====
+            // ===== DELETE USER (ADMIN) =====
             window.confirmDeleteUser = function(email) {
                 if (email === 'admin@freelancepilot.com') {
                     showNotification('❌ Cannot delete admin account', 'error');
@@ -2833,6 +3321,122 @@
                 if (e.target === this) {
                     closeConfirmModal();
                 }
+            });
+
+            // ===== DELETE ACCOUNT (USER) =====
+            function confirmDeleteAccount() {
+                deleteAccountModal.classList.add('active');
+            }
+
+            function closeDeleteAccountModal() {
+                deleteAccountModal.classList.remove('active');
+            }
+
+            confirmDeleteAccountBtn.addEventListener('click', async function() {
+                const user = await getCurrentUser();
+                if (!user) return;
+
+                if (confirm('Are you sure you want to permanently delete your account? This action cannot be undone.')) {
+                    const result = await deleteUser(user.email);
+                    if (result) {
+                        localStorage.removeItem('fp_currentUser');
+                        currentUser = null;
+                        closeDeleteAccountModal();
+                        await updateAuthUI();
+                        await updateCartUI();
+                        userDashboard.classList.remove('show');
+                        userDashboard.style.display = 'none';
+                        goToHome();
+                        showNotification('✅ Your account has been deleted.');
+                    } else {
+                        showNotification('❌ Failed to delete account. Please try again.', 'error');
+                    }
+                }
+            });
+
+            deleteAccountModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteAccountModal();
+                }
+            });
+
+            // ===== CHANGE PASSWORD =====
+            window.changePassword = async function() {
+                const newPass = document.getElementById('newPassword').value.trim();
+                const confirmPass = document.getElementById('confirmPassword').value.trim();
+
+                if (!newPass || newPass.length < 6) {
+                    showNotification('Password must be at least 6 characters.', 'error');
+                    return;
+                }
+
+                if (newPass !== confirmPass) {
+                    showNotification('Passwords do not match.', 'error');
+                    return;
+                }
+
+                const user = await getCurrentUser();
+                if (!user) return;
+
+                const hashed = hashPassword(newPass);
+                const users = await getUsers();
+                users[user.email].password = hashed;
+                await saveUsers(users);
+
+                showNotification('✅ Password updated successfully!');
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+            };
+
+            // ===== COURSE DOWNLOAD =====
+            window.downloadCourse = function(orderId, courseName) {
+                showNotification('📥 Downloading materials for "' + courseName + '"...');
+                // In a real app, this would download the actual PDF
+                // For demo, we'll simulate a download
+                setTimeout(() => {
+                    showNotification('✅ Course materials downloaded!');
+                }, 1500);
+            };
+
+            window.goToCourses = function() {
+                document.getElementById('navCourses').click();
+            };
+
+            // ===== DASHBOARD TABS =====
+            dashboardTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    dashboardTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const tabId = this.dataset.dtab;
+                    dashboardContents.forEach(c => c.classList.remove('active'));
+                    document.getElementById('dtab' + tabId.charAt(0).toUpperCase() + tabId.slice(1)).classList
+                        .add('active');
+                });
+            });
+
+            // ===== DASHBOARD LINK =====
+            dashboardLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const user = getCurrentUser();
+                if (!user) {
+                    openAuthModal('login');
+                    return;
+                }
+                // Show dashboard, hide other sections
+                userDashboard.style.display = 'block';
+                userDashboard.classList.add('show');
+                heroSection.style.display = 'none';
+                coursesSection.style.display = 'none';
+                guarantee.style.display = 'none';
+                faqSection.style.display = 'none';
+                checkoutSection.classList.remove('show');
+                checkoutSection.style.display = 'none';
+                emptyCart.style.display = 'none';
+
+                // Update dashboard data
+                updateDashboard();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
             // ===== ADMIN TABS =====
@@ -2875,6 +3479,8 @@
                 heroSection.style.display = 'none';
                 coursesSection.style.display = 'none';
                 faqSection.style.display = 'none';
+                userDashboard.classList.remove('show');
+                userDashboard.style.display = 'none';
 
                 let html = '';
                 let total = 0;
@@ -3232,6 +3838,11 @@
             // ===== HEADER CART LINK =====
             headerCartLink.addEventListener('click', function(e) {
                 e.preventDefault();
+                const user = getCurrentUser();
+                if (!user) {
+                    openAuthModal('login');
+                    return;
+                }
                 renderCheckout();
             });
 
@@ -3257,6 +3868,8 @@
                 heroSection.style.display = 'block';
                 coursesSection.style.display = 'block';
                 faqSection.style.display = 'block';
+                userDashboard.classList.remove('show');
+                userDashboard.style.display = 'none';
                 if (verificationInterval) {
                     clearInterval(verificationInterval);
                     verificationInterval = null;
@@ -3353,13 +3966,11 @@
                 });
             });
 
-            // ===== FIXED: INIT WITH SESSION RESTORE =====
+            // ===== INIT =====
             async function init() {
-                // Check if user is logged in
                 const user = await getCurrentUser();
 
                 if (user) {
-                    // Restore currentUser
                     currentUser = user;
                     await updateAuthUI();
                     await updateCartUI();
@@ -3370,6 +3981,10 @@
                         showNotification('✅ Admin session restored');
                     } else {
                         setAdminMode(false);
+                        // Show dashboard for regular users
+                        userDashboard.style.display = 'block';
+                        userDashboard.classList.add('show');
+                        await updateDashboard();
                     }
                 } else {
                     setAdminMode(false);
@@ -3396,6 +4011,11 @@
             window.logoutUser = logoutUser;
             window.closeConfirmModal = closeConfirmModal;
             window.confirmDeleteUser = window.confirmDeleteUser;
+            window.confirmDeleteAccount = confirmDeleteAccount;
+            window.closeDeleteAccountModal = closeDeleteAccountModal;
+            window.goToCourses = goToCourses;
+            window.downloadCourse = downloadCourse;
+            window.changePassword = changePassword;
 
             // Close modals on Escape key
             document.addEventListener('keydown', function(e) {
@@ -3405,6 +4025,9 @@
                     }
                     if (confirmModal.classList.contains('active')) {
                         closeConfirmModal();
+                    }
+                    if (deleteAccountModal.classList.contains('active')) {
+                        closeDeleteAccountModal();
                     }
                     document.querySelectorAll('.course-details.open').forEach(el => {
                         el.classList.remove('open');
