@@ -174,7 +174,6 @@
             flex-shrink: 0;
         }
 
-        /* Cart link always visible */
         .cart-link-header {
             display: flex;
             align-items: center;
@@ -236,7 +235,6 @@
             color: var(--gold) !important;
         }
 
-        /* User email display in header */
         .header-user-email {
             display: flex;
             align-items: center;
@@ -255,7 +253,6 @@
             font-weight: 600;
         }
 
-        /* Hamburger Menu Button */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -396,16 +393,7 @@
         }
 
         .sidebar-nav .nav-section {
-            margin-bottom: 8px;
-        }
-
-        .sidebar-nav .nav-section-title {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            padding: 8px 12px 4px;
-            font-weight: 600;
+            margin-bottom: 4px;
         }
 
         .sidebar-nav .nav-item {
@@ -460,7 +448,7 @@
         .sidebar-nav .divider {
             border: none;
             border-top: 1px solid var(--border);
-            margin: 8px 12px;
+            margin: 6px 12px;
         }
 
         .sidebar-footer {
@@ -929,7 +917,7 @@
         }
 
         /* ============================================================
-        DASHBOARD SECTIONS
+        DASHBOARD - SINGLE PAGE CONTENT (NO SUB-MENU)
         ============================================================ */
         .dashboard-wrapper {
             display: none;
@@ -939,66 +927,13 @@
         }
 
         .dashboard-wrapper.show {
-            display: flex;
-        }
-
-        .dashboard-sidebar {
-            width: 220px;
-            min-height: 100%;
-            border-right: 1px solid var(--border);
-            padding: 12px 6px;
-            flex-shrink: 0;
-        }
-
-        .dashboard-sidebar .sidebar-title {
-            color: var(--text-muted);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            padding: 6px 10px;
-            margin-bottom: 6px;
-        }
-
-        .dashboard-sidebar .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-            min-height: 44px;
-        }
-
-        .dashboard-sidebar .menu-item:hover {
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        .dashboard-sidebar .menu-item.active {
-            background: rgba(212, 168, 83, 0.12);
-            color: var(--gold);
-        }
-
-        .dashboard-sidebar .menu-item .icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
+            display: block;
         }
 
         .dashboard-content-area {
-            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 0 24px;
-            min-height: 400px;
         }
 
         .dashboard-content-area .page {
@@ -1011,7 +946,7 @@
         }
 
         .dashboard-content-area .page h2 {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 700;
             margin-bottom: 6px;
         }
@@ -1263,7 +1198,7 @@
         }
 
         /* ============================================================
-        ADMIN DASHBOARD
+        ADMIN DASHBOARD (NO UPLOAD SECTION)
         ============================================================ */
         .admin-wrapper {
             display: none;
@@ -1273,65 +1208,13 @@
         }
 
         .admin-wrapper.show {
-            display: flex;
-        }
-
-        .admin-sidebar {
-            width: 220px;
-            min-height: 100%;
-            border-right: 1px solid var(--border);
-            padding: 12px 6px;
-            flex-shrink: 0;
-        }
-
-        .admin-sidebar .sidebar-title {
-            color: var(--text-muted);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            padding: 6px 10px;
-            margin-bottom: 6px;
-        }
-
-        .admin-sidebar .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 13px;
-            font-weight: 500;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-            min-height: 44px;
-        }
-
-        .admin-sidebar .menu-item:hover {
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        .admin-sidebar .menu-item.active {
-            background: rgba(212, 168, 83, 0.12);
-            color: var(--gold);
-        }
-
-        .admin-sidebar .menu-item .icon {
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
+            display: block;
         }
 
         .admin-content-area {
-            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 0 24px;
-            min-height: 400px;
         }
 
         .admin-content-area .page {
@@ -1344,7 +1227,7 @@
         }
 
         .admin-content-area .page h2 {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 700;
             margin-bottom: 6px;
         }
@@ -1418,34 +1301,6 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .admin-table-wrap table td .action-btn {
-            background: rgba(212, 168, 83, 0.12);
-            color: var(--gold);
-            border: 1px solid rgba(212, 168, 83, 0.2);
-            padding: 4px 10px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-right: 3px;
-            min-height: 32px;
-        }
-
-        .admin-table-wrap table td .action-btn:hover {
-            background: rgba(212, 168, 83, 0.2);
-        }
-
-        .admin-table-wrap table td .action-btn.danger {
-            color: #ff6b6b;
-            border-color: rgba(255, 107, 107, 0.2);
-            background: rgba(255, 107, 107, 0.08);
-        }
-
-        .admin-table-wrap table td .action-btn.danger:hover {
-            background: rgba(255, 107, 107, 0.15);
-        }
-
         .admin-table-wrap table td .badge {
             display: inline-block;
             padding: 2px 8px;
@@ -1467,216 +1322,6 @@
         .admin-table-wrap table td .badge.canceled {
             background: rgba(255, 107, 107, 0.2);
             color: #ff6b6b;
-        }
-
-        /* ============================================================
-        ADMIN UPLOAD - FIXED
-        ============================================================ */
-        .upload-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px 28px;
-            max-width: 680px;
-        }
-
-        .upload-card .form-group {
-            margin-bottom: 14px;
-        }
-
-        .upload-card .form-group label {
-            display: block;
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-bottom: 2px;
-        }
-
-        .upload-card .form-group select,
-        .upload-card .form-group input {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            font-size: 14px;
-            min-height: 44px;
-        }
-
-        .upload-card .form-group select:focus,
-        .upload-card .form-group input:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .upload-card .file-drop {
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            padding: 24px 16px;
-            text-align: center;
-            transition: var(--transition);
-            cursor: pointer;
-            margin-bottom: 10px;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .upload-card .file-drop:hover {
-            border-color: var(--gold);
-            background: rgba(212, 168, 83, 0.05);
-        }
-
-        .upload-card .file-drop .icon {
-            font-size: 28px;
-            opacity: 0.4;
-            margin-bottom: 4px;
-        }
-
-        .upload-card .file-drop p {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        .upload-card .file-list .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 10px;
-            background: var(--bg-primary);
-            border-radius: 6px;
-            margin-bottom: 4px;
-            border: 1px solid var(--border);
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .upload-card .file-list .file-item .name {
-            color: var(--text-secondary);
-            font-size: 12px;
-            word-break: break-all;
-        }
-
-        .upload-card .file-list .file-item .remove {
-            color: #ff6b6b;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            min-height: 32px;
-            min-width: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .upload-card .file-list .file-item .remove:hover {
-            background: rgba(255, 107, 107, 0.1);
-        }
-
-        .upload-card .upload-btn {
-            background: var(--gold);
-            color: var(--bg-primary);
-            border: none;
-            padding: 10px 28px;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            min-height: 48px;
-        }
-
-        .upload-card .upload-btn:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(212, 168, 83, 0.3);
-        }
-
-        .upload-card .upload-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .upload-card .upload-progress {
-            display: none;
-            margin-top: 10px;
-            background: var(--bg-primary);
-            border-radius: 100px;
-            height: 4px;
-            overflow: hidden;
-        }
-
-        .upload-card .upload-progress.show {
-            display: block;
-        }
-
-        .upload-card .upload-progress .bar {
-            height: 100%;
-            background: var(--gold);
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 100px;
-        }
-
-        .upload-card .uploaded-files {
-            margin-top: 16px;
-            border-top: 1px solid var(--border);
-            padding-top: 12px;
-        }
-
-        .upload-card .uploaded-files h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .upload-card .uploaded-files .mat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 10px;
-            background: var(--bg-primary);
-            border-radius: 6px;
-            margin-bottom: 4px;
-            border: 1px solid var(--border);
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .upload-card .uploaded-files .mat-item .info {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .upload-card .uploaded-files .mat-item .info .title {
-            color: var(--text-primary);
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .upload-card .uploaded-files .mat-item .info .desc {
-            color: var(--text-muted);
-            font-size: 11px;
-        }
-
-        .upload-card .uploaded-files .mat-item .del-btn {
-            color: #ff6b6b;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 4px 8px;
-            font-size: 14px;
-            border-radius: 4px;
-            min-height: 32px;
-            min-width: 32px;
-        }
-
-        .upload-card .uploaded-files .mat-item .del-btn:hover {
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 4px;
         }
 
         /* ============================================================
@@ -2371,7 +2016,7 @@
         }
 
         /* ============================================================
-        RESPONSIVE - MOBILE (FIXED)
+        RESPONSIVE - MOBILE
         ============================================================ */
         @media (max-width: 768px) {
             .header {
@@ -2497,10 +2142,6 @@
                 padding: 16px;
             }
 
-            .upload-card {
-                padding: 16px;
-            }
-
             .stat-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
@@ -2535,86 +2176,12 @@
                 padding: 6px 4px;
             }
 
-            .dashboard-wrapper {
-                flex-direction: column;
-            }
-
-            .dashboard-sidebar {
-                width: 100% !important;
-                min-height: auto !important;
-                border-right: none !important;
-                border-bottom: 1px solid var(--border);
-                padding: 8px 4px !important;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-
-            .dashboard-sidebar .sidebar-title {
-                display: none;
-            }
-
-            .dashboard-sidebar .menu-item {
-                padding: 8px 12px !important;
-                font-size: 13px;
-                flex: 1 0 auto;
-                min-width: 70px;
-                justify-content: center;
-                min-height: 40px;
-            }
-
-            .dashboard-sidebar .menu-item .icon {
-                font-size: 14px;
-                width: 18px;
-            }
-
             .dashboard-content-area {
-                padding: 16px 12px !important;
-            }
-
-            .dashboard-content-area .page h2 {
-                font-size: 20px;
-            }
-
-            .admin-wrapper {
-                flex-direction: column;
-            }
-
-            .admin-sidebar {
-                width: 100% !important;
-                min-height: auto !important;
-                border-right: none !important;
-                border-bottom: 1px solid var(--border);
-                padding: 8px 4px !important;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-
-            .admin-sidebar .sidebar-title {
-                display: none;
-            }
-
-            .admin-sidebar .menu-item {
-                padding: 8px 12px !important;
-                font-size: 13px;
-                flex: 1 0 auto;
-                min-width: 70px;
-                justify-content: center;
-                min-height: 40px;
-            }
-
-            .admin-sidebar .menu-item .icon {
-                font-size: 14px;
-                width: 18px;
+                padding: 0 12px !important;
             }
 
             .admin-content-area {
-                padding: 16px 12px !important;
-            }
-
-            .admin-content-area .page h2 {
-                font-size: 20px;
+                padding: 0 12px !important;
             }
         }
 
@@ -2658,10 +2225,6 @@
                 padding: 12px;
             }
 
-            .upload-card {
-                padding: 12px;
-            }
-
             .stat-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 6px;
@@ -2692,27 +2255,6 @@
                 font-size: 15px;
                 width: 20px;
             }
-
-            .dashboard-sidebar .menu-item {
-                font-size: 11px !important;
-                padding: 6px 8px !important;
-                min-width: 50px;
-                min-height: 34px;
-            }
-
-            .admin-sidebar .menu-item {
-                font-size: 11px !important;
-                padding: 6px 8px !important;
-                min-width: 50px;
-                min-height: 34px;
-            }
-
-            .dashboard-content-area {
-                padding: 12px 8px !important;
-            }
-            .admin-content-area {
-                padding: 12px 8px !important;
-            }
         }
 
         .hidden {
@@ -2737,19 +2279,16 @@
             </a>
 
             <div class="header-right">
-                <!-- User email display - always in header -->
                 <div class="header-user-email" id="headerUserDisplay" style="display:none;">
                     👤 <span class="email" id="headerUserEmail">user@email.com</span>
                 </div>
 
-                <!-- Cart link - always visible -->
                 <a href="#" class="cart-link-header" id="headerCartLink">
                     <span>🛒</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
                 <a href="#" class="auth-link" id="authLink">🔑 <span>Login</span></a>
 
-                <!-- Hamburger Menu Button -->
                 <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
@@ -2757,10 +2296,9 @@
                 </button>
             </div>
 
-            <!-- Sidebar Overlay -->
             <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-            <!-- SIDEBAR MENU - ALL NAVIGATION IN ONE PLACE -->
+            <!-- SIDEBAR MENU -->
             <div class="sidebar-menu" id="sidebarMenu">
                 <div class="sidebar-header">
                     <div class="brand">
@@ -2771,50 +2309,32 @@
                 </div>
                 <nav class="sidebar-nav">
                     <div class="nav-section">
-                        <div class="nav-section-title">Main</div>
                         <button class="nav-item active" data-nav="home" id="navHome">
                             <span class="icon">🏠</span> Home
                         </button>
+                        <button class="nav-item" data-nav="dashboard" id="navDashboard">
+                            <span class="icon">👤</span> Dashboard
+                        </button>
                         <button class="nav-item" data-nav="courses" id="navCoursesBtn">
                             <span class="icon">📚</span> Courses
+                        </button>
+                        <button class="nav-item" data-nav="mycourses" id="navMyCourses">
+                            <span class="icon">📖</span> My Courses
                         </button>
                         <button class="nav-item" data-nav="cart" id="navCartBtn">
                             <span class="icon">🛒</span> Cart
                             <span class="badge" id="sidebarCartBadge">0</span>
                         </button>
-                    </div>
-
-                    <hr class="divider" />
-
-                    <div class="nav-section">
-                        <div class="nav-section-title">Account</div>
-                        <button class="nav-item" data-nav="dashboard" id="navDashboard">
-                            <span class="icon">👤</span> Dashboard
-                        </button>
-                        <button class="nav-item" data-nav="orders" id="navOrders">
-                            <span class="icon">📦</span> Orders
-                        </button>
-                        <button class="nav-item" data-nav="mycourses" id="navMyCourses">
-                            <span class="icon">📖</span> My Courses
+                        <button class="nav-item" data-nav="transactions" id="navTransactions">
+                            <span class="icon">📊</span> Previous Transactions
                         </button>
                         <button class="nav-item" data-nav="settings" id="navSettings">
                             <span class="icon">⚙️</span> Settings
                         </button>
                     </div>
-
-                    <hr class="divider" />
-
-                    <div class="nav-section">
-                        <div class="nav-section-title">Admin</div>
-                        <button class="nav-item" data-nav="admin" id="navAdmin" style="display:none;">
-                            <span class="icon">🔐</span> Admin Panel
-                        </button>
-                    </div>
                 </nav>
                 <div class="sidebar-footer">
-                    <button class="logout-btn" id="sidebarLogoutBtn">
-                        🚪 Logout
-                    </button>
+                    <button class="logout-btn" id="sidebarLogoutBtn">🚪 Logout</button>
                 </div>
             </div>
         </div>
@@ -2860,24 +2380,12 @@
         </section>
 
         <!-- ============================================================
-        ADMIN DASHBOARD
+        ADMIN DASHBOARD (NO UPLOAD)
         ============================================================ -->
         <div class="admin-wrapper" id="adminWrapper">
-            <div class="admin-sidebar">
-                <div class="sidebar-title">Admin Menu</div>
-                <button class="menu-item active" data-admin-page="dashboard">
-                    <span class="icon">📊</span> Dashboard
-                </button>
-                <button class="menu-item" data-admin-page="users">
-                    <span class="icon">👥</span> Users
-                </button>
-                <button class="menu-item" data-admin-page="upload">
-                    <span class="icon">📤</span> Upload
-                </button>
-            </div>
             <div class="admin-content-area">
                 <div class="page active" id="adminPageDashboard">
-                    <h2>📊 Dashboard</h2>
+                    <h2>📊 Admin Dashboard</h2>
                     <p class="sub">Overview of users and orders</p>
                     <div class="stat-grid">
                         <div class="stat-card"><div class="num" id="adminTotalOrders">0</div><div class="label">Total Orders</div></div>
@@ -2896,74 +2404,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="page" id="adminPageUsers">
-                    <h2>👥 Users</h2>
-                    <p class="sub">Manage all registered users</p>
-                    <div class="admin-table-wrap">
-                        <div class="header"><h3>All Users</h3><button onclick="refreshAdminPanel()">🔄 Refresh</button></div>
-                        <div class="table-scroll">
-                            <table>
-                                <thead><tr><th>Email</th><th>Orders</th><th>Total Spent</th><th>Joined</th><th>Actions</th></tr></thead>
-                                <tbody id="adminUsersTable"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-muted);">No users yet</td></tr></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="page" id="adminPageUpload">
-                    <h2>📤 Upload Materials</h2>
-                    <p class="sub">Upload course materials to specific users</p>
-                    <div class="upload-card">
-                        <div class="form-group">
-                            <label>Select User</label>
-                            <select id="uploadUserSelect"><option value="">— Select a user —</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Select Course</label>
-                            <select id="uploadCourseSelect">
-                                <option value="General">General</option>
-                                <option value="Master Traffic Arbitrage and Scale Your Portfolio">Master Traffic Arbitrage and Scale Your Portfolio</option>
-                                <option value="Build Any Kind of Website from Frontend to Backend">Build Any Kind of Website from Frontend to Backend</option>
-                                <option value="Automate Your Workflow with RPA Concepts">Automate Your Workflow with RPA Concepts</option>
-                                <option value="Build Software and Mobile Applications from Scratch">Build Software and Mobile Applications from Scratch</option>
-                                <option value="AI Powered Freelancing to Win More Clients">AI Powered Freelancing to Win More Clients</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>File Title</label>
-                            <input type="text" id="uploadFileTitle" placeholder="e.g., Course Guide PDF" />
-                        </div>
-                        <div class="file-drop" id="fileDrop">
-                            <div class="icon">📁</div>
-                            <p>Drag & drop files here or click to browse</p>
-                            <input type="file" id="fileInput" multiple style="display:none;" />
-                        </div>
-                        <div class="file-list" id="fileList"></div>
-                        <button class="upload-btn" id="uploadFilesBtn" disabled>📤 Upload to User</button>
-                        <div class="upload-progress" id="uploadProgress"><div class="bar" id="progressBar"></div></div>
-                        <div class="uploaded-files" id="uploadedFiles">
-                            <h4>📄 Previously Uploaded</h4>
-                            <div id="uploadedFilesList"><p style="color:var(--text-muted);font-size:13px;">Select a user to see their materials</p></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- ============================================================
-        USER DASHBOARD
+        USER DASHBOARD (SINGLE PAGE, NO SUB-MENU)
         ============================================================ -->
         <div class="dashboard-wrapper" id="userDashboard">
-            <div class="dashboard-sidebar">
-                <div class="sidebar-title">Menu</div>
-                <button class="menu-item active" data-page="profile"><span class="icon">👤</span> Dashboard</button>
-                <button class="menu-item" data-page="orders"><span class="icon">📦</span> Orders</button>
-                <button class="menu-item" data-page="courses"><span class="icon">📚</span> My Courses</button>
-                <button class="menu-item" data-page="cart"><span class="icon">🛒</span> Cart <span class="cart-count" id="sidebarCartCount" style="background:var(--gold);color:var(--bg-primary);border-radius:50%;padding:0 6px;font-size:11px;font-weight:700;min-width:20px;text-align:center;line-height:20px;margin-left:auto;">0</span></button>
-                <hr class="menu-divider" />
-                <button class="menu-item" data-page="settings"><span class="icon">⚙️</span> Settings</button>
-            </div>
             <div class="dashboard-content-area">
-                <div class="page active" id="pageProfile">
+                <!-- Dashboard Page -->
+                <div class="page active" id="pageDashboard">
                     <h2>👤 Dashboard</h2>
                     <p class="sub" id="dashboardUserEmail">user@example.com</p>
                     <div class="stat-grid">
@@ -2979,21 +2429,22 @@
                         <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
                     </div>
                 </div>
-                <div class="page" id="pageOrders">
-                    <h2>📦 Order History</h2>
-                    <p class="sub">View all your past orders</p>
-                    <div id="ordersList"><div class="empty-state"><div class="icon">📭</div><p>No orders yet. Start learning today!</p></div></div>
+
+                <!-- Transactions Page -->
+                <div class="page" id="pageTransactions">
+                    <h2>📊 Previous Transactions</h2>
+                    <p class="sub">View all your past orders and payments</p>
+                    <div id="transactionsList"><div class="empty-state"><div class="icon">📭</div><p>No transactions yet.</p></div></div>
                 </div>
-                <div class="page" id="pageCourses">
+
+                <!-- My Courses Page -->
+                <div class="page" id="pageMyCourses">
                     <h2>📚 My Courses & Materials</h2>
                     <p class="sub">Access all your course materials</p>
-                    <div id="coursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
+                    <div id="myCoursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
                 </div>
-                <div class="page" id="pageCart">
-                    <h2>🛒 Your Cart</h2>
-                    <p class="sub">Review items in your cart</p>
-                    <div id="cartList"><div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p></div></div>
-                </div>
+
+                <!-- Settings Page -->
                 <div class="page" id="pageSettings">
                     <h2>⚙️ Settings</h2>
                     <p class="sub">Manage your account settings</p>
@@ -3256,7 +2707,6 @@
             // ===== DOM REFS =====
             const cartCountEl = document.getElementById('cartCount');
             const sidebarCartBadge = document.getElementById('sidebarCartBadge');
-            const sidebarCartCount = document.getElementById('sidebarCartCount');
             const coursesGrid = document.getElementById('coursesGrid');
             const checkoutSection = document.getElementById('checkoutSection');
             const emptyCart = document.getElementById('emptyCart');
@@ -3287,25 +2737,12 @@
 
             // Nav buttons
             const navHome = document.getElementById('navHome');
-            const navCoursesBtn = document.getElementById('navCoursesBtn');
-            const navCartBtn = document.getElementById('navCartBtn');
             const navDashboard = document.getElementById('navDashboard');
-            const navOrders = document.getElementById('navOrders');
+            const navCoursesBtn = document.getElementById('navCoursesBtn');
             const navMyCourses = document.getElementById('navMyCourses');
+            const navCartBtn = document.getElementById('navCartBtn');
+            const navTransactions = document.getElementById('navTransactions');
             const navSettings = document.getElementById('navSettings');
-            const navAdmin = document.getElementById('navAdmin');
-
-            // Upload elements
-            const uploadUserSelect = document.getElementById('uploadUserSelect');
-            const uploadCourseSelect = document.getElementById('uploadCourseSelect');
-            const uploadFileTitle = document.getElementById('uploadFileTitle');
-            const fileInput = document.getElementById('fileInput');
-            const fileDrop = document.getElementById('fileDrop');
-            const fileList = document.getElementById('fileList');
-            const uploadFilesBtn = document.getElementById('uploadFilesBtn');
-            const uploadProgress = document.getElementById('uploadProgress');
-            const progressBar = document.getElementById('progressBar');
-            const uploadedFilesList = document.getElementById('uploadedFilesList');
 
             // Auth Modal Elements
             const authModal = document.getElementById('authModal');
@@ -3331,7 +2768,6 @@
             let paymentDetected = false;
             let isLoginMode = true;
             let deleteTarget = null;
-            let selectedFiles = [];
             let confirmCallback = null;
             let isSidebarOpen = false;
 
@@ -3372,11 +2808,33 @@
                     case 'home':
                         goToHome();
                         break;
+                    case 'dashboard':
+                        if (!currentUser) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showAdminDashboard();
+                        } else {
+                            showUserDashboard('dashboard');
+                        }
+                        break;
                     case 'courses':
                         goToHome();
                         setTimeout(() => {
                             document.getElementById('coursesSection').scrollIntoView({ behavior: 'smooth' });
                         }, 100);
+                        break;
+                    case 'mycourses':
+                        if (!currentUser) {
+                            openAuthModal('login');
+                            return;
+                        }
+                        if (isAdmin()) {
+                            showNotification('Admin view: No courses enrolled', 'error');
+                            return;
+                        }
+                        showUserDashboard('mycourses');
                         break;
                     case 'cart':
                         const user = getCurrentUserSync();
@@ -3390,44 +2848,16 @@
                         }
                         renderCheckout();
                         break;
-                    case 'dashboard':
+                    case 'transactions':
                         if (!currentUser) {
                             openAuthModal('login');
                             return;
                         }
                         if (isAdmin()) {
                             showAdminDashboard();
-                        } else {
-                            showUserDashboard();
-                            updateUserDashboard();
-                        }
-                        break;
-                    case 'orders':
-                        if (!currentUser) {
-                            openAuthModal('login');
                             return;
                         }
-                        if (isAdmin()) {
-                            showAdminDashboard();
-                            document.querySelector('[data-admin-page="dashboard"]')?.click();
-                        } else {
-                            showUserDashboard();
-                            updateUserDashboard();
-                            document.querySelector('[data-page="orders"]')?.click();
-                        }
-                        break;
-                    case 'mycourses':
-                        if (!currentUser) {
-                            openAuthModal('login');
-                            return;
-                        }
-                        if (isAdmin()) {
-                            showNotification('Admin mode: Use Upload section to manage materials', 'error');
-                            return;
-                        }
-                        showUserDashboard();
-                        updateUserDashboard();
-                        document.querySelector('[data-page="courses"]')?.click();
+                        showUserDashboard('transactions');
                         break;
                     case 'settings':
                         if (!currentUser) {
@@ -3436,19 +2866,9 @@
                         }
                         if (isAdmin()) {
                             showAdminDashboard();
-                            document.querySelector('[data-admin-page="dashboard"]')?.click();
                             return;
                         }
-                        showUserDashboard();
-                        updateUserDashboard();
-                        document.querySelector('[data-page="settings"]')?.click();
-                        break;
-                    case 'admin':
-                        if (isAdmin()) {
-                            showAdminDashboard();
-                        } else {
-                            showNotification('❌ Admin access only', 'error');
-                        }
+                        showUserDashboard('settings');
                         break;
                     default:
                         goToHome();
@@ -3471,13 +2891,12 @@
 
             // Nav item clicks
             navHome.addEventListener('click', function() { navigateTo('home'); });
-            navCoursesBtn.addEventListener('click', function() { navigateTo('courses'); });
-            navCartBtn.addEventListener('click', function() { navigateTo('cart'); });
             navDashboard.addEventListener('click', function() { navigateTo('dashboard'); });
-            navOrders.addEventListener('click', function() { navigateTo('orders'); });
+            navCoursesBtn.addEventListener('click', function() { navigateTo('courses'); });
             navMyCourses.addEventListener('click', function() { navigateTo('mycourses'); });
+            navCartBtn.addEventListener('click', function() { navigateTo('cart'); });
+            navTransactions.addEventListener('click', function() { navigateTo('transactions'); });
             navSettings.addEventListener('click', function() { navigateTo('settings'); });
-            navAdmin.addEventListener('click', function() { navigateTo('admin'); });
 
             sidebarLogoutBtn.addEventListener('click', function() {
                 closeSidebar();
@@ -3535,101 +2954,6 @@
                     console.error('Fetch error:', error);
                     throw error;
                 }
-            }
-
-            // ===== SUPABASE STORAGE - FIXED =====
-
-            async function checkBucketExists() {
-                try {
-                    const response = await fetch(`${SUPABASE_URL}/storage/v1/bucket/materials`, {
-                        headers: {
-                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        }
-                    });
-                    return response.ok;
-                } catch (error) {
-                    console.error('Bucket check error:', error);
-                    return false;
-                }
-            }
-
-            async function uploadToStorage(file, path) {
-                const formData = new FormData();
-                formData.append('file', file);
-
-                try {
-                    // Check if bucket exists first
-                    const bucketExists = await checkBucketExists();
-                    if (!bucketExists) {
-                        console.log('Bucket does not exist, attempting to create...');
-                        // Try to create the bucket
-                        const createResponse = await fetch(`${SUPABASE_URL}/storage/v1/bucket`, {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                id: 'materials',
-                                name: 'materials',
-                                public: true,
-                            })
-                        });
-                        if (!createResponse.ok) {
-                            const error = await createResponse.text();
-                            console.error('Bucket creation failed:', error);
-                            throw new Error('Failed to create storage bucket: ' + error);
-                        }
-                        console.log('Bucket created successfully');
-                    }
-
-                    // Upload the file
-                    const response = await fetch(`${SUPABASE_URL}/storage/v1/object/materials/${path}`, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        },
-                        body: formData
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.text();
-                        console.error('Storage upload error:', error);
-                        throw new Error(error);
-                    }
-
-                    const data = await response.json();
-                    console.log('Upload successful:', data);
-                    return data.Key || path;
-                } catch (error) {
-                    console.error('Upload function error:', error);
-                    throw error;
-                }
-            }
-
-            async function deleteFromStorage(path) {
-                try {
-                    const response = await fetch(`${SUPABASE_URL}/storage/v1/object/materials/${path}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                        }
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.text();
-                        console.error('Storage delete error:', error);
-                        return false;
-                    }
-                    return true;
-                } catch (error) {
-                    console.error('Delete error:', error);
-                    return false;
-                }
-            }
-
-            function getPublicUrl(path) {
-                return `${SUPABASE_URL}/storage/v1/object/public/materials/${path}`;
             }
 
             // ===== SUPABASE FUNCTIONS =====
@@ -3735,14 +3059,6 @@
 
             async function deleteUser(email) {
                 try {
-                    const user = await getCurrentUser();
-                    if (user && user.materials) {
-                        for (const mat of user.materials) {
-                            if (mat.storagePath) {
-                                await deleteFromStorage(mat.storagePath);
-                            }
-                        }
-                    }
                     return await supabaseFetch(`users?email=eq.${encodeURIComponent(email)}`, {
                         method: 'DELETE'
                     });
@@ -3750,33 +3066,6 @@
                     console.error('Error deleting user:', error);
                     return false;
                 }
-            }
-
-            async function getUserMaterials(email) {
-                const users = await getUsers();
-                return users[email]?.materials || [];
-            }
-
-            async function addUserMaterial(email, material) {
-                const users = await getUsers();
-                if (!users[email]) return false;
-                if (!users[email].materials) users[email].materials = [];
-                users[email].materials.push(material);
-                await saveUsers(users);
-                return true;
-            }
-
-            async function deleteUserMaterial(email, materialId) {
-                const users = await getUsers();
-                if (!users[email]) return false;
-                if (!users[email].materials) return false;
-                const material = users[email].materials.find(m => m.id === materialId);
-                if (material && material.storagePath) {
-                    await deleteFromStorage(material.storagePath);
-                }
-                users[email].materials = users[email].materials.filter(m => m.id !== materialId);
-                await saveUsers(users);
-                return true;
             }
 
             // ===== PASSWORD FUNCTIONS =====
@@ -3881,16 +3170,12 @@
 
                     if (isAdmin()) {
                         document.body.classList.add('admin-mode');
-                        navAdmin.style.display = 'flex';
                         showAdminDashboard();
                         await refreshAdminPanel();
-                        await populateUserSelect();
-                        await loadUploadedFiles();
                         showNotification('🔑 Admin logged in!');
                     } else {
                         document.body.classList.remove('admin-mode');
-                        navAdmin.style.display = 'none';
-                        showUserDashboard();
+                        showUserDashboard('dashboard');
                         await updateUserDashboard();
                         showNotification('✅ Welcome back, ' + email + '!');
                     }
@@ -3913,7 +3198,6 @@
                 const count = cart.length;
                 cartCountEl.textContent = count;
                 if (sidebarCartBadge) sidebarCartBadge.textContent = count;
-                if (sidebarCartCount) sidebarCartCount.textContent = count;
 
                 if (count === 0 && !isCheckingout) {
                     checkoutSection.classList.remove('show');
@@ -3962,9 +3246,9 @@
                 return currentUser && currentUser.email === 'admin@freelancepilot.com';
             }
 
-            function showUserDashboard() {
+            function showUserDashboard(page) {
                 userDashboard.classList.add('show');
-                userDashboard.style.display = 'flex';
+                userDashboard.style.display = 'block';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
                 heroSection.style.display = 'none';
@@ -3974,10 +3258,21 @@
                 checkoutSection.classList.remove('show');
                 checkoutSection.style.display = 'none';
                 emptyCart.style.display = 'none';
+
+                // Show the correct page
+                document.querySelectorAll('.dashboard-content-area .page').forEach(p => p.classList.remove('active'));
+                const pageMap = {
+                    'dashboard': 'pageDashboard',
+                    'transactions': 'pageTransactions',
+                    'mycourses': 'pageMyCourses',
+                    'settings': 'pageSettings'
+                };
+                const targetPage = pageMap[page] || 'pageDashboard';
+                document.getElementById(targetPage).classList.add('active');
             }
 
             function showAdminDashboard() {
-                adminWrapper.style.display = 'flex';
+                adminWrapper.style.display = 'block';
                 adminWrapper.classList.add('show');
                 userDashboard.classList.remove('show');
                 userDashboard.style.display = 'none';
@@ -4026,13 +3321,14 @@
                 document.getElementById('profileCourses').textContent = (user.orders || []).filter(o => o.status === 'completed')
                     .length;
 
-                const ordersList = document.getElementById('ordersList');
+                // Transactions
+                const transactionsList = document.getElementById('transactionsList');
                 const orders = user.orders || [];
                 if (orders.length === 0) {
-                    ordersList.innerHTML =
-                        '<div class="empty-state"><div class="icon">📭</div><p>No orders yet. Start learning today!</p></div>';
+                    transactionsList.innerHTML =
+                        '<div class="empty-state"><div class="icon">📭</div><p>No transactions yet.</p></div>';
                 } else {
-                    ordersList.innerHTML = orders.map(order => `
+                    transactionsList.innerHTML = orders.map(order => `
                                 <div class="order-card">
                                     <div class="info">
                                         <div class="course">${order.course || 'Course'}</div>
@@ -4044,130 +3340,32 @@
                             `).join('');
                 }
 
-                const coursesList = document.getElementById('coursesList');
+                // My Courses
+                const myCoursesList = document.getElementById('myCoursesList');
                 const completedOrders = orders.filter(o => o.status === 'completed');
-                const materials = user.materials || [];
 
-                if (completedOrders.length === 0 && materials.length === 0) {
-                    coursesList.innerHTML =
+                if (completedOrders.length === 0) {
+                    myCoursesList.innerHTML =
                         '<div class="empty-state"><div class="icon">📚</div><p>You haven\'t enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div>';
                 } else {
                     let html = '';
-
                     completedOrders.forEach(order => {
-                        const courseMaterials = materials.filter(m => m.course === order.course);
                         html += `
-                                    <div style="margin-bottom:14px;">
-                                        <div style="background:var(--bg-card-hover);border:1px solid rgba(212,168,83,0.2);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-                                            <div>
-                                                <div style="font-weight:600;color:var(--text-primary);font-size:14px;">📘 ${order.course || 'Course'}</div>
-                                                <div style="color:var(--text-muted);font-size:12px;">Enrolled on ${new Date(order.created).toLocaleDateString()}</div>
-                                            </div>
-                                            <span style="color:var(--gold);font-size:12px;font-weight:600;">${courseMaterials.length} materials</span>
+                                    <div style="background:var(--bg-card-hover);border:1px solid rgba(212,168,83,0.2);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+                                        <div>
+                                            <div style="font-weight:600;color:var(--text-primary);font-size:14px;">📘 ${order.course || 'Course'}</div>
+                                            <div style="color:var(--text-muted);font-size:12px;">Enrolled on ${new Date(order.created).toLocaleDateString()}</div>
                                         </div>
-                                        ${courseMaterials.map(mat => `
-                                            <div class="material-card">
-                                                <div class="info">
-                                                    <div class="title">📄 ${mat.title || 'Material'}</div>
-                                                    <div class="desc">Uploaded: ${new Date(mat.uploaded).toLocaleDateString()}</div>
-                                                </div>
-                                                <button class="download-btn" onclick="downloadMaterial('${mat.storagePath || ''}', '${mat.title || 'material'}')">📥 Download</button>
-                                            </div>
-                                        `).join('')}
+                                        <span style="color:var(--gold);font-size:12px;font-weight:600;">Access Granted</span>
                                     </div>
                                 `;
                     });
-
-                    const standaloneMaterials = materials.filter(m => {
-                        return !completedOrders.some(o => o.course === m.course);
-                    });
-
-                    if (standaloneMaterials.length > 0) {
-                        html += `
-                                    <h4 style="margin-top:14px;font-size:14px;color:var(--text-muted);">📁 Additional Materials</h4>
-                                    ${standaloneMaterials.map(mat => `
-                                        <div class="material-card">
-                                            <div class="info">
-                                                <div class="title">📄 ${mat.title || 'Material'}</div>
-                                                <div class="desc">Uploaded: ${new Date(mat.uploaded).toLocaleDateString()}</div>
-                                            </div>
-                                            <button class="download-btn" onclick="downloadMaterial('${mat.storagePath || ''}', '${mat.title || 'material'}')">📥 Download</button>
-                                        </div>
-                                    `).join('')}
-                                `;
-                    }
-
-                    coursesList.innerHTML = html;
+                    myCoursesList.innerHTML = html;
                 }
 
                 const cart = await getCart();
                 if (sidebarCartBadge) sidebarCartBadge.textContent = cart.length;
-                if (sidebarCartCount) sidebarCartCount.textContent = cart.length;
-
-                const cartList = document.getElementById('cartList');
-                if (cart.length === 0) {
-                    cartList.innerHTML = '<div class="empty-state"><div class="icon">🛒</div><p>Your cart is empty.</p></div>';
-                } else {
-                    cartList.innerHTML = cart.map((item, index) => `
-                                <div class="order-card">
-                                    <div class="info">
-                                        <div class="course">${item.course}</div>
-                                        <div class="details">$${item.price} USDT</div>
-                                    </div>
-                                    <button onclick="removeFromCart(${index})" style="color:#ff6b6b;background:none;border:none;cursor:pointer;font-size:16px;padding:4px 8px;min-height:32px;min-width:32px;">✕</button>
-                                </div>
-                            `).join('');
-                }
             }
-
-            async function removeFromCart(index) {
-                const cart = await getCart();
-                cart.splice(index, 1);
-                await setCart(cart);
-                await updateCartUI();
-                await updateUserDashboard();
-                showNotification('Item removed from cart');
-            }
-
-            // ===== DASHBOARD NAVIGATION =====
-
-            document.querySelectorAll('.dashboard-sidebar .menu-item[data-page]').forEach(item => {
-                item.addEventListener('click', function() {
-                    document.querySelectorAll('.dashboard-sidebar .menu-item[data-page]').forEach(i => i.classList
-                        .remove('active'));
-                    this.classList.add('active');
-                    const page = this.dataset.page;
-                    document.querySelectorAll('.dashboard-content-area .page').forEach(p => p.classList.remove(
-                        'active'));
-                    const pageMap = {
-                        'profile': 'pageProfile',
-                        'orders': 'pageOrders',
-                        'courses': 'pageCourses',
-                        'cart': 'pageCart',
-                        'settings': 'pageSettings'
-                    };
-                    document.getElementById(pageMap[page]).classList.add('active');
-                });
-            });
-
-            // ===== ADMIN NAVIGATION =====
-
-            document.querySelectorAll('.admin-sidebar .menu-item[data-admin-page]').forEach(item => {
-                item.addEventListener('click', function() {
-                    document.querySelectorAll('.admin-sidebar .menu-item[data-admin-page]').forEach(i => i
-                        .classList.remove('active'));
-                    this.classList.add('active');
-                    const page = this.dataset.adminPage;
-                    document.querySelectorAll('.admin-content-area .page').forEach(p => p.classList.remove(
-                        'active'));
-                    const pageMap = {
-                        'dashboard': 'adminPageDashboard',
-                        'users': 'adminPageUsers',
-                        'upload': 'adminPageUpload'
-                    };
-                    document.getElementById(pageMap[page]).classList.add('active');
-                });
-            });
 
             // ===== ADMIN DASHBOARD =====
 
@@ -4239,234 +3437,7 @@
                                 `;
                     }).join('');
                 }
-
-                const usersTable = document.getElementById('adminUsersTable');
-                const userEntries = Object.entries(users);
-                if (userEntries.length === 0) {
-                    usersTable.innerHTML =
-                        '<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--text-muted);">No users yet</td></tr>';
-                } else {
-                    usersTable.innerHTML = userEntries.map(([email, user]) => {
-                        const orderCount = user.orders ? user.orders.length : 0;
-                        const spent = user.orders ? user.orders.filter(o => o.status === 'completed').reduce((
-                            sum, o) => sum + (o.amount || 0), 0) : 0;
-                        const joined = new Date(user.created).toLocaleString();
-                        return `
-                                    <tr>
-                                        <td style="color:var(--text-primary);">${email}</td>
-                                        <td>${orderCount}</td>
-                                        <td style="color:var(--gold);font-weight:600;">$${spent.toFixed(2)}</td>
-                                        <td style="color:var(--text-muted);font-size:12px;">${joined}</td>
-                                        <td>
-                                            <button class="action-btn" onclick="uploadToUser('${email}')" title="Upload materials">📤</button>
-                                            <button class="action-btn danger" onclick="confirmDeleteUser('${email}')" title="Delete user">🗑️</button>
-                                        </td>
-                                    </tr>
-                                `;
-                    }).join('');
-                }
             }
-
-            // ===== ADMIN UPLOAD FUNCTIONS =====
-
-            async function populateUserSelect() {
-                const users = await getUsers();
-                uploadUserSelect.innerHTML = '<option value="">— Select a user —</option>';
-                for (const [email, user] of Object.entries(users)) {
-                    if (email !== 'admin@freelancepilot.com') {
-                        const option = document.createElement('option');
-                        option.value = email;
-                        option.textContent = email;
-                        uploadUserSelect.appendChild(option);
-                    }
-                }
-            }
-
-            async function loadUploadedFiles() {
-                const email = uploadUserSelect.value;
-                if (!email) {
-                    uploadedFilesList.innerHTML =
-                        '<p style="color:var(--text-muted);font-size:13px;">Select a user to see their materials</p>';
-                    return;
-                }
-                const materials = await getUserMaterials(email);
-                if (materials.length === 0) {
-                    uploadedFilesList.innerHTML =
-                        '<p style="color:var(--text-muted);font-size:13px;">No materials uploaded for this user</p>';
-                    return;
-                }
-                uploadedFilesList.innerHTML = materials.map((mat, index) => `
-                            <div class="mat-item">
-                                <div class="info">
-                                    <div class="title">${mat.title || 'Material'}</div>
-                                    <div class="desc">${mat.course || 'General'} • ${new Date(mat.uploaded).toLocaleDateString()}</div>
-                                </div>
-                                <button class="del-btn" onclick="deleteMaterial('${email}', ${index})">🗑️</button>
-                            </div>
-                        `).join('');
-            }
-
-            uploadUserSelect.addEventListener('change', loadUploadedFiles);
-
-            fileDrop.addEventListener('click', () => fileInput.click());
-            fileDrop.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                fileDrop.style.borderColor = 'var(--gold)';
-            });
-            fileDrop.addEventListener('dragleave', () => {
-                fileDrop.style.borderColor = 'var(--border)';
-            });
-            fileDrop.addEventListener('drop', (e) => {
-                e.preventDefault();
-                fileDrop.style.borderColor = 'var(--border)';
-                handleFiles(e.dataTransfer.files);
-            });
-            fileInput.addEventListener('change', () => handleFiles(fileInput.files));
-
-            function handleFiles(files) {
-                for (const file of files) {
-                    if (!selectedFiles.some(f => f.name === file.name)) {
-                        selectedFiles.push(file);
-                    }
-                }
-                renderFileList();
-                uploadFilesBtn.disabled = selectedFiles.length === 0 || !uploadUserSelect.value || !uploadFileTitle.value;
-            }
-
-            function renderFileList() {
-                if (selectedFiles.length === 0) {
-                    fileList.innerHTML = '';
-                    return;
-                }
-                fileList.innerHTML = selectedFiles.map((file, index) => `
-                            <div class="file-item">
-                                <span class="name">📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
-                                <span class="remove" onclick="removeFile(${index})">✕</span>
-                            </div>
-                        `).join('');
-            }
-
-            function removeFile(index) {
-                selectedFiles.splice(index, 1);
-                renderFileList();
-                uploadFilesBtn.disabled = selectedFiles.length === 0 || !uploadUserSelect.value || !uploadFileTitle.value;
-            }
-
-            uploadFileTitle.addEventListener('input', () => {
-                uploadFilesBtn.disabled = selectedFiles.length === 0 || !uploadUserSelect.value || !uploadFileTitle.value;
-            });
-
-            uploadFilesBtn.addEventListener('click', async function() {
-                const email = uploadUserSelect.value;
-                const course = uploadCourseSelect.value || 'General';
-                const title = uploadFileTitle.value;
-
-                if (!email || !title || selectedFiles.length === 0) {
-                    showNotification('Please select a user, enter a title, and select files.', 'error');
-                    return;
-                }
-
-                this.disabled = true;
-                this.textContent = '⏳ Uploading...';
-                uploadProgress.classList.add('show');
-
-                let uploaded = 0;
-                const total = selectedFiles.length;
-
-                for (const file of selectedFiles) {
-                    try {
-                        // Sanitize filename for storage
-                        const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-                        const path = `${email}/${Date.now()}_${safeFileName}`;
-
-                        console.log('Uploading to path:', path);
-                        const storagePath = await uploadToStorage(file, path);
-
-                        const material = {
-                            id: 'mat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                            title: title,
-                            course: course,
-                            fileName: file.name,
-                            fileType: file.type,
-                            storagePath: path,
-                            publicUrl: getPublicUrl(path),
-                            size: file.size,
-                            uploaded: Date.now()
-                        };
-
-                        await addUserMaterial(email, material);
-                        uploaded++;
-                        progressBar.style.width = `${(uploaded / total) * 100}%`;
-                        console.log('Uploaded:', uploaded, 'of', total);
-                    } catch (error) {
-                        console.error('Upload error for file:', file.name, error);
-                        showNotification('❌ Failed to upload: ' + file.name + ' - ' + error.message, 'error');
-                    }
-                }
-
-                showNotification(`✅ ${uploaded} file(s) uploaded to ${email}`);
-                selectedFiles = [];
-                renderFileList();
-                uploadProgress.classList.remove('show');
-                progressBar.style.width = '0%';
-                uploadFileTitle.value = '';
-                this.disabled = true;
-                this.textContent = '📤 Upload to User';
-                await loadUploadedFiles();
-                await refreshAdminPanel();
-                const user = await getCurrentUser();
-                if (user && user.email === email) {
-                    await updateUserDashboard();
-                }
-            });
-
-            function uploadToUser(email) {
-                uploadUserSelect.value = email;
-                document.querySelectorAll('.admin-sidebar .menu-item[data-admin-page]').forEach(i => i.classList.remove(
-                    'active'));
-                document.querySelector('.admin-sidebar .menu-item[data-admin-page="upload"]').classList.add('active');
-                document.querySelectorAll('.admin-content-area .page').forEach(p => p.classList.remove('active'));
-                document.getElementById('adminPageUpload').classList.add('active');
-                loadUploadedFiles();
-                showNotification('Selected user: ' + email);
-            }
-
-            async function deleteMaterial(email, index) {
-                if (confirm('Delete this material?')) {
-                    const users = await getUsers();
-                    if (users[email] && users[email].materials) {
-                        const material = users[email].materials[index];
-                        if (material && material.storagePath) {
-                            await deleteFromStorage(material.storagePath);
-                        }
-                        users[email].materials.splice(index, 1);
-                        await saveUsers(users);
-                        await loadUploadedFiles();
-                        await refreshAdminPanel();
-                        const user = await getCurrentUser();
-                        if (user && user.email === email) {
-                            await updateUserDashboard();
-                        }
-                        showNotification('Material deleted');
-                    }
-                }
-            }
-
-            // ===== USER MATERIAL DOWNLOAD =====
-
-            window.downloadMaterial = function(storagePath, title) {
-                if (storagePath) {
-                    const url = getPublicUrl(storagePath);
-                    window.open(url, '_blank');
-                    showNotification('📥 Opening "' + title + '"');
-                } else {
-                    showNotification('⚠️ File not available. Please contact admin.', 'error');
-                }
-            };
-
-            window.goToCourses = function() {
-                navigateTo('courses');
-            };
 
             // ===== AUTH MODAL FUNCTIONS =====
 
@@ -4548,7 +3519,6 @@
                 localStorage.removeItem('fp_currentUser');
                 currentUser = null;
                 document.body.classList.remove('admin-mode');
-                navAdmin.style.display = 'none';
                 await updateCartUI();
                 await updateAuthUI();
                 userDashboard.classList.remove('show');
@@ -4557,34 +3527,6 @@
                 adminWrapper.style.display = 'none';
                 goToHome();
                 showNotification('👋 Logged out successfully');
-            }
-
-            // ===== DELETE USER (ADMIN) =====
-
-            function confirmDeleteUser(email) {
-                if (email === 'admin@freelancepilot.com') {
-                    showNotification('❌ Cannot delete admin account', 'error');
-                    return;
-                }
-                deleteTarget = email;
-                confirmModalMessage.textContent =
-                    `Are you sure you want to delete user "${email}"? This will permanently remove their account and all order history.`;
-                confirmDeleteBtn.textContent = 'Delete User';
-                confirmDeleteBtn.className = 'delete-btn';
-                confirmModal.classList.add('active');
-                confirmCallback = async function() {
-                    const result = await deleteUser(deleteTarget);
-                    if (result) {
-                        await refreshAdminPanel();
-                        await populateUserSelect();
-                        showNotification('✅ User "' + deleteTarget + '" deleted successfully');
-                    } else {
-                        showNotification('❌ Failed to delete user', 'error');
-                    }
-                    deleteTarget = null;
-                    closeConfirmModal();
-                };
-                closeSidebar();
             }
 
             // ===== DELETE ACCOUNT (USER) =====
@@ -4603,7 +3545,6 @@
                         localStorage.removeItem('fp_currentUser');
                         currentUser = null;
                         document.body.classList.remove('admin-mode');
-                        navAdmin.style.display = 'none';
                         await updateAuthUI();
                         await updateCartUI();
                         userDashboard.classList.remove('show');
@@ -5187,21 +4128,16 @@
 
                     if (user.email === 'admin@freelancepilot.com') {
                         document.body.classList.add('admin-mode');
-                        navAdmin.style.display = 'flex';
                         showAdminDashboard();
                         await refreshAdminPanel();
-                        await populateUserSelect();
-                        await loadUploadedFiles();
                         showNotification('🔑 Admin session restored');
                     } else {
                         document.body.classList.remove('admin-mode');
-                        navAdmin.style.display = 'none';
-                        showUserDashboard();
+                        showUserDashboard('dashboard');
                         await updateUserDashboard();
                     }
                 } else {
                     document.body.classList.remove('admin-mode');
-                    navAdmin.style.display = 'none';
                     await updateAuthUI();
                     await updateCartUI();
                 }
@@ -5209,7 +4145,6 @@
                 setInterval(async () => {
                     if (isAdmin()) {
                         await refreshAdminPanel();
-                        await loadUploadedFiles();
                     }
                 }, 30000);
 
@@ -5224,14 +4159,9 @@
             window.closeAuthModal = closeAuthModal;
             window.logoutUser = logoutUser;
             window.closeConfirmModal = closeConfirmModal;
-            window.confirmDeleteUser = confirmDeleteUser;
             window.confirmDeleteAccount = confirmDeleteAccount;
-            window.goToCourses = goToCourses;
+            window.goToCourses = function() { navigateTo('courses'); };
             window.changePassword = changePassword;
-            window.downloadMaterial = downloadMaterial;
-            window.uploadToUser = uploadToUser;
-            window.deleteMaterial = deleteMaterial;
-            window.removeFromCart = removeFromCart;
             window.navigateTo = navigateTo;
 
             // Close modals on Escape key
