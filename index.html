@@ -174,6 +174,7 @@
             flex-shrink: 0;
         }
 
+        /* Cart link - ONLY for regular users, hidden for admin */
         .cart-link-header {
             display: flex;
             align-items: center;
@@ -194,6 +195,10 @@
         .cart-link-header:hover {
             background: rgba(212, 168, 83, 0.2);
             border-color: var(--gold);
+        }
+
+        .cart-link-header.hidden {
+            display: none !important;
         }
 
         .cart-count {
@@ -297,7 +302,7 @@
             transform: translateY(-7.5px) rotate(-45deg);
         }
 
-        /* ===== SIDEBAR MENU - FIXED ===== */
+        /* ===== SIDEBAR MENU ===== */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -479,7 +484,7 @@
         }
 
         /* ============================================================
-        ADMIN MODE - HIDE COURSE STORE
+        ADMIN MODE - HIDE COURSE STORE & CART
         ============================================================ */
         body.admin-mode .hero,
         body.admin-mode .courses,
@@ -490,7 +495,11 @@
         }
 
         body.admin-mode .admin-wrapper {
-            display: flex !important;
+            display: block !important;
+        }
+
+        body.admin-mode .cart-link-header {
+            display: none !important;
         }
 
         body.admin-mode .header {
@@ -917,83 +926,44 @@
         }
 
         /* ============================================================
-        DASHBOARD - SINGLE PAGE CONTENT (NO SUB-MENU)
+        USER INTERFACE (NO DASHBOARD)
         ============================================================ */
-        .dashboard-wrapper {
+        .user-wrapper {
             display: none;
             min-height: 70vh;
             background: var(--bg-primary);
             padding: 20px 0 40px;
         }
 
-        .dashboard-wrapper.show {
+        .user-wrapper.show {
             display: block;
         }
 
-        .dashboard-content-area {
+        .user-content-area {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        .dashboard-content-area .page {
+        .user-content-area .page {
             display: none;
             animation: fadeUp 0.3s ease-out;
         }
 
-        .dashboard-content-area .page.active {
+        .user-content-area .page.active {
             display: block;
         }
 
-        .dashboard-content-area .page h2 {
+        .user-content-area .page h2 {
             font-size: 26px;
             font-weight: 700;
             margin-bottom: 6px;
         }
 
-        .dashboard-content-area .page .sub {
+        .user-content-area .page .sub {
             color: var(--text-muted);
             margin-bottom: 20px;
             font-size: 14px;
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            text-align: center;
-        }
-
-        .stat-card .num {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--gold);
-        }
-
-        .stat-card .num.green {
-            color: #2ecc71;
-        }
-
-        .stat-card .num.orange {
-            color: #f39c12;
-        }
-
-        .stat-card .num.blue {
-            color: #3498db;
-        }
-
-        .stat-card .label {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-top: 2px;
         }
 
         .profile-card {
@@ -1135,45 +1105,40 @@
             font-size: 14px;
         }
 
-        .material-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 12px 16px;
-            margin-bottom: 8px;
+        .order-card .admin-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 6px;
         }
 
-        .material-card .info .title {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 14px;
-        }
-
-        .material-card .info .desc {
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        .material-card .download-btn {
-            background: var(--gold);
-            color: var(--bg-primary);
-            border: none;
-            padding: 6px 14px;
+        .order-card .admin-actions button {
+            padding: 4px 12px;
             border-radius: 100px;
+            font-size: 11px;
             font-weight: 600;
-            font-size: 12px;
             cursor: pointer;
+            border: none;
+            min-height: 32px;
             transition: var(--transition);
-            min-height: 36px;
         }
 
-        .material-card .download-btn:hover {
-            transform: scale(1.05);
+        .order-card .admin-actions .btn-delete {
+            background: rgba(255, 107, 107, 0.15);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .order-card .admin-actions .btn-delete:hover {
+            background: rgba(255, 107, 107, 0.25);
+        }
+
+        .order-card .admin-actions .btn-complete {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .order-card .admin-actions .btn-complete:hover {
+            background: rgba(46, 204, 113, 0.25);
         }
 
         .empty-state {
@@ -1198,7 +1163,7 @@
         }
 
         /* ============================================================
-        ADMIN DASHBOARD (NO UPLOAD SECTION)
+        ADMIN DASHBOARD
         ============================================================ */
         .admin-wrapper {
             display: none;
@@ -1212,7 +1177,7 @@
         }
 
         .admin-content-area {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -1322,6 +1287,34 @@
         .admin-table-wrap table td .badge.canceled {
             background: rgba(255, 107, 107, 0.2);
             color: #ff6b6b;
+        }
+
+        .admin-table-wrap table td .action-btn {
+            background: rgba(212, 168, 83, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-right: 3px;
+            min-height: 32px;
+        }
+
+        .admin-table-wrap table td .action-btn:hover {
+            background: rgba(212, 168, 83, 0.2);
+        }
+
+        .admin-table-wrap table td .action-btn.danger {
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.2);
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .admin-table-wrap table td .action-btn.danger:hover {
+            background: rgba(255, 107, 107, 0.15);
         }
 
         /* ============================================================
@@ -2142,11 +2135,6 @@
                 padding: 16px;
             }
 
-            .stat-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-
             .profile-card {
                 padding: 16px;
             }
@@ -2176,7 +2164,7 @@
                 padding: 6px 4px;
             }
 
-            .dashboard-content-area {
+            .user-content-area {
                 padding: 0 12px !important;
             }
 
@@ -2223,17 +2211,6 @@
             .order-summary,
             .payment-section {
                 padding: 12px;
-            }
-
-            .stat-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-            }
-            .stat-card {
-                padding: 10px;
-            }
-            .stat-card .num {
-                font-size: 18px;
             }
 
             .modal-content {
@@ -2283,10 +2260,12 @@
                     👤 <span class="email" id="headerUserEmail">user@email.com</span>
                 </div>
 
+                <!-- Cart - ONLY for regular users, hidden for admin via CSS -->
                 <a href="#" class="cart-link-header" id="headerCartLink">
                     <span>🛒</span>
                     <span class="cart-count" id="cartCount">0</span>
                 </a>
+
                 <a href="#" class="auth-link" id="authLink">🔑 <span>Login</span></a>
 
                 <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
@@ -2311,9 +2290,6 @@
                     <div class="nav-section">
                         <button class="nav-item active" data-nav="home" id="navHome">
                             <span class="icon">🏠</span> Home
-                        </button>
-                        <button class="nav-item" data-nav="dashboard" id="navDashboard">
-                            <span class="icon">👤</span> Dashboard
                         </button>
                         <button class="nav-item" data-nav="courses" id="navCoursesBtn">
                             <span class="icon">📚</span> Courses
@@ -2380,27 +2356,31 @@
         </section>
 
         <!-- ============================================================
-        ADMIN DASHBOARD (NO UPLOAD)
+        ADMIN DASHBOARD
         ============================================================ -->
         <div class="admin-wrapper" id="adminWrapper">
             <div class="admin-content-area">
                 <div class="page active" id="adminPageDashboard">
                     <h2>📊 Admin Dashboard</h2>
-                    <p class="sub">Overview of users and orders</p>
-                    <div class="stat-grid">
-                        <div class="stat-card"><div class="num" id="adminTotalOrders">0</div><div class="label">Total Orders</div></div>
-                        <div class="stat-card"><div class="num green" id="adminCompletedOrders">0</div><div class="label">Completed</div></div>
-                        <div class="stat-card"><div class="num orange" id="adminPendingOrders">0</div><div class="label">Pending</div></div>
-                        <div class="stat-card"><div class="num red" id="adminCanceledOrders">0</div><div class="label">Canceled</div></div>
-                        <div class="stat-card"><div class="num blue" id="adminTotalUsers">0</div><div class="label">Total Users</div></div>
-                    </div>
+                    <p class="sub">Manage users and orders</p>
                     <div class="admin-table-wrap">
-                        <div class="header"><h3>📋 Recent Orders</h3><button onclick="refreshAdminPanel()">🔄 Refresh</button></div>
+                        <div class="header"><h3>👥 All Users</h3><button onclick="refreshAdminPanel()">🔄 Refresh</button></div>
                         <div class="table-scroll">
                             <table>
-                                <thead><tr><th>Order ID</th><th>User</th><th>Amount</th><th>Courses</th><th>Status</th><th>Date</th></tr></thead>
-                                <tbody id="adminOrdersTable"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted);">No orders yet</td></tr></tbody>
+                                <thead><tr><th>Email</th><th>Orders</th><th>Total Spent</th><th>Joined</th><th>Actions</th></tr></thead>
+                                <tbody id="adminUsersTable"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-muted);">No users yet</td></tr></tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <div class="admin-table-wrap">
+                            <div class="header"><h3>📋 All Orders</h3></div>
+                            <div class="table-scroll">
+                                <table>
+                                    <thead><tr><th>Order ID</th><th>User</th><th>Amount</th><th>Courses</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+                                    <tbody id="adminOrdersTable"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text-muted);">No orders yet</td></tr></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2408,26 +2388,15 @@
         </div>
 
         <!-- ============================================================
-        USER DASHBOARD (SINGLE PAGE, NO SUB-MENU)
+        USER INTERFACE (NO DASHBOARD)
         ============================================================ -->
-        <div class="dashboard-wrapper" id="userDashboard">
-            <div class="dashboard-content-area">
-                <!-- Dashboard Page -->
-                <div class="page active" id="pageDashboard">
-                    <h2>👤 Dashboard</h2>
-                    <p class="sub" id="dashboardUserEmail">user@example.com</p>
-                    <div class="stat-grid">
-                        <div class="stat-card"><div class="num" id="profileTotalOrders">0</div><div class="label">Total Orders</div></div>
-                        <div class="stat-card"><div class="num green" id="profileCourses">0</div><div class="label">Courses Enrolled</div></div>
-                        <div class="stat-card"><div class="num gold" id="profileTotalSpent">$0.00</div><div class="label">Total Spent</div></div>
-                    </div>
-                    <div class="profile-card">
-                        <h3 style="font-size:16px;margin-bottom:12px;">Profile Information</h3>
-                        <div class="field"><label>Email</label><div class="value" id="profileEmail">-</div></div>
-                        <div class="field"><label>Joined</label><div class="value muted" id="profileJoined">-</div></div>
-                        <hr class="divider" />
-                        <button class="btn-danger" onclick="confirmDeleteAccount()">🗑️ Delete Account</button>
-                    </div>
+        <div class="user-wrapper" id="userWrapper">
+            <div class="user-content-area">
+                <!-- My Courses Page -->
+                <div class="page active" id="pageMyCourses">
+                    <h2>📚 My Courses & Materials</h2>
+                    <p class="sub">Access all your course materials</p>
+                    <div id="myCoursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
                 </div>
 
                 <!-- Transactions Page -->
@@ -2437,18 +2406,14 @@
                     <div id="transactionsList"><div class="empty-state"><div class="icon">📭</div><p>No transactions yet.</p></div></div>
                 </div>
 
-                <!-- My Courses Page -->
-                <div class="page" id="pageMyCourses">
-                    <h2>📚 My Courses & Materials</h2>
-                    <p class="sub">Access all your course materials</p>
-                    <div id="myCoursesList"><div class="empty-state"><div class="icon">📚</div><p>You haven't enrolled in any courses yet.</p><p style="font-size:13px;margin-top:4px;"><a href="#" onclick="goToCourses()" style="color:var(--gold);">Browse Courses</a></p></div></div>
-                </div>
-
                 <!-- Settings Page -->
                 <div class="page" id="pageSettings">
                     <h2>⚙️ Settings</h2>
                     <p class="sub">Manage your account settings</p>
                     <div class="profile-card">
+                        <div class="field"><label>Email</label><div class="value" id="profileEmail">-</div></div>
+                        <div class="field"><label>Joined</label><div class="value muted" id="profileJoined">-</div></div>
+                        <hr class="divider" />
                         <h3 style="font-size:16px;margin-bottom:12px;">Change Password</h3>
                         <input type="password" id="newPassword" placeholder="New password (min 6 characters)" />
                         <input type="password" id="confirmPassword" placeholder="Confirm new password" />
@@ -2694,7 +2659,7 @@
 
     <script>
         // ============================================================
-        // FREELANCE PILOT — COMPLETE APPLICATION (FIXED)
+        // FREELANCE PILOT — COMPLETE APPLICATION
         // ============================================================
 
         (function() {
@@ -2725,7 +2690,7 @@
             const authLink = document.getElementById('authLink');
             const headerUserDisplay = document.getElementById('headerUserDisplay');
             const headerUserEmail = document.getElementById('headerUserEmail');
-            const userDashboard = document.getElementById('userDashboard');
+            const userWrapper = document.getElementById('userWrapper');
             const adminWrapper = document.getElementById('adminWrapper');
 
             // Sidebar elements
@@ -2737,7 +2702,6 @@
 
             // Nav buttons
             const navHome = document.getElementById('navHome');
-            const navDashboard = document.getElementById('navDashboard');
             const navCoursesBtn = document.getElementById('navCoursesBtn');
             const navMyCourses = document.getElementById('navMyCourses');
             const navCartBtn = document.getElementById('navCartBtn');
@@ -2800,24 +2764,11 @@
             // ===== SIDEBAR NAVIGATION =====
 
             function navigateTo(section) {
-                // Close sidebar first
                 closeSidebar();
 
-                // Handle navigation based on section
                 switch (section) {
                     case 'home':
                         goToHome();
-                        break;
-                    case 'dashboard':
-                        if (!currentUser) {
-                            openAuthModal('login');
-                            return;
-                        }
-                        if (isAdmin()) {
-                            showAdminDashboard();
-                        } else {
-                            showUserDashboard('dashboard');
-                        }
                         break;
                     case 'courses':
                         goToHome();
@@ -2834,7 +2785,7 @@
                             showNotification('Admin view: No courses enrolled', 'error');
                             return;
                         }
-                        showUserDashboard('mycourses');
+                        showUserInterface('mycourses');
                         break;
                     case 'cart':
                         const user = getCurrentUserSync();
@@ -2857,7 +2808,7 @@
                             showAdminDashboard();
                             return;
                         }
-                        showUserDashboard('transactions');
+                        showUserInterface('transactions');
                         break;
                     case 'settings':
                         if (!currentUser) {
@@ -2868,7 +2819,7 @@
                             showAdminDashboard();
                             return;
                         }
-                        showUserDashboard('settings');
+                        showUserInterface('settings');
                         break;
                     default:
                         goToHome();
@@ -2878,9 +2829,7 @@
             // ===== SIDEBAR EVENT LISTENERS =====
 
             hamburgerBtn.addEventListener('click', toggleSidebar);
-
             sidebarOverlay.addEventListener('click', closeSidebar);
-
             sidebarClose.addEventListener('click', closeSidebar);
 
             document.addEventListener('keydown', function(e) {
@@ -2889,9 +2838,7 @@
                 }
             });
 
-            // Nav item clicks
             navHome.addEventListener('click', function() { navigateTo('home'); });
-            navDashboard.addEventListener('click', function() { navigateTo('dashboard'); });
             navCoursesBtn.addEventListener('click', function() { navigateTo('courses'); });
             navMyCourses.addEventListener('click', function() { navigateTo('mycourses'); });
             navCartBtn.addEventListener('click', function() { navigateTo('cart'); });
@@ -3068,6 +3015,30 @@
                 }
             }
 
+            async function deleteOrder(orderId) {
+                try {
+                    return await supabaseFetch(`orders?id=eq.${orderId}`, {
+                        method: 'DELETE'
+                    });
+                } catch (error) {
+                    console.error('Error deleting order:', error);
+                    return false;
+                }
+            }
+
+            async function updateOrderStatus(orderId, status) {
+                try {
+                    await supabaseFetch(`orders?id=eq.${orderId}`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({ status: status })
+                    });
+                    return true;
+                } catch (error) {
+                    console.error('Error updating order:', error);
+                    return false;
+                }
+            }
+
             // ===== PASSWORD FUNCTIONS =====
 
             function hashPassword(password) {
@@ -3175,8 +3146,8 @@
                         showNotification('🔑 Admin logged in!');
                     } else {
                         document.body.classList.remove('admin-mode');
-                        showUserDashboard('dashboard');
-                        await updateUserDashboard();
+                        showUserInterface('mycourses');
+                        await updateUserInterface();
                         showNotification('✅ Welcome back, ' + email + '!');
                     }
 
@@ -3246,9 +3217,9 @@
                 return currentUser && currentUser.email === 'admin@freelancepilot.com';
             }
 
-            function showUserDashboard(page) {
-                userDashboard.classList.add('show');
-                userDashboard.style.display = 'block';
+            function showUserInterface(page) {
+                userWrapper.classList.add('show');
+                userWrapper.style.display = 'block';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
                 heroSection.style.display = 'none';
@@ -3259,23 +3230,21 @@
                 checkoutSection.style.display = 'none';
                 emptyCart.style.display = 'none';
 
-                // Show the correct page
-                document.querySelectorAll('.dashboard-content-area .page').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.user-content-area .page').forEach(p => p.classList.remove('active'));
                 const pageMap = {
-                    'dashboard': 'pageDashboard',
-                    'transactions': 'pageTransactions',
                     'mycourses': 'pageMyCourses',
+                    'transactions': 'pageTransactions',
                     'settings': 'pageSettings'
                 };
-                const targetPage = pageMap[page] || 'pageDashboard';
+                const targetPage = pageMap[page] || 'pageMyCourses';
                 document.getElementById(targetPage).classList.add('active');
             }
 
             function showAdminDashboard() {
                 adminWrapper.style.display = 'block';
                 adminWrapper.classList.add('show');
-                userDashboard.classList.remove('show');
-                userDashboard.style.display = 'none';
+                userWrapper.classList.remove('show');
+                userWrapper.style.display = 'none';
                 heroSection.style.display = 'none';
                 coursesSection.style.display = 'none';
                 document.querySelector('.guarantee').style.display = 'none';
@@ -3296,8 +3265,8 @@
                     document.querySelector('.guarantee').style.display = 'block';
                     faqSection.style.display = 'block';
                 }
-                userDashboard.classList.remove('show');
-                userDashboard.style.display = 'none';
+                userWrapper.classList.remove('show');
+                userWrapper.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
                 if (verificationInterval) {
@@ -3307,19 +3276,14 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // ===== USER DASHBOARD =====
+            // ===== USER INTERFACE =====
 
-            async function updateUserDashboard() {
+            async function updateUserInterface() {
                 const user = await getCurrentUser();
                 if (!user) return;
 
-                document.getElementById('dashboardUserEmail').textContent = user.email;
                 document.getElementById('profileEmail').textContent = user.email;
                 document.getElementById('profileJoined').textContent = new Date(user.created).toLocaleDateString();
-                document.getElementById('profileTotalSpent').textContent = '$' + (user.total_spent || 0).toFixed(2);
-                document.getElementById('profileTotalOrders').textContent = (user.orders || []).length;
-                document.getElementById('profileCourses').textContent = (user.orders || []).filter(o => o.status === 'completed')
-                    .length;
 
                 // Transactions
                 const transactionsList = document.getElementById('transactionsList');
@@ -3399,22 +3363,37 @@
                     }
                 }
 
-                const total = allOrders.length;
-                const completed = allOrders.filter(o => o.status === 'completed').length;
-                const pending = allOrders.filter(o => o.status === 'pending').length;
-                const canceled = allOrders.filter(o => o.status === 'canceled').length;
-                const userCount = Object.keys(users).length;
+                // Users table
+                const usersTable = document.getElementById('adminUsersTable');
+                const userEntries = Object.entries(users);
+                if (userEntries.length === 0) {
+                    usersTable.innerHTML =
+                        '<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--text-muted);">No users yet</td></tr>';
+                } else {
+                    usersTable.innerHTML = userEntries.map(([email, user]) => {
+                        const orderCount = user.orders ? user.orders.length : 0;
+                        const spent = user.orders ? user.orders.filter(o => o.status === 'completed').reduce((
+                            sum, o) => sum + (o.amount || 0), 0) : 0;
+                        const joined = new Date(user.created).toLocaleString();
+                        return `
+                                    <tr>
+                                        <td style="color:var(--text-primary);">${email}</td>
+                                        <td>${orderCount}</td>
+                                        <td style="color:var(--gold);font-weight:600;">$${spent.toFixed(2)}</td>
+                                        <td style="color:var(--text-muted);font-size:12px;">${joined}</td>
+                                        <td>
+                                            <button class="action-btn danger" onclick="confirmDeleteUser('${email}')" title="Delete user">🗑️ Delete</button>
+                                        </td>
+                                    </tr>
+                                `;
+                    }).join('');
+                }
 
-                document.getElementById('adminTotalOrders').textContent = total;
-                document.getElementById('adminCompletedOrders').textContent = completed;
-                document.getElementById('adminPendingOrders').textContent = pending;
-                document.getElementById('adminCanceledOrders').textContent = canceled;
-                document.getElementById('adminTotalUsers').textContent = userCount;
-
+                // Orders table with admin actions
                 const ordersTable = document.getElementById('adminOrdersTable');
                 if (allOrders.length === 0) {
                     ordersTable.innerHTML =
-                        '<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--text-muted);">No orders yet</td></tr>';
+                        '<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--text-muted);">No orders yet</td></tr>';
                 } else {
                     ordersTable.innerHTML = allOrders.sort((a, b) => b.created - a.created).map(order => {
                         const statusText = order.status === 'completed' ? 'Completed' :
@@ -3433,101 +3412,72 @@
                                         <td style="color:var(--text-secondary);font-size:12px;">${courses}</td>
                                         <td><span class="badge ${statusClass}">${statusText}</span></td>
                                         <td style="color:var(--text-muted);font-size:12px;">${date}</td>
+                                        <td>
+                                            ${order.status !== 'completed' ? `<button class="action-btn" onclick="adminCompleteOrder('${orderId}')">✅ Complete</button>` : ''}
+                                            <button class="action-btn danger" onclick="adminDeleteOrder('${orderId}')">🗑️</button>
+                                        </td>
                                     </tr>
                                 `;
                     }).join('');
                 }
             }
 
-            // ===== AUTH MODAL FUNCTIONS =====
+            // ===== ADMIN ACTIONS =====
 
-            function openAuthModal(mode) {
-                isLoginMode = mode === 'login';
-                if (isLoginMode) {
-                    authModalIcon.textContent = '👋';
-                    authModalTitle.textContent = 'Welcome Back';
-                    authModalSub.textContent = 'Login to track your orders.';
-                    authActionBtn.textContent = 'Login';
-                    document.getElementById('authSwitch').innerHTML =
-                        "Don't have an account? <a href='#' id='authSwitchLink'>Register</a>";
-                    document.getElementById('authSwitchLink').onclick = function() { openAuthModal('register'); };
-                    authPassword.style.display = 'block';
-                    document.querySelector('.password-hint').style.display = 'none';
-                } else {
-                    authModalIcon.textContent = '🚀';
-                    authModalTitle.textContent = 'Create Account';
-                    authModalSub.textContent = 'Get started with Freelance Pilot.';
-                    authActionBtn.textContent = 'Create Account';
-                    document.getElementById('authSwitch').innerHTML =
-                        "Already have an account? <a href='#' id='authSwitchLink'>Login</a>";
-                    document.getElementById('authSwitchLink').onclick = function() { openAuthModal('login'); };
-                    authPassword.style.display = 'block';
-                    document.querySelector('.password-hint').style.display = 'block';
+            window.confirmDeleteUser = function(email) {
+                if (email === 'admin@freelancepilot.com') {
+                    showNotification('❌ Cannot delete admin account', 'error');
+                    return;
                 }
-                authError.style.display = 'none';
-                authSuccess.style.display = 'none';
-                authEmail.value = '';
-                authPassword.value = '';
-                authModal.classList.add('active');
+                deleteTarget = email;
+                confirmModalMessage.textContent =
+                    `Are you sure you want to delete user "${email}"? This will permanently remove their account and all order history.`;
+                confirmDeleteBtn.textContent = 'Delete User';
+                confirmDeleteBtn.className = 'delete-btn';
+                confirmModal.classList.add('active');
+                confirmCallback = async function() {
+                    const result = await deleteUser(deleteTarget);
+                    if (result) {
+                        await refreshAdminPanel();
+                        showNotification('✅ User "' + deleteTarget + '" deleted successfully');
+                    } else {
+                        showNotification('❌ Failed to delete user', 'error');
+                    }
+                    deleteTarget = null;
+                    closeConfirmModal();
+                };
                 closeSidebar();
-            }
+            };
 
-            function closeAuthModal() {
-                authModal.classList.remove('active');
-            }
+            window.adminDeleteOrder = function(orderId) {
+                deleteTarget = orderId;
+                confirmModalMessage.textContent = `Are you sure you want to delete order "${orderId}"? This action cannot be undone.`;
+                confirmDeleteBtn.textContent = 'Delete Order';
+                confirmDeleteBtn.className = 'delete-btn';
+                confirmModal.classList.add('active');
+                confirmCallback = async function() {
+                    const result = await deleteOrder(deleteTarget);
+                    if (result) {
+                        await refreshAdminPanel();
+                        showNotification('✅ Order deleted successfully');
+                    } else {
+                        showNotification('❌ Failed to delete order', 'error');
+                    }
+                    deleteTarget = null;
+                    closeConfirmModal();
+                };
+                closeSidebar();
+            };
 
-            authActionBtn.addEventListener('click', function() {
-                const email = authEmail.value.trim();
-                const password = authPassword.value.trim();
-                authError.style.display = 'none';
-                authSuccess.style.display = 'none';
-
-                if (!email) {
-                    authError.textContent = 'Please enter your email.';
-                    authError.style.display = 'block';
-                    return;
-                }
-
-                if (!password) {
-                    authError.textContent = 'Please enter your password.';
-                    authError.style.display = 'block';
-                    return;
-                }
-
-                if (isLoginMode) {
-                    handleLogin(email, password);
+            window.adminCompleteOrder = async function(orderId) {
+                const result = await updateOrderStatus(orderId, 'completed');
+                if (result) {
+                    await refreshAdminPanel();
+                    showNotification('✅ Order marked as completed');
                 } else {
-                    handleRegister(email, password);
+                    showNotification('❌ Failed to update order', 'error');
                 }
-            });
-
-            authEmail.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    authPassword.focus();
-                }
-            });
-
-            authPassword.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    authActionBtn.click();
-                }
-            });
-
-            // ===== LOGOUT =====
-
-            async function logoutUser() {
-                localStorage.removeItem('fp_currentUser');
-                currentUser = null;
-                document.body.classList.remove('admin-mode');
-                await updateCartUI();
-                await updateAuthUI();
-                userDashboard.classList.remove('show');
-                userDashboard.style.display = 'none';
-                adminWrapper.classList.remove('show');
-                adminWrapper.style.display = 'none';
-                goToHome();
-                showNotification('👋 Logged out successfully');
-            }
+            };
 
             // ===== DELETE ACCOUNT (USER) =====
 
@@ -3547,8 +3497,8 @@
                         document.body.classList.remove('admin-mode');
                         await updateAuthUI();
                         await updateCartUI();
-                        userDashboard.classList.remove('show');
-                        userDashboard.style.display = 'none';
+                        userWrapper.classList.remove('show');
+                        userWrapper.style.display = 'none';
                         adminWrapper.classList.remove('show');
                         adminWrapper.style.display = 'none';
                         goToHome();
@@ -3662,8 +3612,8 @@
                 heroSection.style.display = 'none';
                 coursesSection.style.display = 'none';
                 faqSection.style.display = 'none';
-                userDashboard.classList.remove('show');
-                userDashboard.style.display = 'none';
+                userWrapper.classList.remove('show');
+                userWrapper.style.display = 'none';
                 adminWrapper.classList.remove('show');
                 adminWrapper.style.display = 'none';
                 closeSidebar();
@@ -3929,7 +3879,7 @@
                             }
                         }
                     }
-                    await updateUserDashboard();
+                    await updateUserInterface();
                 }
 
                 await clearCart();
@@ -4005,7 +3955,7 @@
                 cart.push({ course: courseName, price: price });
                 await setCart(cart);
                 await updateCartUI();
-                await updateUserDashboard();
+                await updateUserInterface();
 
                 btn.textContent = 'Added ✓';
                 btn.classList.add('added');
@@ -4048,6 +3998,96 @@
                 }
                 closeSidebar();
             });
+
+            // ===== AUTH MODAL FUNCTIONS =====
+
+            function openAuthModal(mode) {
+                isLoginMode = mode === 'login';
+                if (isLoginMode) {
+                    authModalIcon.textContent = '👋';
+                    authModalTitle.textContent = 'Welcome Back';
+                    authModalSub.textContent = 'Login to track your orders.';
+                    authActionBtn.textContent = 'Login';
+                    document.getElementById('authSwitch').innerHTML =
+                        "Don't have an account? <a href='#' id='authSwitchLink'>Register</a>";
+                    document.getElementById('authSwitchLink').onclick = function() { openAuthModal('register'); };
+                    authPassword.style.display = 'block';
+                    document.querySelector('.password-hint').style.display = 'none';
+                } else {
+                    authModalIcon.textContent = '🚀';
+                    authModalTitle.textContent = 'Create Account';
+                    authModalSub.textContent = 'Get started with Freelance Pilot.';
+                    authActionBtn.textContent = 'Create Account';
+                    document.getElementById('authSwitch').innerHTML =
+                        "Already have an account? <a href='#' id='authSwitchLink'>Login</a>";
+                    document.getElementById('authSwitchLink').onclick = function() { openAuthModal('login'); };
+                    authPassword.style.display = 'block';
+                    document.querySelector('.password-hint').style.display = 'block';
+                }
+                authError.style.display = 'none';
+                authSuccess.style.display = 'none';
+                authEmail.value = '';
+                authPassword.value = '';
+                authModal.classList.add('active');
+                closeSidebar();
+            }
+
+            function closeAuthModal() {
+                authModal.classList.remove('active');
+            }
+
+            authActionBtn.addEventListener('click', function() {
+                const email = authEmail.value.trim();
+                const password = authPassword.value.trim();
+                authError.style.display = 'none';
+                authSuccess.style.display = 'none';
+
+                if (!email) {
+                    authError.textContent = 'Please enter your email.';
+                    authError.style.display = 'block';
+                    return;
+                }
+
+                if (!password) {
+                    authError.textContent = 'Please enter your password.';
+                    authError.style.display = 'block';
+                    return;
+                }
+
+                if (isLoginMode) {
+                    handleLogin(email, password);
+                } else {
+                    handleRegister(email, password);
+                }
+            });
+
+            authEmail.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    authPassword.focus();
+                }
+            });
+
+            authPassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    authActionBtn.click();
+                }
+            });
+
+            // ===== LOGOUT =====
+
+            async function logoutUser() {
+                localStorage.removeItem('fp_currentUser');
+                currentUser = null;
+                document.body.classList.remove('admin-mode');
+                await updateCartUI();
+                await updateAuthUI();
+                userWrapper.classList.remove('show');
+                userWrapper.style.display = 'none';
+                adminWrapper.classList.remove('show');
+                adminWrapper.style.display = 'none';
+                goToHome();
+                showNotification('👋 Logged out successfully');
+            }
 
             // ===== BACK LINK =====
 
@@ -4094,7 +4134,7 @@
                     }
                     await setCart([]);
                     await updateCartUI();
-                    await updateUserDashboard();
+                    await updateUserInterface();
                     if (isCheckingout) {
                         isCheckingout = false;
                         goToHome();
@@ -4133,8 +4173,8 @@
                         showNotification('🔑 Admin session restored');
                     } else {
                         document.body.classList.remove('admin-mode');
-                        showUserDashboard('dashboard');
-                        await updateUserDashboard();
+                        showUserInterface('mycourses');
+                        await updateUserInterface();
                     }
                 } else {
                     document.body.classList.remove('admin-mode');
@@ -4160,6 +4200,9 @@
             window.logoutUser = logoutUser;
             window.closeConfirmModal = closeConfirmModal;
             window.confirmDeleteAccount = confirmDeleteAccount;
+            window.confirmDeleteUser = confirmDeleteUser;
+            window.adminDeleteOrder = adminDeleteOrder;
+            window.adminCompleteOrder = adminCompleteOrder;
             window.goToCourses = function() { navigateTo('courses'); };
             window.changePassword = changePassword;
             window.navigateTo = navigateTo;
