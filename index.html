@@ -933,8 +933,6 @@
         }
 
         /* Remaining styles from original... */
-        /* (keeping all other styles as they were) */
-        
         /* ============================================================
         HERO
         ============================================================ */
@@ -3026,6 +3024,17 @@
             let confirmCallback = null;
             let isSidebarOpen = false;
 
+            // FIX: Make auth link clickable
+            authLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentUser) {
+                    // If logged in, maybe show profile or do nothing
+                    showNotification('You are logged in as ' + currentUser.email);
+                } else {
+                    openAuthModal('login');
+                }
+            });
+
             // ADMIN DROPDOWN
             document.querySelectorAll('.admin-dropdown-header').forEach(header => {
                 header.addEventListener('click', function() {
@@ -3669,7 +3678,7 @@
                             `).join('');
                 }
 
-                // Transactions - All (pending + completed)
+                // Transactions - All (pending + completed) - EXCLUDE canceled!
                 const transactionsList = document.getElementById('transactionsList');
                 const allTransactions = (user.orders || []).filter(o => o.status === 'pending' || o.status === 'completed');
 
@@ -3733,18 +3742,24 @@
                 const orders = await getOrders();
                 const allOrders = [];
 
+                // Only include orders that are NOT canceled
                 if (orders && orders.length > 0) {
                     orders.forEach(order => {
-                        allOrders.push({
-                            ...order,
-                            userEmail: order.user_email
-                        });
+                        if (order.status !== 'canceled') {
+                            allOrders.push({
+                                ...order,
+                                userEmail: order.user_email
+                            });
+                        }
                     });
                 }
 
                 for (const [email, user] of Object.entries(users)) {
                     if (user.orders && user.orders.length > 0) {
                         user.orders.forEach(order => {
+                            // Skip canceled orders
+                            if (order.status === 'canceled') return;
+                            
                             const exists = allOrders.some(o => o.id === order.id);
                             if (!exists) {
                                 allOrders.push({
@@ -3766,7 +3781,7 @@
                         '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-muted);">No users yet</td></tr>';
                 } else {
                     usersTable.innerHTML = userEntries.map(([email, user]) => {
-                        const orderCount = user.orders ? user.orders.length : 0;
+                        const orderCount = user.orders ? user.orders.filter(o => o.status !== 'canceled').length : 0;
                         const spent = user.orders ? user.orders.filter(o => o.status === 'completed').reduce((
                             sum, o) => sum + (o.amount || 0), 0) : 0;
                         const joined = new Date(user.created).toLocaleString();
@@ -3807,7 +3822,7 @@
                                         <td><span class="badge ${statusClass}">${statusText}</span></td>
                                         <td style="color:var(--text-muted);font-size:12px;">${date}</td>
                                         <td>
-                                            ${order.status !== 'completed' ? `<button class="action-btn success" onclick="adminCompleteOrder('${orderId}')">✅ Complete</button>` : ''}
+                                            ${order.status !== 'completed' && order.status !== 'canceled' ? `<button class="action-btn success" onclick="adminCompleteOrder('${orderId}')">✅ Complete</button>` : ''}
                                             <button class="action-btn danger" onclick="adminDeleteOrder('${orderId}')">🗑️</button>
                                         </td>
                                     </tr>
@@ -4113,8 +4128,9 @@
                             const orderIndex = userData.orders.findIndex(o => o.status === 'pending');
                             if (orderIndex !== -1) {
                                 const orderId = userData.orders[orderIndex].id;
-                                await deleteOrder(orderId);
-                                userData.orders.splice(orderIndex, 1);
+                                // Mark as canceled instead of deleting
+                                await updateOrderStatus(orderId, 'canceled');
+                                userData.orders[orderIndex].status = 'canceled';
                                 await saveUsers(users);
                                 if (isAdmin()) {
                                     await refreshAdminPanel();
@@ -4130,7 +4146,7 @@
                     await clearCart();
                     await updateCartUI();
                     goToHome();
-                    showNotification('❌ Order canceled and removed');
+                    showNotification('❌ Order canceled');
                 }
             });
 
@@ -4474,8 +4490,8 @@
                             const orderIndex = userData.orders.findIndex(o => o.status === 'pending');
                             if (orderIndex !== -1) {
                                 const orderId = userData.orders[orderIndex].id;
-                                await deleteOrder(orderId);
-                                userData.orders.splice(orderIndex, 1);
+                                await updateOrderStatus(orderId, 'canceled');
+                                userData.orders[orderIndex].status = 'canceled';
                                 await saveUsers(users);
                                 if (isAdmin()) {
                                     await refreshAdminPanel();
